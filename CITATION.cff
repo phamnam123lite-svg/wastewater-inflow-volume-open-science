@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite this research software and the original DHI dataset."
+type: software
+title: "Wastewater inflow volume forecasting reproducibility study"
+authors:
+  - family-names: Tran
+    given-names: Viet Nam
+    affiliation: "Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam"
+version: 0.1.0
+license: MIT
+abstract: "Code for an openly reproducible secondary analysis of cumulative wastewater inflow. Source data retain CC BY-NC 4.0."
