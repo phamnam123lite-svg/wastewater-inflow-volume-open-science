@@ -1,0 +1,23 @@
+[
+  {
+    "horizon": 12,
+    "contiguous_runs": 3,
+    "min_run": 536,
+    "max_run": 1010,
+    "median_run": 614.0
+  },
+  {
+    "horizon": 6,
+    "contiguous_runs": 3,
+    "min_run": 542,
+    "max_run": 1016,
+    "median_run": 620.0
+  },
+  {
+    "horizon": 24,
+    "contiguous_runs": 3,
+    "min_run": 524,
+    "max_run": 998,
+    "median_run": 602.0
+  }
+]

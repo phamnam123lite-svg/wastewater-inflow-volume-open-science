@@ -1,0 +1,25 @@
+# Python & Virtual Environments
+.venv/
+.venv*/
+__pycache__/
+*.pyc
+*.pyo
+
+# Raw downloaded data (retrieved via python download_data.py)
+data/*.csv
+data/*.zip
+
+# Local staging, temporary releases & audit scratch
+audit/
+v0.2.0/
+publication/
+research/
+
+# Binary archives & logs
+*.log
+verification/baseline_results/
+verification/render/
+
+# OS artifacts
+Thumbs.db
+.DS_Store

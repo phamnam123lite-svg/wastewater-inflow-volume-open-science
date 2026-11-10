@@ -1,0 +1,169 @@
+{
+  "created": "2025-06-04T08:04:42.523443+00:00",
+  "modified": "2025-06-04T08:04:42.754050+00:00",
+  "id": 15301164,
+  "conceptrecid": "15301163",
+  "doi": "10.5281/zenodo.15301164",
+  "conceptdoi": "10.5281/zenodo.15301163",
+  "doi_url": "https://doi.org/10.5281/zenodo.15301164",
+  "metadata": {
+    "title": "Inflow to a Waste Water Treatment Plant: observations and processed data",
+    "doi": "10.5281/zenodo.15301164",
+    "publication_date": "2025-04-29",
+    "description": "<div>This repository provides access to measurements of the combined sewage inflow to a Waste Water Treatment Plant (WWTP) located in Denmark. The data is accompanied by measurements of relevant metereological variables captured by a weather station near the WWTP and provided by the Danish Metereological Institute (DMI).<br>\n<div>&nbsp;</div>\n<div>The dataset contains approximately 15 months of hourly observations. The exact location of the WWTP and weather station are omitted.</div>\n<h3>Files</h3>\n<ul>\n<li><strong>README</strong> contains a description of the dataset. <strong><br></strong></li>\n<li><strong>observations</strong> contains all the measurements, split in two files respectively for the flow and metereological data.</li>\n<li><strong>processed</strong> contains the matched data with minimal preprocessing as described <a href=\"https://github.com/DHI/WaterBench-TimeSeries-WWTPINflow/blob/master/code/0_overview.ipynb\">here</a>.</li>\n</ul>\n</div>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "DHI",
+        "affiliation": null
+      }
+    ],
+    "contributors": [
+      {
+        "name": "Palmer Real, Jaume",
+        "affiliation": "DHI",
+        "type": "Editor"
+      },
+      {
+        "name": "Mariegaard, Jesper Sandvig",
+        "affiliation": "DHI",
+        "type": "Editor",
+        "orcid": "0009-0000-0118-3302"
+      },
+      {
+        "name": "Palmitessa, Rocco",
+        "affiliation": "DHI",
+        "type": "Editor",
+        "orcid": "0000-0001-5929-3635"
+      }
+    ],
+    "custom": {
+      "code:codeRepository": "https://github.com/DHI/WaterBench-TimeSeries-WWTPINflow",
+      "code:programmingLanguage": [
+        {
+          "id": "python",
+          "title": {
+            "en": "Python"
+          }
+        }
+      ],
+      "code:developmentStatus": {
+        "id": "active",
+        "title": {
+          "en": "Active"
+        }
+      }
+    },
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-nc-4.0"
+    },
+    "relations": {
+      "version": [
+        {
+          "index": 0,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "15301163"
+          }
+        }
+      ]
+    }
+  },
+  "title": "Inflow to a Waste Water Treatment Plant: observations and processed data",
+  "links": {
+    "self": "https://zenodo.org/api/records/15301164",
+    "self_html": "https://zenodo.org/records/15301164",
+    "preview_html": "https://zenodo.org/records/15301164?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.15301164",
+    "self_doi": "https://doi.org/10.5281/zenodo.15301164",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15301164",
+    "reserve_doi": "https://zenodo.org/api/records/15301164/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/15301163",
+    "parent_html": "https://zenodo.org/records/15301163",
+    "parent_doi": "https://doi.org/10.5281/zenodo.15301163",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15301163",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15301164/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15301164/sequence/default",
+    "files": "https://zenodo.org/api/records/15301164/files",
+    "media_files": "https://zenodo.org/api/records/15301164/media-files",
+    "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:15301164:README.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:15301164:README.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:15301164:README.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:15301164:README.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:15301164:README.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:15301164:README.pdf/full/%5E1200,/0/default.jpg"
+    },
+    "latest": "https://zenodo.org/api/records/15301164/versions/latest",
+    "latest_html": "https://zenodo.org/records/15301164/latest",
+    "versions": "https://zenodo.org/api/records/15301164/versions",
+    "draft": "https://zenodo.org/api/records/15301164/draft",
+    "access_links": "https://zenodo.org/api/records/15301164/access/links",
+    "access_grants": "https://zenodo.org/api/records/15301164/access/grants",
+    "access_users": "https://zenodo.org/api/records/15301164/access/users",
+    "access_request": "https://zenodo.org/api/records/15301164/access/request",
+    "access": "https://zenodo.org/api/records/15301164/access",
+    "communities": "https://zenodo.org/api/records/15301164/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/15301164/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/15301164/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/15301164/file-modification",
+    "quota_increase": "https://zenodo.org/api/records/15301164/quota-increase",
+    "requests": "https://zenodo.org/api/records/15301164/requests"
+  },
+  "updated": "2025-06-04T08:04:42.754050+00:00",
+  "recid": "15301164",
+  "revision": 4,
+  "files": [
+    {
+      "id": "ef5c658e-733f-4f7d-b9fd-43c8f87a9955",
+      "key": "README.pdf",
+      "size": 23143,
+      "checksum": "md5:12a2763b0fac167840deace12ba88478",
+      "links": {
+        "self": "https://zenodo.org/api/records/15301164/files/README.pdf/content"
+      }
+    },
+    {
+      "id": "1565cc4d-50e7-407d-bea5-d709e4cc2fe9",
+      "key": "observations.zip",
+      "size": 227937,
+      "checksum": "md5:d4c0a1e0327142ff699625b28861639e",
+      "links": {
+        "self": "https://zenodo.org/api/records/15301164/files/observations.zip/content"
+      }
+    },
+    {
+      "id": "730a8323-6fb1-442d-a097-d211012483c2",
+      "key": "processed.zip",
+      "size": 215601,
+      "checksum": "md5:d819e64d7e4fe4b8cfd24ca522a9068c",
+      "links": {
+        "self": "https://zenodo.org/api/records/15301164/files/processed.zip/content"
+      }
+    }
+  ],
+  "swh": {},
+  "owners": [
+    {
+      "id": "1263163"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 238,
+    "unique_downloads": 200,
+    "views": 143,
+    "unique_views": 131,
+    "version_downloads": 238,
+    "version_unique_downloads": 200,
+    "version_unique_views": 131,
+    "version_views": 143
+  },
+  "state": "done",
+  "submitted": true
+}

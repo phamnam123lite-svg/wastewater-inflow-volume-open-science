@@ -1,0 +1,137 @@
+{
+  "checked_utc": "2026-11-09T14:45:59.795447+00:00",
+  "repository": "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science",
+  "release": "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.1.0",
+  "commit": "da3b755d0b06aaa72829fd069a8e3c1133eb1796",
+  "files": [
+    {
+      "file": "CITATION.cff",
+      "bytes": 494,
+      "local_sha256": "3d1313eeb32137335be445291fe515870ea26cb44a578334a22cef10754c827b",
+      "remote_sha256": "3d1313eeb32137335be445291fe515870ea26cb44a578334a22cef10754c827b",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/CITATION.cff"
+    },
+    {
+      "file": "download_data.py",
+      "bytes": 1060,
+      "local_sha256": "63515842bc5b4ab4984ca7e96d34aa5de37f900abb39b7e90bf6adc728a2a564",
+      "remote_sha256": "63515842bc5b4ab4984ca7e96d34aa5de37f900abb39b7e90bf6adc728a2a564",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/download_data.py"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 1218,
+      "local_sha256": "2c8c708103e16d4e8f82c1198e738b34f07677ff57646fba0565f759178cf200",
+      "remote_sha256": "2c8c708103e16d4e8f82c1198e738b34f07677ff57646fba0565f759178cf200",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/LICENSE"
+    },
+    {
+      "file": "LICENSE_DATA.md",
+      "bytes": 679,
+      "local_sha256": "410c1203afb38ada0895ab264e62decc674d1015f9892b7069a1a0f39a536e6a",
+      "remote_sha256": "410c1203afb38ada0895ab264e62decc674d1015f9892b7069a1a0f39a536e6a",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/LICENSE_DATA.md"
+    },
+    {
+      "file": "manuscript.md",
+      "bytes": 33056,
+      "local_sha256": "e0acd1bd92da7fb700966b49d36acefd30776466af8705c5013cab339eb97063",
+      "remote_sha256": "e0acd1bd92da7fb700966b49d36acefd30776466af8705c5013cab339eb97063",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/manuscript.md"
+    },
+    {
+      "file": "manuscript.pdf",
+      "bytes": 1330842,
+      "local_sha256": "6f93d3b35b4979807b176ba5c570fd971dc59f98d81dc9f0a3786a46e7f9241b",
+      "remote_sha256": "6f93d3b35b4979807b176ba5c570fd971dc59f98d81dc9f0a3786a46e7f9241b",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/manuscript.pdf"
+    },
+    {
+      "file": "PROTOCOL.md",
+      "bytes": 3280,
+      "local_sha256": "d6d4ea40f6ebdf86f9b3cbf9f49bd0ce01ece11ac8287f684aac6e819cf2e1f5",
+      "remote_sha256": "d6d4ea40f6ebdf86f9b3cbf9f49bd0ce01ece11ac8287f684aac6e819cf2e1f5",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/PROTOCOL.md"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2507,
+      "local_sha256": "c7deb763f1397086557fa90cbb41c13953d0b98d5bc4d2c590b5db98626d79bc",
+      "remote_sha256": "c7deb763f1397086557fa90cbb41c13953d0b98d5bc4d2c590b5db98626d79bc",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/README.md"
+    },
+    {
+      "file": "references.bib",
+      "bytes": 7377,
+      "local_sha256": "a48b0cc4310f5fa583e0238e6f430362a549b63429293c494c5ce628acfc41e6",
+      "remote_sha256": "a48b0cc4310f5fa583e0238e6f430362a549b63429293c494c5ce628acfc41e6",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/references.bib"
+    },
+    {
+      "file": "reproduction.json",
+      "bytes": 2325,
+      "local_sha256": "de9448419e288c484f80d587f2e2db579869c1dd630207c59dc599ec03780a15",
+      "remote_sha256": "de9448419e288c484f80d587f2e2db579869c1dd630207c59dc599ec03780a15",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/reproduction.json"
+    },
+    {
+      "file": "requirements-clean-lock.txt",
+      "bytes": 399,
+      "local_sha256": "a215ebe2cb9759e9d15d46b83b0ff3c0b01364950dd3e5927f8391b8f99b8c6c",
+      "remote_sha256": "a215ebe2cb9759e9d15d46b83b0ff3c0b01364950dd3e5927f8391b8f99b8c6c",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/requirements-clean-lock.txt"
+    },
+    {
+      "file": "requirements.txt",
+      "bytes": 119,
+      "local_sha256": "91b784d3776b3bf8b73c9d75ff8085229b72cd188e2416e3fefa2ef722841704",
+      "remote_sha256": "91b784d3776b3bf8b73c9d75ff8085229b72cd188e2416e3fefa2ef722841704",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/requirements.txt"
+    },
+    {
+      "file": "run_analysis.py",
+      "bytes": 15502,
+      "local_sha256": "30ec42bc0348320e048a0fc9a852aa308890d2576e64d011dfbe7445e5c488f6",
+      "remote_sha256": "30ec42bc0348320e048a0fc9a852aa308890d2576e64d011dfbe7445e5c488f6",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/run_analysis.py"
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "bytes": 1247,
+      "local_sha256": "a7b0648c0b59775609f2f06a94893fea6e60f956adb49c6f82a44b3e84e63849",
+      "remote_sha256": "a7b0648c0b59775609f2f06a94893fea6e60f956adb49c6f82a44b3e84e63849",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/SHA256SUMS.txt"
+    },
+    {
+      "file": "supplementary_v0.1.0.zip",
+      "bytes": 5961030,
+      "local_sha256": "6f6a4ca3c642aff448e81ca5634cb57ce213aa2a52f17a73a7b8f738fd4fbc14",
+      "remote_sha256": "6f6a4ca3c642aff448e81ca5634cb57ce213aa2a52f17a73a7b8f738fd4fbc14",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/supplementary_v0.1.0.zip"
+    },
+    {
+      "file": "verify_results.py",
+      "bytes": 2175,
+      "local_sha256": "01bb41608489e9d8a909609952d14544b58a3880e9fd99a4bc4cf4c9785da6e0",
+      "remote_sha256": "01bb41608489e9d8a909609952d14544b58a3880e9fd99a4bc4cf4c9785da6e0",
+      "passed": true,
+      "url": "https://raw.githubusercontent.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/da3b755d0b06aaa72829fd069a8e3c1133eb1796/verify_results.py"
+    }
+  ],
+  "passed": true
+}

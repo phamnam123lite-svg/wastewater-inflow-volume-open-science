@@ -1,0 +1,25 @@
+{
+  "raw_flow_rows": 9868,
+  "ambiguous_timestamps_removed": 1,
+  "duplicate_utc_timestamps": 0,
+  "hourly_grid_rows": 11257,
+  "start": "2023-11-07 00:00:00",
+  "end": "2025-02-18 00:00:00",
+  "flow_missing_raw": 1390,
+  "flow_below_2": 6,
+  "trailing_flat_flag": 18,
+  "flow_missing_clean": 1414,
+  "missing_by_column": {
+    "acc_precip": 0,
+    "mean_pressure": 0,
+    "mean_radiation": 0,
+    "mean_relative_hum": 16,
+    "mean_temp": 0,
+    "temp_grass": 3223,
+    "temp_soil_10": 1885,
+    "temp_soil_30": 3216,
+    "flow_raw": 1390,
+    "flow": 1414
+  },
+  "negative_rain": 0
+}

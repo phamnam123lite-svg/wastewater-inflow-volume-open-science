@@ -1,0 +1,46 @@
+horizon,model,params,CV_MAE,best
+12,ridge_history,"{""ridge__alpha"": 1.0}",12240.093664001499,False
+12,ridge_history,"{""ridge__alpha"": 100.0}",7533.012235517387,False
+12,ridge_history,"{""ridge__alpha"": 10000.0}",6023.194539976169,True
+12,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",6282.504947802162,False
+12,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",6527.884262397604,False
+12,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",6093.681934255448,True
+12,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",6314.947164473117,False
+12,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",7240.8565965698435,False
+12,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",7243.013714611835,False
+12,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",7065.50632368285,True
+12,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",7255.507825532586,False
+12,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",4066.6296597758533,False
+12,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",3598.644555059797,True
+12,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",3933.570626799752,False
+12,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",3734.663463124805,False
+6,ridge_history,"{""ridge__alpha"": 1.0}",3712.9131451398293,False
+6,ridge_history,"{""ridge__alpha"": 100.0}",2880.827133328466,False
+6,ridge_history,"{""ridge__alpha"": 10000.0}",2874.933007464018,True
+6,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",2518.1076112328506,False
+6,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",2549.190577980215,False
+6,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",2505.9234043374095,True
+6,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",2532.809930968568,False
+6,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",2643.8379755036426,False
+6,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",2640.0130317385842,True
+6,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",2640.9626078461947,False
+6,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",2718.125307292572,False
+6,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",1825.0536724882393,False
+6,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",1772.8475654001734,False
+6,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",1738.3609316841041,False
+6,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",1710.7388219852812,True
+24,ridge_history,"{""ridge__alpha"": 1.0}",36529.585430398285,False
+24,ridge_history,"{""ridge__alpha"": 100.0}",16515.56433668947,False
+24,ridge_history,"{""ridge__alpha"": 10000.0}",12004.988890753337,True
+24,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",15379.599737925257,False
+24,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",18564.88914227828,False
+24,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",15130.542763570716,True
+24,hgb_flow,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",19624.873688786483,False
+24,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",14909.968223795759,False
+24,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",17063.64549956245,False
+24,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",14275.30891586471,True
+24,hgb_history,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",16436.35657135733,False
+24,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",10669.41547537056,False
+24,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 1.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",11374.41216581726,False
+24,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 7}",10448.71795880873,True
+24,hgb_oracle,"{""histgradientboostingregressor__l2_regularization"": 10.0, ""histgradientboostingregressor__max_leaf_nodes"": 15}",11661.343386765351,False

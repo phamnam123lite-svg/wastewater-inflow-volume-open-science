@@ -2,7 +2,7 @@
 
 **Viet Nam Tran** — Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam.
 
-[Read the paper](manuscript.pdf) · [Editable manuscript](manuscript.md) · [Complete reproducibility package](supplementary_v0.1.0.zip)
+[Read the paper](paper/manuscript.pdf) · [Editable manuscript](paper/manuscript.md) · [Complete reproducibility package](supplementary_v0.1.0.zip)
 
 Version 0.1.0. A secondary study on real DHI data. The historical-input boosting model did not beat the moving-average baseline; near-nominal overall interval coverage hid poor high-volume coverage. Future-rainfall results are diagnostic only.
 

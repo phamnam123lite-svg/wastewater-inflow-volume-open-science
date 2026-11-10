@@ -1,0 +1,11 @@
+{
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "numpy": "2.4.4",
+  "pandas": "3.0.2",
+  "scipy": "1.17.1",
+  "scikit-learn": "1.8.0",
+  "matplotlib": "3.10.8",
+  "tzdata": "2026.1",
+  "seed": 20261109
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "horizon": 6,
+    "n_forecasts": 2178,
+    "target_sums": "pass",
+    "chronology": "pass",
+    "saved_metrics": "pass",
+    "future_perturbation_causality": "pass"
+  },
+  {
+    "horizon": 12,
+    "n_forecasts": 2160,
+    "target_sums": "pass",
+    "chronology": "pass",
+    "saved_metrics": "pass",
+    "future_perturbation_causality": "pass"
+  },
+  {
+    "horizon": 24,
+    "n_forecasts": 2124,
+    "target_sums": "pass",
+    "chronology": "pass",
+    "saved_metrics": "pass",
+    "future_perturbation_causality": "pass"
+  }
+]
