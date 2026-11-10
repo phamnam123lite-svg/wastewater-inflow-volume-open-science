@@ -1,0 +1,2 @@
+# Install the main requirements.txt first. PDF/HTML authoring only:
+reportlab==4.4.9

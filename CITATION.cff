@@ -1,11 +1,13 @@
 cff-version: 1.2.0
-message: "Please cite this research software and the original DHI dataset."
+message: "Please cite the versioned research code and the separate DHI source-data DOI. This release is not a peer-reviewed publication."
 type: software
-title: "Wastewater inflow volume forecasting reproducibility study"
+title: "Configuration sensitivity and conditional reliability in wastewater inflow volume forecasting: a two-site open-data audit"
 authors:
-  - family-names: Tran
-    given-names: Viet Nam
+  - family-names: "Tran"
+    given-names: "Viet Nam"
     affiliation: "Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam"
-version: 0.1.0
+version: 0.2.0
+date-released: 2026-11-10
+repository-code: "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science"
+url: "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.2.0"
 license: MIT
-abstract: "Code for an openly reproducible secondary analysis of cumulative wastewater inflow. Source data retain CC BY-NC 4.0."

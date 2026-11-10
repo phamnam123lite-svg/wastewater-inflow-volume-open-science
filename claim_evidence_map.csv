@@ -1,0 +1,12 @@
+paper_location,evidence_file,filter_or_interpretation
+Table 1 / Figure 2,metrics.csv,scenario=primary_12h; group=all
+Table 2 / Figure 3,metrics.csv,scenario=origin_*; group=all
+Table 3 / Figure 4,intervals.csv,scenario=primary_12h
+Figure 1,cleaned_hourly.csv; splits.csv,hourly data and primary split
+Figure 5; episode sensitivity,episodes.csv; leave_one_episode_out.csv; nonoverlap.csv,scenario=primary_12h
+Paired uncertainty,bootstrap.csv,scenario=primary_12h; block_hours=48 unless stated
+Matched configuration diagnostic,configuration_sensitivity.csv,all rows
+Input delay and no-QC,sensitivity.csv,common target windows
+Synthetic bootstrap paragraph,SYNTHETIC_bootstrap_diagnostic.csv,SYNTHETIC data only
+Reproduction,verification.json; ../clean_reproduction/reproduction.json,executed checks
+Section 3.6 / Table 4,../external_results/external_metrics.csv; external_intervals.csv; external_bootstrap.csv,"German site, separate local refitting"
