@@ -25,11 +25,11 @@ report = dict(checked_utc=datetime.now(timezone.utc).isoformat(),
               release=f'https://github.com/{repo}/releases/tag/v0.1.0',
               commit=commit, files=results, passed=all(r['passed'] for r in results))
 (root/'verification'/'github_publication.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-(root/'PUBLICATION_STATUS.md').write_text(
+(root/'verification'/'publication_status.log').write_text(
     f"# Publication status\n\nRepository: {report['repository']}\n\n"
     f"Release: {report['release']}\n\nCommit: `{commit}`\n\n"
-    f"Published using the ChatGPT integrated browser. All {len(results)} public repository files "
-    f"were downloaded independently and SHA-256 compared with local publication files: "
+    f"All {len(results)} public repository files were downloaded independently "
+    f"and SHA-256 compared with local publication files: "
     f"{'PASS' if report['passed'] else 'FAIL'}.\n\n"
     "The complete computational pipeline was rerun in a fresh Python 3.11.9 environment; "
     "13 result CSV files had zero numerical differences. See verification/reproduction.json "

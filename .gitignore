@@ -15,6 +15,11 @@ v0.2.0/
 publication/
 research/
 
+# Search logs and temporary verification files
+sources/*_log.json
+PUBLICATION_STATUS.md
+verification/publication_status.log
+
 # Binary archives & logs
 *.log
 verification/baseline_results/
