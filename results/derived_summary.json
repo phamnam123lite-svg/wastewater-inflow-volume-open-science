@@ -1,7 +1,0 @@
-{
-  "high_volume_windows": 81,
-  "high_volume_contiguous_episodes": 5,
-  "test_12h_windows": 2160,
-  "weather_gain_vs_flow_MAE_pct": -0.8405788058761576,
-  "oracle_gain_vs_history_MAE_pct": 73.12896701497118
-}

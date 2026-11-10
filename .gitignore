@@ -9,6 +9,10 @@ __pycache__/
 data/*.csv
 data/*.zip
 
+# External site data (retrieved via python external_site.py --download)
+external_data/*.csv
+external_data/*.json
+
 # Local staging, temporary releases & audit scratch
 audit/
 v0.2.0/

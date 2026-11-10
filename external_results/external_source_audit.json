@@ -1,0 +1,16 @@
+{
+  "source_doi": "10.5281/zenodo.6992694",
+  "license": "CC BY 4.0",
+  "raw_sha256": "4b3e2ecc1b15fb6d80b1777e71b2a71cf796d4b51b40bc5a4428f46e532a8575",
+  "raw_rows": 105120,
+  "start": "2017-01-01 00:00:00",
+  "end": "2019-12-31 23:45:00",
+  "raw_missing_flow": 3,
+  "raw_missing_rain": 3,
+  "hourly_rows": 26281,
+  "hourly_missing_flow": 3,
+  "hourly_missing_rain": 3,
+  "clock": "Provider-naive uniform clock; time zone unverified",
+  "aggregation": "Four samples in (t-1h,t]; mean flow L/s times 3.6; sum rain mm/min times 15 min. No interpolation.",
+  "high_threshold_m3": 14099.031526471328
+}

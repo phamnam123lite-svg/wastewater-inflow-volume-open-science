@@ -1,7 +1,7 @@
 {
-  "data\\data.csv": "2b5edb2bcbd4418810fd0db5312cdad2d1b63f0f96cdb5dcd4ce9949141f6763",
-  "data\\dmi.csv": "cdcb5937f08b085761716cb3f718029a323863f6924d37b10fbcacc97ef8c7ec",
-  "data\\observations.zip": "039e65baf1b96180059b0216f14cc155ac192b20e0c5eefdf0f0ffc6cc2eb665",
-  "data\\processed.zip": "f6662dc24160ffa41534fe1d75d50e612ecd048294e684eedcfbf46ce24717f3",
-  "data\\wwtp.csv": "d6bda043faa00be40a067684f80f3eb4d0e8141cfce9f49478670408259acfaf"
+  "data.csv": "2b5edb2bcbd4418810fd0db5312cdad2d1b63f0f96cdb5dcd4ce9949141f6763",
+  "dmi.csv": "cdcb5937f08b085761716cb3f718029a323863f6924d37b10fbcacc97ef8c7ec",
+  "observations.zip": "039e65baf1b96180059b0216f14cc155ac192b20e0c5eefdf0f0ffc6cc2eb665",
+  "processed.zip": "f6662dc24160ffa41534fe1d75d50e612ecd048294e684eedcfbf46ce24717f3",
+  "wwtp.csv": "d6bda043faa00be40a067684f80f3eb4d0e8141cfce9f49478670408259acfaf"
 }

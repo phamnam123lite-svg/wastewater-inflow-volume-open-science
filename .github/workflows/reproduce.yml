@@ -5,17 +5,26 @@ permissions:
 jobs:
   reproduce:
     runs-on: windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: python -m pip install -r requirements-clean-lock.txt
-      - run: python download_data.py
-      - run: python run_analysis.py
-      - run: python verify_results.py
+      - name: Download Danish source data
+        run: python download_data.py
+      - name: Run main analysis (34 CSVs)
+        run: python run_analysis.py
+      - name: Verify main results
+        run: python verify_results.py --reference results/
+      - name: Download and run German site analysis (12 CSVs)
+        run: python external_site.py --download
+      - name: Verify external results
+        run: python verify_external.py --results external_results/ --reference external_results/
       - uses: actions/upload-artifact@v4
         with:
           name: reproduced-results
-          path: results/
+          path: |
+            results/
+            external_results/

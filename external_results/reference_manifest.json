@@ -1,0 +1,18 @@
+{
+  "required_csv_files": [
+    "external_bootstrap.csv",
+    "external_bounds.csv",
+    "external_calibration.csv",
+    "external_cv_folds.csv",
+    "external_cv_scores.csv",
+    "external_episodes.csv",
+    "external_hourly.csv",
+    "external_intervals.csv",
+    "external_metrics.csv",
+    "external_nonoverlap.csv",
+    "external_predictions.csv",
+    "external_splits.csv"
+  ],
+  "rtol": 1e-10,
+  "atol": 1e-08
+}

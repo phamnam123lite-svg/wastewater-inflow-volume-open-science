@@ -1,4 +1,4 @@
-# Information availability and conditional reliability in 12-hour wastewater inflow-volume forecasting: a reproducible single-plant audit
+# Configuration sensitivity and conditional reliability in wastewater inflow volume forecasting: a two-site open-data audit
 
 **Viet Nam Tran**
 
@@ -6,207 +6,289 @@ Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam
 
 ## Highlights
 
-- Raw observations support an auditable benchmark of cumulative wastewater inflow.
-- A 24-hour mean baseline outperformed historical-input boosted models on test MAE.
-- Perfect future rainfall substantially improved the 12-hour diagnostic comparator.
-- Near-nominal overall interval coverage concealed poor high-volume coverage.
-- Operational interpretation requires real forecast vintages and plant constraints.
+- Loss and annual predictors reversed the ranking of an open inflow benchmark.
+- A German-site evaluation added 6,588 test windows and 41 high-volume episodes.
+- Historical rainfall gains and rolling calibration behavior differed by site.
+- Near-nominal aggregate coverage concealed substantial high-volume errors.
+- Versioned data, predictions and executable checks support open reproduction.
 
 ## Abstract
 
-Wastewater inflow forecasts may support hydraulic planning, but their usefulness depends on information availability and reliability during high-volume conditions. We conducted a reproducible secondary analysis of an openly archived Danish wastewater treatment plant dataset to evaluate forecasts of cumulative inflow over the next 12 hours. Raw hourly observations were aligned in time without interpolating target values. Chronological development, calibration, and test periods were separated by forecast-horizon purges. Persistence, seasonal and moving-average baselines, ridge regression, and histogram gradient boosting were compared using historical inputs and an explicitly non-operational perfect-future-rainfall comparator. The primary test contained 2,160 overlapping forecast windows. The preceding-24-hour mean baseline achieved a mean absolute error of 3,407 m³, compared with 7,607 m³ for historical-input boosting and 2,044 m³ for the perfect-rainfall comparator. Adding historical meteorology to flow and calendar predictors did not yield a stable improvement: the paired mean absolute error difference was 63 m³, with an approximate 95% block-bootstrap interval of −526 to 653 m³. For the moving-average baseline, nominal 90% residual intervals covered 87.5% of test outcomes overall but only 23.5% of high-volume outcomes. Those high-volume outcomes comprised 81 overlapping windows in five contiguous episodes, limiting inference. These findings demonstrate a dataset-specific separation between average accuracy, conditional reliability, and idealized meteorological information. They do not establish storage savings or treatment improvements. Multi-site observations, archived weather forecasts, and plant operating constraints are needed before operational deployment.
+Wastewater inflow forecasting requires accurate hydraulic-load estimates and reliable uncertainty statements. We audited open observations from a Danish treatment plant and extended the evaluation to Köln-Weiden, Germany, using a 12-hour integrated-rate approximation of cumulative inflow. Development-only temporal cross-validation selected gradient boosting configurations, including loss and annual predictors. Temporal origins, matched configurations, input delays and residual intervals were evaluated. On the Danish 2,160-window test, historical-input boosting achieved mean absolute error (MAE) of 2,280 m³, compared with 3,407 m³ for a 24-hour mean and 7,607 m³ for the legacy configuration. Historical meteorology did not improve accuracy consistently across Danish periods. On the German 6,588-window test, flow/rain boosting achieved MAE of 1,662 m³, compared with 1,900 m³ for flow/calendar boosting and 3,293 m³ for the mean baseline. Thus, the incremental value of historical rain was site-dependent. Nominal 90% pooled intervals for the historical models covered 83.7% overall versus 21.0% of high-volume windows in Denmark, and 92.6% versus 39.3% in Germany. Rolling calibration improved Danish aggregate coverage but reduced German coverage to 88.5%. High-volume windows comprised five Danish and 41 German threshold-defined episodes. These retrospective findings support configuration audits and separate evaluation of average accuracy and hydraulic-tail reliability. The German models were refitted locally; zero-shot transfer and operational treatment benefits were not established. Versioned data, predictions and executable checks support computational reproduction.
 
 ## Keywords
 
-Wastewater treatment; cumulative inflow; hydraulic planning; temporal validation; prediction intervals; rainfall information; open data.
+Wastewater inflow; cumulative volume; temporal validation; prediction intervals; model sensitivity; open science.
 
 ## 1. Introduction
 
-Machine learning is increasingly investigated for wastewater monitoring and prediction, but predictive accuracy alone does not establish suitability for operational decisions [1]. Inflow forecasting is one relevant application because it characterizes an incoming hydraulic boundary condition. The DHI open benchmark explicitly motivates forecasts at a 12-hour horizon and provides paired inflow and meteorological observations [2]. A forecast of total incoming volume can be examined in physical units relevant to planning, while retaining the distinction between predicted inflow and actual storage requirements.
+Machine learning is increasingly used for monitoring and prediction in wastewater treatment [1]. Inflow forecasting addresses the incoming hydraulic boundary condition rather than treatment performance itself. For a treatment plant receiving combined sewage, both routine flow variation and rain-associated changes can affect forecast errors. An openly documented Danish benchmark motivates forecasting at a 12-hour horizon and provides inflow and meteorological observations [2]. Integrated inflow over that horizon is an interpretable planning quantity, although it is not equivalent to required storage capacity or a measured treatment benefit.
 
-Probabilistic wastewater inflow forecasting is not a new research direction. Sonnenschein and Ziel developed an intraday probabilistic approach using rainfall and sewer-network information, with particular attention to rainfall events [3]. González Barberá et al. examined wastewater inflow forecasting in a Mediterranean setting [4]. The DHI example uses boosted trees and explicitly assumes perfect precipitation information over its forecast horizon [2]. These precedents preclude claiming novelty for forecasting inflow, using rainfall predictors, or reporting uncertainty.
+Probabilistic inflow prediction and meteorological predictors are established research directions. Sonnenschein and Ziel used rainfall forecasts and sewer-network sensor information for intraday probabilistic WWTP inflow prediction [3]. González Barberá and colleagues studied rain-event inflow forecasting at Spanish Mediterranean coastal plants [4]. Pearson and colleagues combined diffusion-based sewer forecasting with calibrated intervals [5], while Lee and Lee examined adaptive uncertainty estimation for wastewater-plant pH under process drift [6]. These studies preclude claims that rainfall-aware forecasting, wet/dry reliability assessment or adaptive residual calibration are intrinsically new contributions of the present work.
 
-Nevertheless, an open benchmark can support a useful independent audit when the prediction target, information boundary and validation estimand are specified differently. Here, the target is the cumulative volume entering a plant during the next 12 hours. The audit asks whether models using information available at issue time remain accurate and empirically calibrated on a later period, especially for high-volume outcomes. The perfect-rainfall model is retained as a diagnostic comparator and is not conflated with a model driven by real weather forecasts.
+A narrower question remains useful for a public benchmark: how robust is the scientific interpretation of a forecast comparison to its configuration and information boundary? A model that performs poorly with historical measurements may reflect an unsuitable loss or calendar representation. Conversely, improved mean accuracy may coexist with unreliable high-load intervals. Validation must respect temporal structure [7], and wastewater modelling studies have documented difficulties in transfer under changing conditions [8]. Time-series calibration requires assumptions beyond the exchangeable-data argument usually associated with split conformal prediction [9].
 
-The distinction matters methodologically. Evaluation of structured data should reflect its temporal dependence [5]. In wastewater applications, Bøhn et al. observed different transfer behavior for linear and nonlinear models and emphasized the importance of distribution changes [6]. Standard residual calibration also does not automatically provide guaranteed coverage for dependent, non-exchangeable observations; time-series-specific methods address additional assumptions and adaptation requirements [7]. Consequently, we evaluate empirical reliability and explicitly avoid a distribution-free coverage claim.
+We therefore investigate three research questions. RQ1 asks how loss and annual predictors affect relative performance against transparent baselines. RQ2 asks whether historical meteorology and idealized future rainfall add consistent predictive value. RQ3 asks how interval calibration behaves overall, in issue-time wet states and in retrospectively identified high-volume windows. Directional expectations were that historical meteorology would reduce error, oracle rainfall would further reduce error, and high-volume coverage would be poorer than aggregate coverage. These are exploratory expectations, not preregistered confirmatory hypotheses.
 
-The study has three primary questions. First, does adding historical meteorology improve cumulative-volume MAE relative to flow and calendar predictors? Second, how much does a perfect-future-rainfall comparator change the performance of the selected model family? Third, does aggregate interval coverage mask poor coverage for high-volume outcomes? The contribution is a reproducible, narrowly scoped evaluation of these questions on raw-derived open observations, rather than a new forecasting algorithm or a demonstrated improvement to treatment performance. The literature search supports this scope but does not establish that this exact application is unprecedented.
+The contribution is a traceable audit of an integrated inflow target: matched configuration comparisons, development-selected information sets, multiple temporal test periods, maturity-aware residual updates and episode-level diagnostics, extended to a second independently sourced site. We do not propose a new learning algorithm. The targeted literature review supports this restricted contribution, but does not establish that the exact design is unprecedented. The Danish revision was formulated after its original results had been examined. An external-site extension was documented before computing German forecast errors. Both use archived observations and are retrospective; neither was independently preregistered.
 
 ## 2. Materials and Methods
 
-### 2.1. Data provenance and scope
+### 2.1. Data provenance and interpretation
 
-We used version 1 of the DHI dataset, archived under DOI 10.5281/zenodo.15301164 [2]. The archive identifies the source as an anonymized Danish wastewater treatment plant receiving combined sewage, with meteorological observations from the Danish Meteorological Institute. The observations and processed-data archives were downloaded and their MD5 checksums matched the values recorded by Zenodo. SHA-256 hashes of local files are supplied with the analysis package. Zenodo metadata records a CC BY-NC 4.0 license.
+We used DHI's version-1 Zenodo archive, DOI 10.5281/zenodo.15301164 [2]. It describes an anonymized Danish WWTP receiving combined sewage and nearby meteorological observations from the Danish Meteorological Institute. Provider MD5 checksums were verified for the observations and processed archives; local SHA-256 hashes accompany the release. Analysis starts from the observation files, not the provider's interpolated processed table. Zenodo metadata records CC BY-NC 4.0. Third-party data retain those terms and attribution; the analysis-code license does not override them.
 
-The raw flow table contains 9,868 timestamped hourly records. The meteorological table includes precipitation, pressure, radiation, relative humidity, air temperature, grass temperature and two soil-temperature measurements. There are no paired effluent-quality, energy, tank-level, process-control or treatment-capacity measurements. The dataset therefore supports inflow prediction but cannot directly quantify treatment efficiency, hydraulic storage requirements or energy savings.
+The flow file contains 9,868 hourly records. Observed meteorological variables include precipitation, pressure, radiation, humidity and temperature. No effluent-quality, energy, storage-level, operating-capacity or control-action series is available. The provider's example predicts a flow trajectory and deliberately includes future observed rain under a perfect-forecast assumption. It is relevant prior use of the same data, but its scores are not directly comparable with our integrated target and eligibility rules. We did not perform an exact reproduction of that example.
 
-The original repository was also inspected to identify prior use. Its example predicts a 12-hour flow trajectory with XGBoost and includes future observed precipitation under an explicit perfect-forecast assumption. Its preprocessing notebook applies linear interpolation to short gaps. We did not execute that benchmark as an exact replication, and its reported metrics are not treated as directly comparable with the cumulative-volume scores below.
+### 2.2. Alignment, screening and eligible observations
 
-### 2.2. Time alignment and quality control
+Flow timestamps were interpreted in Europe/Copenhagen and converted to UTC; one ambiguous daylight-saving timestamp was removed. Meteorological timestamps were treated as UTC according to the provider's preprocessing documentation. There were no duplicate retained UTC flow timestamps. The aligned hourly grid has 11,257 positions from 7 November 2023 to 18 February 2025.
 
-Local inflow timestamps were interpreted in the Europe/Copenhagen time zone and converted to UTC. One ambiguous daylight-saving timestamp was excluded. Meteorological timestamps were treated as UTC, following the provider's preprocessing documentation. The aligned grid contains 11,257 hourly positions between 7 November 2023 and 18 February 2025. There were no duplicate retained UTC timestamps.
+Screening marked flow below 2 m³/h and the endpoint of a trailing six-hour window whose range was below 5 m³/h. These heuristic flags identified six low observations and 18 flat-window endpoints. They are not validated sensor-fault labels. Extremes were retained, and humidity outside 0-100% was marked missing. Grass and soil temperatures were excluded because of extensive gaps. Screening increased missing flow from 1,390 to 1,414 hourly positions. An unscreened refit was included as a sensitivity analysis.
 
-Flow observations below 2 m³/h were flagged. A trailing six-hour window with a flow range below 5 m³/h flagged its endpoint as potentially flat. These rules are transparent screening heuristics inspired by the provider's quality-control concerns; they are not independently validated sensor-fault labels. They flagged six low observations and 18 flat-window endpoints. Large flows were retained because extreme hydraulic conditions are part of the research question. Relative humidity outside 0–100% was marked missing. Grass and soil temperatures were omitted from the forecasting feature sets because of extensive gaps.
+Target values were never interpolated. Eligibility required a complete target window, complete inputs for all three baselines, a preceding-six-hour rain sum and a complete oracle rainfall window. All information sets were compared on the same eligible issues. Future-rain completeness did not remove otherwise eligible primary-test issues in this archive; in another dataset it could cause selection bias. Remaining predictor gaps were imputed using development-fold medians with missingness indicators. Complete-window selection restricts conclusions to monitored periods and may exclude difficult operating states.
 
-No target values were interpolated. An issue time was eligible only if its current flow, preceding 24-hour flow history, future target window and required rainfall summaries were available. Additional missing predictor values were imputed using training-fold medians, with missingness indicators. This complete-outcome design is reproducible but conditions evaluation on monitored periods; it does not resolve potentially informative missingness.
+### 2.3. Target and information boundary
 
-### 2.3. Prediction target and information sets
+For issue time t and horizon h, we define
 
-For issue time t and horizon h, the target was
+**V(t,h) = Σ[k=1,…,h] Q(t+k) Δt, with Δt = 1 hour.**
 
-\[
-V_{t,h}=\sum_{k=1}^{h}Q_{t+k}\Delta t,\qquad \Delta t=1\ \mathrm{hour}.
-\]
+Q is the archived flow-rate value in m³/h. V is an integrated-rate approximation expressed in m³. The provider material inspected does not independently establish whether each hourly value is an interval mean or an instantaneous sample; exact cumulative-volume interpretation therefore requires confirmation. The primary horizon was 12 hours, with six and 24 hours as sensitivities. We assume measurements stamped t are available at issue time t, then examine one- and two-hour delays. These assumptions are not statements about the actual plant telemetry.
 
-Q is hourly mean inflow in m³/h, so V is in m³. The primary horizon was 12 hours; 6- and 24-hour analyses were prespecified sensitivity checks. Issue time t denotes the time when the observation stamped t is assumed available. Actual measurement latency and whether timestamps denote the start or end of an aggregation interval require operational verification.
+Historical flow features comprised lags 0, 1, 2, 3, 6, 12, 24, 48 and 168 hours, and trailing means and standard deviations over 6, 12 and 24 hours. Calendar variables encoded hour, weekday and day of year using sine and cosine. Historical weather added rainfall sums over 1, 6, 12, 24 and 72 hours and current/trailing-six-hour means of pressure, radiation, humidity and air temperature. The oracle additionally used the total and maximum observed rainfall from t+1 to t+h. It is deliberately non-operational and is not a theoretical upper bound on forecasting skill.
 
-Flow features included lags 0, 1, 2, 3, 6, 12, 24, 48 and 168 hours and rolling means and standard deviations over 6, 12 and 24 hours. Calendar features were sine and cosine representations of hour, weekday and day of year. Historical meteorological features were precipitation sums over 1, 6, 12, 24 and 72 hours, together with current and trailing-six-hour means of pressure, radiation, humidity and air temperature. The oracle added the total and maximum observed rainfall during t+1 through t+h. These two oracle predictors are deliberately unavailable in the historical-input experiment.
+### 2.4. Temporal design and model selection
 
-### 2.4. Models and chronological validation
+The primary split retained the original elapsed-time 60/20/20 boundaries: 14 August 2024 at 10:00 UTC and 16 November 2024 at 05:00 UTC. A training or calibration issue was removed if its target reached the next partition. Three further 60-day tests began on 15 August, 15 October and 15 December 2024, each preceded by 45 calendar days of calibration and an expanding development period. The three test periods do not overlap each other, but they overlap data already examined in the original study. They are temporal robustness analyses, not external or previously untouched validation. Targets reaching each test-period end were excluded.
 
-Three transparent baselines were evaluated: persistence, hQ(t); a preceding-24-hour mean multiplied by h; and the sum of the corresponding hours from the previous day. For h=24, the latter two baselines are algebraically identical. Ridge regression used historical flow, calendar and meteorological features. Histogram gradient boosting (HGB) was fitted to three information sets: flow/calendar, historical flow/calendar/meteorology, and the latter plus oracle rainfall. Learned point predictions were truncated below zero.
+Baselines were persistence, hQ(t); the preceding-24-hour mean multiplied by h; and the corresponding previous-day profile sum. The last two coincide at h=24. Ridge regression used historical inputs, with alpha in 1, 100 and 10,000. Histogram gradient boosting (HGB) was evaluated with flow/calendar, historical-weather and oracle information sets. Each HGB search covered 16 combinations: squared versus absolute-error loss, annual predictors included versus omitted, 7 versus 15 maximum leaves, and L2 penalty 1 versus 10. Other settings were 150 iterations, learning rate 0.05 and minimum leaf size 30; internal early stopping was disabled. The seed was 20261110.
 
-The first 60% of the elapsed timeline formed the development period, the next 20% the calibration period, and the final 20% the test period. Boundaries were 14 August 2024 at 10:00 UTC and 16 November 2024 at 05:00 UTC. A forecast was excluded from an earlier partition if its target window reached the next partition. Eligible sample dates thus differ from the nominal boundaries because missing windows were excluded.
+Three expanding temporal folds within development selected the lowest mean validation MAE. Each fold had a gap of h eligible issues, which is at least h elapsed hours. Imputation and ridge scaling were fitted within folds. Point predictions were truncated at zero. Outer models remained fixed throughout calibration and testing; rolling calibration below updates only residual intervals. No test score selected hyperparameters. Nevertheless, the expanded search itself followed inspection of the earlier results, so the overall study remains retrospective.
 
-Hyperparameters were selected by mean absolute error in three expanding temporal folds inside development, with a gap of h eligible observations between training and validation. Since eligible times are at least one hour apart, this is at least a horizon-length temporal gap. Median imputation and ridge scaling were fitted separately inside each fold. Ridge alpha was searched over 1, 100 and 10,000. HGB used 150 iterations, learning rate 0.05, minimum leaf size 30, maximum leaf counts 7 or 15, and L2 penalties 1 or 10. Automatic early stopping was disabled to avoid an internal random validation split. The random seed was 20261109. Models were not refitted after calibration or selected using test scores.
+A legacy historical HGB retained squared loss, annual predictors, seven leaves and L2=10. Matched fixed HGB comparisons used absolute loss, annual predictors, seven leaves and L2=10 for all three information sets. A further 2×2 loss/annual comparison fixed seven leaves and L2=1, the primary historical model's development-selected structural settings. This additional diagnostic was added after the revised selection was observed, and is disclosed as such rather than presented as a priori evidence.
 
-### 2.5. Residual intervals and performance measures
+### 2.5. Residual intervals and delayed information
 
-For each fixed model, absolute calibration residuals defined a symmetric interval radius. The empirical quantile level was min{1, ceil[(n+1)0.9]/n}, with the higher sample quantile used; lower bounds were truncated at zero. A sensitivity analysis estimated separate radii for wet and dry states, requiring at least 30 calibration scores per state. Wet state meant positive observed rainfall over the preceding six hours. This is residual-based calibration with a conformal-style rank adjustment, not a claim of exact coverage for the dependent sequence and not an implementation of SPCI [7].
+Absolute calibration residuals defined a nominal 90% radius. With n finite residuals, k=ceil[(n+1)×0.9] and the radius is exactly the kth ordered residual. If k exceeds n, the radius is infinite; empty or non-finite input is rejected. This fixes the extra-rank error in the preceding version. Lower bounds are truncated at zero. The finite-sample rank convention does not confer exchangeability or conditional-coverage guarantees on this series.
 
-MAE was the primary point metric; RMSE, R², mean prediction bias and mean positive underprediction were secondary. Interval measures included empirical coverage, width, upper-bound exceedance and the 90% interval score, equal to interval width plus a factor of 20 times each lower or upper miss. A high-volume subgroup was defined using the training-target 90th percentile. This outcome-defined subgroup is a retrospective diagnostic, not a state assumed known at issue time.
+We compared a fixed pooled radius, fixed wet/dry radii and a rolling radius. Wet denotes positive rain in the six preceding hours and is observable at issue time under the latency assumption. A wet/dry stratum requires at least 30 calibration residuals, otherwise it falls back to the pooled radius. Rolling calibration uses residuals whose labels have matured by t, meaning issue+h≤t, and whose maturation times fall in the preceding 30 calendar days. It requires 30 residuals, otherwise using the original calibration pool. This is a transparent rolling-residual benchmark, not an implementation of SPCI or adaptive conformal inference [6,9].
 
-H1 predicted lower MAE for historical HGB than flow/calendar HGB. H2 predicted lower MAE for oracle HGB than historical HGB. Paired differences in absolute errors were assessed with 2,000 moving-block bootstrap replicates. Blocks began at eligible issue times and were shortened at gaps or the ends of contiguous runs; the primary maximum length was 48 hours, with 24 and 168 hours as sensitivities. Percentile intervals are approximate conditional uncertainty summaries for this test period. H3 predicted lower high-volume coverage than overall coverage and was assessed descriptively because the subgroup contained few episodes. No independent-binomial inference was applied to overlapping windows.
+Delay sensitivities shifted every measured historical predictor by one or two hours while retaining issue-time calendar values. The primary selected parameters were held fixed during refitting; all comparisons used common valid test issues. The no-screening sensitivity also refitted those parameters. The resulting tests do not resolve unknown sensor aggregation conventions, forecast-vintage availability or missing-not-at-random mechanisms.
 
-Training Spearman correlations, monthly summaries, test residual autocorrelation and the association between absolute residuals and predictions were examined. Group-shift sensitivity circularly shifted flow, rainfall, calendar or other-weather predictors together, using 20 shifts of at least 48 retained positions. This preserves within-group structure approximately but may create unrealistic cross-group combinations and crosses gaps in the retained sequence. It is a sensitivity diagnostic, not causal attribution or a formal uncertainty interval for importance.
+### 2.6. Statistical analysis and uncertainty
+
+MAE was the primary point metric. RMSE, R², mean bias and mean positive underprediction were secondary. Interval measures were empirical coverage, width, upper exceedance and the 90% interval score: width plus 20 times each lower or upper miss. High volume was defined by the development-target 90th percentile separately for each temporal design. This outcome-defined subgroup is retrospective; it is not equivalent to conditioning on predictors available at issue time.
+
+Paired differences in absolute error were resampled with 2,000 fixed-length circular-block replicates, using 24, 48 and 168 retained hourly positions. Blocks wrap within each contiguous eligible run, never crossing a missing-time gap. Start positions are sampled uniformly from all eligible issues; every issue therefore has equal marginal inclusion, including in short runs. The final block is truncated to preserve sample size. Circular wrapping creates artificial end-to-start adjacency, and stationarity within runs is uncertain. We label the 2.5th-97.5th percentile ranges as approximate bootstrap sensitivity intervals, not guaranteed 95% confidence intervals. No confirmatory p-values or multiple-hypothesis rejection claims are made.
+
+Every contiguous high-volume episode was reported, together with leave-one-episode-out coverage and all 12 issue-time phases of nonoverlapping 12-hour targets. These episodes need not be independent storms. A separate, explicitly synthetic AR(1) experiment examined bootstrap behavior under stationary dependence; its data are not plant observations and its results do not validate coverage under real nonstationarity. Full grids, fold scores, calibration predictions, test predictions and interval bounds for the main models are retained.
+
+### 2.7. External-site methodological replication
+
+To address reliance on one plant, we added the Köln-Weiden archive from Sonnenschein and Ziel, DOI 10.5281/zenodo.6992694, version 1.0 [10], associated with the prior intraday forecasting study [3]. This is a previously published dataset, not new field sampling. Its CC BY 4.0 license and provider MD5 checksum were verified. The CSV documents flow in L/s and rainfall rate in mm/min at 15-minute intervals. It contains 105,120 timestamps from 2017 through 2019, with three missing values in each of these two variables and no duplicated or irregular timestamps.
+
+We retained the archive's uniform, timezone-unspecified clock and do not label it UTC. Each hourly value ending at t required four finite nonnegative samples in (t-1 hour,t]. Mean flow was multiplied by 3.6 to obtain m³/h; rainfall rates were summed and multiplied by 15 minutes to obtain hourly mm. These are integrated-rate approximations rather than independently verified volumetric meter readings. Right-closed aggregation avoids using samples after the issue time. No interpolation or transport of the Danish low/flat screening thresholds was applied. Available sewer-level variables were not added, so the historical information comparison remained flow/calendar versus flow/calendar/rain; other Danish meteorological variables were unavailable.
+
+Development covered 2017-2018, calibration January-March 2019, and testing April-December 2019, with the same horizon purges. We fixed the 12-hour target, baselines, 16-candidate HGB grid, development-fold selection and three interval methods before calculating external errors. Models were fitted on German development observations; this evaluates the approach at an independent site and is not zero-shot transfer of a Danish trained model. Matched diagnostics fixed seven leaves and L2=1 while varying loss/annual features, and compared fixed absolute-loss/no-annual information sets. MAE divided by the site's mean test target was reported to contextualize scale; m³ errors were not pooled across sites. The separately archived radar-forecast file was inspected but not used: its numbered columns were not verified to constitute a complete operational 12-hour forecast with known availability times.
 
 ## 3. Results
 
-### 3.1. Data availability and temporal partitions
+### 3.1. Retention and observed shifts
 
-After alignment, 1,390 grid positions lacked raw flow. The low/flat screening increased missing flow to 1,414 positions. The 12-hour analysis retained 4,398 development, 2,089 calibration and 2,160 test windows. The first eligible development window was 20 January 2024, illustrating how complete-window requirements excluded much of the early record. Test issue times ranged from 16 November 2024 at 05:00 UTC to 17 February 2025 at 11:00 UTC.
+The primary 12-hour analysis retained 4,398 development, 2,089 calibration and 2,160 test windows. Eligible development issues began on 20 January 2024, substantially later than the archive start because of missing complete windows. Test issues ran from 16 November 2024 at 05:00 UTC to 17 February 2025 at 11:00 UTC. Mean targets were 19,942, 13,728 and 16,447 m³ in the three partitions. These are observed distribution differences, not identified causal effects of season or plant operation. Figure 1 shows the underlying measurements and split boundaries.
 
-Mean 12-hour target volume was 19,942 m³ in development, 13,728 m³ in calibration and 16,447 m³ in test. Wet-state proportions were 31.0%, 20.6% and 32.7%, respectively. These differences document changing observed distributions but do not identify their causes. The training-derived high-volume threshold was 32,304.98 m³. In test, 81 windows exceeded it, representing 3.75% of windows in five contiguous high-volume episodes. There were 707 wet and 1,453 dry test windows.
+![Figure 1](../figures/Figure_1_timeline.png)
 
-### 3.2. Point forecasting performance
+**Figure 1.** Archived inflow rate and hourly precipitation on the aligned UTC grid. Dashed lines mark the primary development/calibration/test boundaries. Missing periods remain missing; a plotted measurement does not imply that its complete target window is eligible.
 
-The preceding-24-hour mean produced the lowest test MAE among the historical-information configurations (Table 1). Ridge had a lower RMSE than the simple baselines but a higher MAE, illustrating that model ranking depended on the error criterion. HGB with historical information had negative test R² and substantial positive mean bias. The oracle achieved the lowest 12-hour errors, but uses unavailable future observations.
+The primary high-volume threshold was 32,304.98 m³. Eighty-one test windows exceeded it, distributed across five contiguous episodes of 11, 7, 26, 24 and 13 windows. The test contained 707 wet and 1,453 dry issues. Additional temporal tests retained 1,318, 1,355 and 1,385 issues; their development-derived thresholds differed and are reported in the supplement.
 
-**Table 1. Primary 12-hour test performance.** All volume errors and biases are in m³; n=2,160. Oracle results are diagnostic and non-operational.
+### 3.2. Configuration sensitivity changes the primary interpretation
 
-| Configuration | MAE | RMSE | R² | Mean bias |
-|---|---:|---:|---:|---:|
-| Persistence | 3,740.22 | 6,185.43 | 0.219 | 168.45 |
-| Previous 24-hour mean | 3,406.61 | 6,128.24 | 0.233 | 229.60 |
-| Previous-day profile | 4,056.77 | 7,787.93 | −0.239 | 217.73 |
-| Ridge, historical inputs | 4,655.34 | 5,743.78 | 0.326 | 3,250.69 |
-| HGB, flow/calendar | 7,543.69 | 8,452.50 | −0.459 | 6,525.91 |
-| HGB, historical inputs | 7,607.10 | 8,633.01 | −0.522 | 6,811.40 |
-| HGB, perfect future rainfall | 2,044.11 | 2,756.37 | 0.845 | 1,505.88 |
+The selected primary historical model used absolute-error loss, omitted annual predictors, and used seven leaves with L2=1. Its MAE was 2,280.1 m³, 33.1% below the 24-hour mean baseline. Flow/calendar HGB had slightly lower MAE, 2,221.7 m³. The legacy historical HGB had MAE 7,607.1 m³ and substantial positive bias (Table 1; Figure 2). Thus, the preceding version's baseline-versus-HGB ranking cannot be generalized beyond its restricted configuration search.
 
-H1 was not supported. Historical HGB minus flow/calendar HGB had a paired MAE difference of +63.41 m³, with an approximate 95% bootstrap interval of −526.35 to +653.47 m³ at the 48-hour maximum block length. H2 was supported within the diagnostic comparison: oracle minus historical HGB differed by −5,563.00 m³, with an interval of −6,163.54 to −4,957.69 m³. The point estimate corresponds to a 73.1% MAE reduction relative to historical HGB, but not relative to the best baseline. The 24- and 168-hour maximum-block analyses did not change the directions of these conclusions.
+**Table 1. Primary 12-hour test performance (n=2,160).** Legacy and fixed rows are diagnostic configurations, not models selected from test outcomes. Oracle rainfall is unavailable in real time. Bias is prediction minus observation. Errors refer to the integrated-rate approximation.
 
-### 3.3. Conditional interval reliability
+| Configuration | MAE (m³) | RMSE (m³) | R² | Bias (m³) |
+| --- | --- | --- | --- | --- |
+| Persistence | 3,740.2 | 6,185.4 | 0.219 | 168.4 |
+| Previous 24-hour mean | 3,406.6 | 6,128.2 | 0.233 | 229.6 |
+| Previous-day profile | 4,056.8 | 7,787.9 | -0.239 | 217.7 |
+| Ridge, historical | 4,655.3 | 5,743.8 | 0.326 | 3,250.7 |
+| Legacy HGB, squared loss | 7,607.1 | 8,633.0 | -0.522 | 6,811.4 |
+| Fixed HGB, absolute loss | 2,723.8 | 4,554.2 | 0.576 | 575.0 |
+| HGB, flow/calendar | 2,221.7 | 4,600.5 | 0.568 | -645.3 |
+| HGB, historical | 2,280.1 | 4,470.6 | 0.592 | -330.5 |
+| HGB, oracle rainfall | 1,402.3 | 2,280.8 | 0.894 | 122.9 |
 
-The moving-average baseline's pooled residual interval covered 87.5% of test outcomes overall, close to the nominal 90%, but only 23.5% of high-volume outcomes (Table 2). The historical HGB interval covered 49.8% overall and 44.4% in the high-volume subgroup. Oracle coverage was 86.6% overall and 58.0% for high volumes. Thus, H3 was descriptively consistent with the observed coverage patterns, but uncertainty over independent high-volume events remains poorly characterized.
+![Figure 2](../figures/Figure_2_primary_accuracy.png)
 
-**Table 2. Empirical coverage of nominal 90% intervals at the 12-hour horizon.** The high-volume group comprises 81 windows in five contiguous episodes; wet comprises 707 windows. Values are percentages.
+**Figure 2.** Primary-test MAE for baselines, selected models and retained configuration diagnostics. All rows use the same target windows. The oracle uses future observed rainfall.
 
-| Configuration | Calibration | Overall | Wet | Dry | High volume |
-|---|---|---:|---:|---:|---:|
-| Previous 24-hour mean | Pooled | 87.5 | 79.3 | 91.5 | 23.5 |
-| Previous 24-hour mean | Wet/dry | 88.1 | 92.9 | 85.8 | 34.6 |
-| HGB, historical inputs | Pooled | 49.8 | 35.5 | 56.8 | 44.4 |
-| HGB, historical inputs | Wet/dry | 61.9 | 88.1 | 49.1 | 65.4 |
-| HGB, perfect rainfall | Pooled | 86.6 | 73.3 | 93.0 | 58.0 |
-| HGB, perfect rainfall | Wet/dry | 90.0 | 85.9 | 92.1 | 66.7 |
+In the matched 2×2 diagnostic with seven leaves and L2=1, squared loss with annual predictors yielded MAE 7,965.9 m³; omitting annual predictors reduced it to 3,403.6 m³. Absolute loss yielded 2,760.6 m³ with annual predictors and 2,280.1 m³ without them. These comparisons separate the two configuration changes at fixed tree-size and regularization settings, but do not identify their physical causes. Removing annual features from the already selected primary model changed nothing, as expected.
 
-Wet/dry calibration improved wet-state coverage for the moving-average baseline from 79.3% to 92.9%, while dry-state coverage decreased from 91.5% to 85.8%. The corresponding overall mean interval width increased from 14,046 to 16,210 m³. For the oracle, overall coverage reached 90.0% with wet/dry calibration, yet high-volume coverage remained 66.7%. Stratifying on past rain did not remove all conditional unreliability.
+Historical HGB minus the mean baseline had a paired MAE difference of -1,126.5 m³, with a 48-hour bootstrap sensitivity range of -1,700.9 to -671.5 m³. Ranges at 24 and 168 hours also remained below zero. By contrast, mean baseline minus persistence was -333.6 m³ with a range of -782.3 to 167.3 m³. The mean baseline's smaller point error should therefore not be described as a definitive improvement over persistence.
 
-For the moving-average baseline, 54.3% of high-volume outcomes exceeded the pooled upper bound. Its mean positive underprediction was 13,924 m³ in that subgroup. These are forecast errors in cumulative inflow, not measured overflow volumes or estimates of additional tank capacity.
+### 3.3. Information sets and temporal robustness
 
-### 3.4. Sensitivity and residual behavior
+Adding historical weather to flow/calendar HGB changed primary MAE by +58.5 m³, with a 48-hour sensitivity range of -27.0 to 139.8 m³. The matched fixed-configuration comparison gave +49.7 m³, with a range of -70.3 to 168.9 m³. Neither comparison supports a consistent historical-weather advantage on this period.
 
-Horizon-specific performance did not support a universal ranking. Persistence achieved MAE 1,567.68 m³ at six hours, versus 937.85 m³ for the oracle. At 24 hours, the moving-average baseline achieved 6,588.94 m³, slightly below the oracle's 6,617.34 m³. Historical HGB MAE was 2,833.40 and 22,297.85 m³ at six and 24 hours, respectively. Absolute errors should not be compared across horizons as if they represented identical targets or samples.
+The selected oracle achieved MAE 1,402.3 m³, compared with 2,280.1 m³ for selected historical HGB. Its paired difference was -877.9 m³, with a sensitivity range of -1,326.8 to -514.6 m³. Holding the absolute-loss configuration fixed across information sets gave an oracle advantage of 681.6 m³. These are diagnostic benefits of perfect future observations, not expected benefits of an operational weather service.
 
-Historical-HGB test residual autocorrelation was 0.890 at one hour, 0.410 at six hours and 0.153 at 24 hours. The Spearman association between absolute residual magnitude and predicted volume was 0.481. These diagnostics indicate that independent, constant-error assumptions should not be adopted without qualification. The circular group-shift analysis increased MAE by an average of 894 m³ for flow features and 168 m³ for rainfall features; corresponding averages were 41 m³ for calendar features and approximately 1 m³ for other meteorology. These values describe sensitivity of this fitted, poorly transferring model, rather than universal predictor relevance.
+Table 2 and Figure 3 show the additional origins. Flow/calendar HGB improved on the mean baseline in all three periods. Historical-weather HGB improved in the August and December tests, but its October MAE exceeded the baseline and flow-only HGB. For that origin, development selected annual predictors for historical HGB but omitted them for flow HGB. Accordingly, the selected-model difference combines information and configuration; the matched comparisons in the supplement must be consulted before attributing it to weather information alone.
+
+**Table 2. Twelve-hour MAE (m³) in additional 60-day temporal tests.** Each origin has its own expanding development period and preceding 45-day calibration period. These retrospective tests are not independent-site validation.
+
+| Test start | n | 24-h mean | HGB flow | HGB history | HGB oracle |
+| --- | --- | --- | --- | --- | --- |
+| 2024-08-15 | 1318 | 3,910.2 | 2,734.6 | 2,643.1 | 1,546.6 |
+| 2024-10-15 | 1355 | 2,392.0 | 1,716.4 | 2,666.2 | 1,278.8 |
+| 2024-12-15 | 1385 | 3,563.6 | 2,198.6 | 2,238.9 | 1,475.3 |
+
+![Figure 3](../figures/Figure_3_temporal_origins.png)
+
+**Figure 3.** Model errors at the three additional temporal origins. The test periods do not overlap each other. Their observations had already been available during the broader retrospective study. Oracle results remain diagnostic.
+
+At six hours, historical HGB had MAE 1,026.6 m³ versus 1,567.7 m³ for persistence. At 24 hours, historical HGB had MAE 7,683.7 m³ versus 6,588.9 m³ for the mean baseline; the oracle achieved 3,178.9 m³. The longer-horizon result prevents a universal claim that historical HGB is preferable. Targets and eligible samples also differ across horizons, so raw errors are not directly comparable between them.
+
+### 3.4. Interval reliability and high-volume episodes
+
+With the corrected order statistic, the mean baseline's pooled interval covered 87.1% overall and 23.5% of high-volume windows. Historical HGB covered 83.7% overall and 21.0% of high-volume windows (Table 3; Figure 4). Better average point accuracy therefore did not imply satisfactory tail reliability. The oracle's pooled coverage was only 81.7% overall despite its low MAE, reflecting the mismatch between its calibration errors and later errors.
+
+**Table 3. Empirical coverage of nominal 90% intervals and mean width on the primary test.** Overall n=2,160; wet n=707; high-volume n=81 in five episodes. Width is averaged over all test issues. Neither the nominal level nor these percentages imply a conditional-coverage guarantee.
+
+| Model | Calibration | All (%) | Wet (%) | High (%) | Width (m³) |
+| --- | --- | --- | --- | --- | --- |
+| 24-h mean | Pooled | 87.1 | 78.9 | 23.5 | 13,893 |
+| 24-h mean | Wet/dry | 88.0 | 92.6 | 34.6 | 16,001 |
+| 24-h mean | Rolling 30 d | 90.1 | 81.2 | 27.2 | 18,197 |
+| HGB history | Pooled | 83.7 | 69.0 | 21.0 | 6,747 |
+| HGB history | Wet/dry | 87.1 | 92.5 | 43.2 | 8,610 |
+| HGB history | Rolling 30 d | 88.8 | 79.5 | 46.9 | 9,934 |
+| HGB oracle | Pooled | 81.7 | 65.2 | 19.8 | 4,495 |
+| HGB oracle | Wet/dry | 87.1 | 89.5 | 50.6 | 5,624 |
+| HGB oracle | Rolling 30 d | 89.4 | 78.9 | 50.6 | 6,565 |
+
+![Figure 4](../figures/Figure_4_interval_reliability.png)
+
+**Figure 4.** Aggregate, issue-time wet-state and retrospective high-volume coverage for three residual-calibration methods. The dashed line marks the nominal 90% level. Rolling calibration uses only matured residuals.
+
+For historical HGB, wet/dry calibration raised wet-state coverage from 69.0% to 92.5% while increasing overall mean width from 6,747 to 8,610 m³. Rolling calibration achieved 88.8% overall and 46.9% high-volume coverage, with mean width 9,934 m³. For the mean baseline, rolling coverage reached 90.1% overall but only 27.2% in high-volume windows. Its mean interval score increased from 32,459 to 35,222 m³ despite improved overall coverage, illustrating why coverage must be read together with sharpness and miss penalties.
+
+Episode-specific coverage varied markedly (Figure 5). For the mean baseline, omitting one high-volume episode changed the remaining pooled coverage from 8.8% to 30.9%; for historical HGB the range was 8.8-29.1%. The 12 nonoverlapping target phases contained only 6-8 high-volume windows each. Their high-volume coverage ranged from 14.3% to 33.3% for the mean baseline and 0-50.0% for historical HGB. These ranges demonstrate sparse-event sensitivity; they are not independent confidence intervals.
+
+![Figure 5](../figures/Figure_5_episodes.png)
+
+**Figure 5.** Pooled-interval coverage within every primary-test high-volume episode. Dates mark the first issue in each episode; n is the number of overlapping high-target windows. Episodes are threshold-defined and cannot be assumed to be independent meteorological storms.
+
+### 3.5. Input delays, screening and verification
+
+On common test issues, a one-hour delay increased historical HGB MAE from 2,277.7 to 2,417.5 m³ (n=2,158); a two-hour delay increased it from 2,277.1 to 2,598.3 m³ (n=2,156). The mean baseline increased from 3,396.4 to 3,480.3 m³ and from 3,389.4 to 3,545.6 m³, respectively. This sensitivity supports explicit timing assumptions but does not estimate actual plant latency.
+
+Without low/flat screening, development and calibration counts increased to 4,656 and 2,126. The same 2,160 primary-test targets remained, and the refitted historical HGB had MAE 2,252.1 m³, close to the screened result. This one sensitivity does not establish that the screening rules correctly identify faulty measurements.
+
+Automated checks reconstructed 19,618 calibration/test target values from hourly observations; recomputed 1,584 main point-metric values and 3,960 interval-metric values; compared all 198 main model-method interval arrays; and checked temporal boundaries, quantile edge cases, historical-feature causality and residual maturation. Additional sensitivity metrics were recomputed, and deliberately empty, missing, altered and schema-mismatched reference comparisons failed as intended. A second complete run in a newly created Python environment reproduced all 34 registered CSV outputs within the declared tolerances (relative 10⁻¹⁰, absolute 10⁻⁸); the maximum absolute numerical difference was 0. These checks verify computation, not sensor validity or scientific generalizability.
+
+### 3.6. Evidence from the German site
+
+The external evaluation retained 17,484 development, 2,124 calibration and 6,588 test issues. The mean German test target was 7,846.3 m³, compared with 16,447.4 m³ at the Danish primary test. The German development-derived high-volume threshold was 14,099.0 m³, exceeded by 700 test windows in 41 contiguous episodes. This substantially increases episode representation relative to the Danish five episodes, but does not establish meteorological independence or population-wide generality.
+
+Flow/rain HGB achieved MAE 1,661.9 m³ versus 1,899.8 m³ for flow/calendar HGB and 3,293.1 m³ for the mean baseline (Table 4). The rain-versus-flow paired difference was -238.0 m³, with a 48-hour bootstrap sensitivity range of -338.3 to -154.2 m³; the matched fixed-configuration difference was -239.3 m³. Unlike the Danish primary result, historical rain improved accuracy here. The selected rain model's MAE/mean-target ratio was 21.2%; the corresponding Danish historical-model ratio was 13.9%. This difference is descriptive, with different sites, periods and available covariates.
+
+**Table 4. External-site 12-hour test performance at Köln-Weiden (n=6,588).** Models were trained locally using 2017-2018 observations. MAE/mean is MAE divided by the mean test target, not MAPE. Oracle rainfall is non-operational.
+
+| Configuration | MAE (m³) | RMSE (m³) | R² | MAE/mean (%) |
+| --- | --- | --- | --- | --- |
+| Persistence | 3,378.2 | 5,297.0 | 0.043 | 43.1 |
+| 24-hour mean | 3,293.1 | 5,748.4 | -0.127 | 42.0 |
+| Previous day | 3,581.8 | 7,019.0 | -0.680 | 45.6 |
+| HGB flow/calendar | 1,899.8 | 4,320.5 | 0.363 | 24.2 |
+| HGB flow/rain | 1,661.9 | 3,774.1 | 0.514 | 21.2 |
+| HGB oracle | 832.6 | 1,758.3 | 0.895 | 10.6 |
+
+The loss/calendar effect also differed by site. With seven leaves and L2=1, German squared-loss MAE was 1,866.3 m³ with annual predictors and 1,929.1 m³ without them; absolute-loss MAE was 1,666.7 and 1,660.5 m³, respectively. The large Danish deterioration from including annual predictors under squared loss therefore did not recur in Germany. This supports configuration sensitivity as a reason to audit, rather than a universal rule to remove annual predictors.
+
+For German flow/rain HGB, pooled intervals covered 92.6% overall but 39.3% of high-volume windows. Wet/dry calibration gave 90.6% and 54.1%, whereas rolling calibration gave 88.5% and 32.9%. Mean widths were 12,852, 8,504 and 9,145 m³, respectively. Thus rolling adaptation did not uniformly improve reliability. The oracle had pooled coverage of 94.3% overall and 68.3% in the high-volume subgroup, despite its small MAE of 832.6 m³. The external evidence supports concern about aggregate versus tail reliability while showing that the best calibration response is site-dependent.
+
+A separate clean-environment rerun reproduced all 12 external CSV tables with maximum absolute numerical difference 0.0. Direct checks reconstructed each external calibration/test target from 48 quarter-hour flow-rate samples using the documented unit conversion.
 
 ## 4. Discussion
 
-### 4.1. Information availability changes the interpretation of model accuracy
+### 4.1. A configuration-dependent failure is not an information limit
 
-The most striking 12-hour contrast was between historical-input HGB and the perfect-rainfall comparator. The difference shows that the specified pipelines behave very differently when future rainfall observations are available. It does not show that a real weather forecast would deliver the same gain. Forecast errors, issue-time alignment, spatial representativeness and data latency could materially alter the result. Moreover, separate hyperparameter selection means the comparison measures a pipeline-level difference, rather than a causal effect of adding one variable.
+The central correction is substantive: the strong apparent superiority of a simple historical baseline in the earlier restricted benchmark disappeared after development-only selection of loss and annual predictors. Absolute-error fitting targets a different predictive functional from squared-error fitting, and a short, shifting record may provide limited support for annual representations. The matched 2×2 results show sensitivity to both choices without proving a specific mechanism. A negative model result must therefore be bounded by the configuration actually evaluated.
 
-The DHI example labels its perfect-rainfall assumption explicitly [2]. Our finding is therefore not an allegation of undisclosed leakage in that example. It is an extension that evaluates cumulative volume under a stricter historical-information boundary and reports the resulting conditional reliability. The original XGBoost trajectory benchmark was not reproduced exactly, and no numerical superiority over that implementation is claimed.
+The revision also illustrates a limitation of retrospective improvement. Although each search used only development folds, the choice to expand that search arose after observing poor earlier test performance. The final test is consequently not a fresh confirmatory sample. Retaining the legacy configuration, all candidates and the revision history makes this dependence visible. Further Danish temporal tests reduce reliance on one split, while the German extension addresses site specificity through local refitting. Neither design replaces a prospective operating-period evaluation.
 
-The strong performance of simple baselines also changes the engineering interpretation. Historical HGB was not a competitive general replacement for the moving-average baseline on MAE in this holdout period. Nonetheless, ridge's better RMSE and the different high-volume rankings show that no single summary metric fully describes behavior. An operational objective would need a defensible loss function reflecting overprediction and underprediction consequences, which cannot be specified reliably without plant constraints.
+### 4.2. Meteorological information and practical forecasts
 
-### 4.2. Calibration can conceal consequential conditional failures
+Rainfall-aware wastewater prediction has substantial prior art [3,4]. Our results do not contradict it: the present weather station, historical summaries, target and data duration differ from those studies. Flow lags may already encode part of the recent hydraulic response, but that explanation is an inference rather than a measured network mechanism. The October-origin result also warns that separately selected models can confound a feature-set comparison with different configuration choices.
 
-Overall coverage near 90% was not sufficient evidence of reliability during high-volume conditions. The mean24 baseline covered fewer than one quarter of high-volume outcomes despite covering 87.5% overall. This is a directly observed conditional failure in this dataset. It does not establish its population frequency, because only five contiguous high-volume episodes were available and the windows within each episode overlap.
+The oracle advantage at both sites establishes room for improved information under the evaluated modelling conditions. The observed historical-rain advantage in Germany also shows that the Danish null comparison is not a general statement about rainfall information. It does not measure the value of actual rainfall forecasts, which have error, latency, changing vintages and potentially different spatial support. The provider's own perfect-rainfall example [2] makes this distinction particularly important. A useful next experiment would replay archived numerical-weather forecasts available at each issue time, using the same hydraulic target and complete information boundary.
 
-Wet/dry stratification improved some subgroup results but transferred error elsewhere, as seen in the decline in dry-state coverage for the moving-average baseline. Past rainfall is only one state descriptor; it does not fully encode future rain, antecedent network storage or other unobserved conditions. The results motivate evaluation of adaptive time-series uncertainty approaches such as those developed for dependent data [7], but do not establish that any untested method would solve the observed failures.
+### 4.3. Marginal reliability cannot stand in for tail reliability
 
-### 4.3. Relationship to earlier research and the scope of novelty
+Wet/dry and rolling calibration improved some empirical reliability measures, consistent with the broader motivation for regime-aware and adaptive sewer or wastewater uncertainty methods [5,6]. Nevertheless, our simple residual procedures neither implement those methods exactly nor inherit their theoretical properties. SPCI, for example, models the conditional behavior of future residual quantiles [9]; a fixed empirical radius or a 30-day residual window is a different procedure.
 
-Our study is consistent with the importance that prior probabilistic inflow work assigns to rainfall information [3]. It also reinforces the need to evaluate model transfer rather than inferring future performance from development scores, a concern directly examined in the Veas denitrification study [6]. These are shared concerns, not discoveries first made here. The Mediterranean inflow study [4] provides further evidence that the broader application is already well developed, although differences in climate, horizons, targets and data prevent numerical cross-paper ranking.
+High-volume conditioning uses the future outcome, so its coverage cannot be interpreted as the conditional guarantee on available predictors commonly sought by forecasting methods. It remains an engineering-relevant stress diagnostic: severe upper misses could matter to a plant even when aggregate coverage appears acceptable. Here the rolling mean-baseline interval reached approximately 90% overall while missing most high-volume outcomes. Sparse, overlapping Danish episodes prevent reliable estimation of rare-event performance and prohibit treating 81 windows as 81 independent hydraulic events. The German 700 high-volume windows in 41 episodes broaden the evidence but still do not represent 700 independent events.
 
-The narrower contribution is an auditable open-data experiment combining noninterpolated cumulative-volume targets, chronological calibration, a clearly separated oracle information set and high-volume reliability reporting. This combination may support a methodological case study or reproducibility paper after stronger validation. It is not an independent contribution merely because HGB replaces XGBoost. The added scientific content lies in the information-boundary and reliability questions, including negative findings.
+The uncertainty estimates themselves deserve restraint. Fixed-length circular blocks correct the earlier unequal marginal weighting, but introduce wrapping and depend on an approximate stationarity argument. In the explicitly synthetic stationary diagnostic (n=1,920, block=48, 200 Monte Carlo series and 400 resamples per series), empirical coverage of the mean's nominal 95% percentile range was 94.0%, 95.0% and 89.5% for AR(1) coefficients 0, 0.5 and 0.9. Monte Carlo standard errors were approximately 1.7, 1.5 and 2.2 percentage points. Even this controlled example cautions against interpreting the real-data sensitivity ranges as guaranteed inferential coverage.
 
-## 5. Practical Implications
+## 5. Practical implications
 
-The reported quantities could inform the specification of a forecasting service: which measurements must exist at issue time, which baseline must be exceeded, what coverage must be checked in high-volume periods, and what assumptions are hidden by aggregate accuracy. For this dataset, choosing a sophisticated historical-input model without the moving-average baseline would have obscured substantial underperformance. Reporting only overall coverage would also have hidden poor performance on high-volume windows.
+The results support a staged evaluation for hydraulic forecasting: retain transparent baselines; test plausible loss and calendar choices; disclose the measurement and weather information available at issue time; and examine reliability during relevant operating conditions. Report interval width and miss penalties alongside coverage. Across both evaluated sites, flow-based boosting is a credible 12-hour predictive benchmark, while high-volume residual intervals require further work. Historical rainfall and rolling calibration should be re-evaluated locally because their incremental performance differed between sites.
 
-No recommendation for tank sizing, bypass activation, aeration or energy optimization follows directly. Cumulative inflow alone does not determine the maximum storage excursion because intra-window timing, initial storage, discharge and treatment capacity matter. Energy and treatment benefits require additional measurements and an explicitly validated control or process model. The next operational study should replay real forecast vintages and quantify consequences under recorded plant constraints before proposing automated decisions.
+No numerical storage recommendation follows from these forecast errors. Converting an inflow forecast into a control decision would require initial stored volume, outflow capacity, treatment constraints, uncertainty in those variables and an explicit decision loss. The present evidence likewise does not establish pollutant-removal gains, avoided overflows or energy savings. A prospective test should use provider-confirmed timestamps, actual forecast vintages, multiple sites and event-level operational endpoints.
 
 ## 6. Limitations
 
-The analysis covers one anonymized plant and approximately 15 months. It lacks an independent-site test and a second full annual cycle. Complete-window selection reduces coverage of missing-data periods and may bias evaluation if outages coincide with extreme conditions. Screening thresholds are heuristic, and upstream sensor processing is not independently audited. The raw archive already contains hourly summaries rather than full sensor-frequency traces.
+The evaluation covers two plants with different record lengths and measurement documentation, not a representative sample of treatment systems. The Danish plant is anonymized and has approximately 15 months of incomplete observations; its effective development history is shorter. The German archive spans three years but does not establish the time zone or real sensor-availability times. Integrated volumes are approximated from rate samples; Danish aggregation semantics remain unconfirmed. Complete-window selection and heuristic Danish screening can affect representativeness. The unscreened refit does not eliminate missingness bias.
 
-The chronological holdout is genuinely later than training but is not an independent plant sample. Overlapping targets and residual autocorrelation reduce effective information relative to the nominal number of windows. The shortened-block bootstrap is an approximate resampling scheme and does not account for all seasonal nonstationarity, model-selection uncertainty or site variability. High-volume inference is especially limited by five contiguous episodes. Temporal distribution differences were measured, but their causal role in HGB performance was not established.
-
-We evaluated a modest hyperparameter grid and a limited model family. No adaptive refitting, SPCI implementation or mechanistic inflow model was tested. Thus, poor historical HGB performance is not evidence that historical-only forecasting is inherently infeasible. The oracle is neither deployable nor a mathematical upper bound on forecast skill. Weather forecast vintages, timing latency, network configuration, effluent quality, energy and control outcomes are unavailable. Finally, the targeted literature search had rate-limited and inaccessible sources, and does not establish exhaustive novelty.
+The Danish revision reuses previously inspected outcomes. The external design was documented before its model errors were calculated, but is still a retrospective, non-preregistered evaluation selected after the Danish audit. Local German refitting is not zero-shot transfer, and differences between sites cannot isolate the effect of climate, catchment, record length or sensing. The learning family and search remain limited. No mechanistic comparator, prospective control trial or fully verified operational weather-forecast replay was performed. Network levels at the German site do not by themselves provide storage geometry, action constraints or treatment endpoints. Threshold-defined episodes may remain dependent. Bootstrap ranges are assumption-sensitive, and no globally unique method or guaranteed publication readiness is claimed.
 
 ## 7. Conclusions
 
-On a temporally held-out period of the DHI dataset, the preceding-24-hour mean was the strongest historical-information configuration by 12-hour cumulative-volume MAE. Adding past meteorology to the selected HGB pipeline did not produce a stable gain, while a perfect-future-rainfall comparator substantially improved 12-hour performance. However, even near-nominal overall interval coverage could coexist with severe high-volume undercoverage. These findings support explicit information-boundary audits, simple baselines and conditional reliability assessment before operational interpretation. Independent plants, more events and actual weather forecasts are required to test generality and practical value.
+Loss and annual-predictor choices materially changed the interpretation of the Danish wastewater inflow benchmark. Development-selected historical HGB reduced its primary 12-hour MAE to 2,280 m³ compared with 3,407 m³ for a 24-hour mean and 7,607 m³ for the legacy configuration. Three further Danish origins and a German-site evaluation supported the usefulness of flow-based 12-hour prediction, but historical rainfall gains and calendar sensitivity were site-dependent. In Germany, flow/rain HGB achieved MAE 1,662 m³ versus 3,293 m³ for the mean baseline. Near-nominal aggregate interval coverage coexisted with high-volume undercoverage at both sites; rolling calibration improved some Danish measures but deteriorated in Germany. The complete computational evidence is openly reproducible. Prospective forecast availability, additional sites and operational decision endpoints remain necessary before claiming treatment or control benefits.
 
 ## Data Availability Statement
 
-The source observations are available from DHI, *Inflow to a Waste Water Treatment Plant: observations and processed data*, version 1, Zenodo, DOI [10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164), with CC BY-NC 4.0 recorded in the archive metadata. DHI and the Danish Meteorological Institute are credited for plant and meteorological data, respectively. The accompanying research package contains unchanged source archives, checksums, derived hourly data and forecasts. Derived files identify their transformations; no new measurement campaign was performed.
+Source observations and processed data are archived by DHI as *Inflow to a Waste Water Treatment Plant: observations and processed data*, version 1, DOI [10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164), with CC BY-NC 4.0 recorded in the archive metadata. DHI and the Danish Meteorological Institute are credited for plant and weather measurements. The supplementary package preserves source archives, hashes, transformations and derived predictions. The external observations are available from Sonnenschein and Ziel [10], DOI [10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694), under CC BY 4.0. Both sources and transformations are identified separately. No new measurements were collected. Users must retain each source license and attribution; the Danish non-commercial terms are not imposed on the independently licensed German source.
 
 ## Code Availability Statement
 
-The accompanying reproducibility package includes `download_data.py`, `run_analysis.py`, `verify_results.py`, bibliography/table-generation scripts, a prespecified analysis protocol, exact dependency versions and all numerical outputs. Newly authored Python code is provided under MIT terms; data and third-party materials retain their own conditions. The code and reproducibility materials are provided at [https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), version 0.1.0. The repository provides standalone analysis scripts and a complete supplementary archive containing the source data, results, figures, protocol and clean-environment verification. All 13 compared numerical CSV outputs were reproduced with zero maximum absolute difference. A GitHub version is not a DOI archive; no code DOI is claimed. The DHI DOI identifies the source data, not this analysis.
+Analysis code and the versioned supplement are available at [the public GitHub repository](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), release [v0.2.0](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.2.0). The release includes the revision protocol, locked dependencies, download and analysis scripts, full cross-validation results, saved forecasts and intervals, figures, fail-closed verification, numerical references and a clean-environment reproduction report. Newly authored code is MIT licensed; data retain their separate terms. The earlier release remains identifiable as historical provenance. GitHub versioning is not a persistent DOI archive, and the source-data DOI is not a DOI for this manuscript or code.
+
+## Funding
+
+This research received no external funding, as declared by the author.
+
+## Declaration of competing interests
+
+The author declares no competing interests.
+
+## Acknowledgements and use of AI tools
+
+The author acknowledges DHI and the Danish Meteorological Institute for making the source observations available. OpenAI ChatGPT/Codex assisted with literature discovery, coding, computation, verification and manuscript drafting. AI assistance is not independent human peer review. The named human author is responsible for reviewing the evidence and approving any submitted version; no statement of completed author approval is implied by this draft.
 
 ## References
 
-1. Yang, W., and Li, H. (2025). Machine Learning in Wastewater Treatment: A Comprehensive Bibliometric Review. *ACS ES&T Water*, 5, 511–524. [https://doi.org/10.1021/acsestwater.4c01047](https://doi.org/10.1021/acsestwater.4c01047).
+1. Yang, W., and Li, H. (2025). Machine Learning in Wastewater Treatment: A Comprehensive Bibliometric Review. *ACS ES&T Water*, 5, 511-524. [doi:10.1021/acsestwater.4c01047](https://doi.org/10.1021/acsestwater.4c01047).
 
-2. DHI (2025). *Inflow to a Waste Water Treatment Plant: observations and processed data*, version 1. Zenodo. [https://doi.org/10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164). Original modelling example: [DHI repository](https://github.com/DHI/WaterBench-TimeSeries-WWTPINflow), inspected commit 68cc22b5de3bbbc09c0bf63c6d5a9ef376d5fd6c; source data remain pinned to Zenodo v1.
+2. DHI (2025). *Inflow to a Waste Water Treatment Plant: observations and processed data*, version 1. Zenodo. [doi:10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164). Provider example: [WaterBench-TimeSeries-WWTPINflow](https://github.com/DHI/WaterBench-TimeSeries-WWTPINflow), inspected commit 68cc22b5de3bbbc09c0bf63c6d5a9ef376d5fd6c; data pinned to Zenodo v1.
 
-3. Sonnenschein, B., and Ziel, F. (2023). Probabilistic Intraday Wastewater Treatment Plant Inflow Forecast Utilizing Rain Forecast Data and Sewer Network Sensor Data. *Water Resources Research*, 59, e2022WR033826. [https://doi.org/10.1029/2022WR033826](https://doi.org/10.1029/2022WR033826).
+3. Sonnenschein, B., and Ziel, F. (2023). Probabilistic Intraday Wastewater Treatment Plant Inflow Forecast Utilizing Rain Forecast Data and Sewer Network Sensor Data. *Water Resources Research*, 59, e2022WR033826. [doi:10.1029/2022WR033826](https://doi.org/10.1029/2022WR033826).
 
-4. González Barberá, A., et al. (2025). Machine Learning-Based Forecasting of Wastewater Inflow During Rain Events at a Spanish Mediterranean Coastal WWTPs. *Water*, 17, 3225. [https://doi.org/10.3390/w17223225](https://doi.org/10.3390/w17223225). Complete author metadata is included in the accompanying bibliography.
+4. González Barberá, A., Iserte, S., Castillo, M., Luis-Gómez, J., Martínez-Cuenca, R., Monrós-Andreu, G., and Chiva, S. (2025). Machine Learning-Based Forecasting of Wastewater Inflow During Rain Events at a Spanish Mediterranean Coastal WWTPs. *Water*, 17, 3225. [doi:10.3390/w17223225](https://doi.org/10.3390/w17223225).
 
-5. Roberts, D. R., et al. (2017). Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. *Ecography*, 40, 913–929. [https://doi.org/10.1111/ecog.02881](https://doi.org/10.1111/ecog.02881). Complete author metadata is included in the accompanying bibliography.
+5. Pearson, N. A., Cairoli, F., Bortolussi, L., Russo, D., and Zanello, F. (2025). Diffusion-based Time Series Forecasting for Sewerage Systems. *arXiv:2506.08577*, version 1; accepted for presentation at the 13th Urban Drainage Modelling Conference. [doi:10.48550/arXiv.2506.08577](https://doi.org/10.48550/arXiv.2506.08577).
 
-6. Bøhn, E., Eidnes, S., and Jonassen, K. R. (2024). Machine learning in wastewater treatment: insights from modelling a pilot denitrification reactor. *arXiv preprint*, arXiv:2412.14030. [https://arxiv.org/abs/2412.14030](https://arxiv.org/abs/2412.14030).
+6. Lee, Jongyeop, and Lee, Jong Min (2026). Adaptive Conformal Prediction for Full-Scale Plant pH Forecasting under Process Drift. *Proceedings of the Fifteenth Symposium on Conformal and Probabilistic Prediction with Applications*, PMLR 329, 1043-1045. [Publisher record](https://proceedings.mlr.press/v329/lee26a.html).
 
-7. Xu, C., and Xie, Y. (2023). Sequential Predictive Conformal Inference for Time Series. *Proceedings of the 40th International Conference on Machine Learning*, PMLR 202, 38707–38727. [https://proceedings.mlr.press/v202/xu23r.html](https://proceedings.mlr.press/v202/xu23r.html).
+7. Roberts, D. R., Bahn, V., Ciuti, S., Boyce, M. S., Elith, J., Guillera-Arroita, G., Hauenstein, S., Lahoz-Monfort, J. J., Schröder, B., Thuiller, W., Warton, D. I., Wintle, B. A., Hartig, F., and Dormann, C. F. (2017). Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. *Ecography*, 40, 913-929. [doi:10.1111/ecog.02881](https://doi.org/10.1111/ecog.02881).
 
-## Open Science and Reproducibility
+8. Bøhn, E., Eidnes, S., and Jonassen, K. R. (2024). Machine learning in wastewater treatment: insights from modelling a pilot denitrification reactor. *arXiv:2412.14030*. [Author/version record](https://arxiv.org/abs/2412.14030). Version 1 published in December 2024; version 2 in June 2025.
 
-The analysis protocol was recorded before the initial model fits, but was not preregistered in an independent registry. All observed outcomes, preprocessing rules, parameter grids, predictions and negative findings are retained. The reproducibility package includes a clean-environment rerun, numerical comparison against the original results, source-data hashes and automated chronology and feature-causality checks. This computational reproduction is not independent scientific replication or external-site validation. Data remain subject to CC BY-NC 4.0; newly authored analysis code is MIT licensed. AI assistance was used for literature discovery, programming, analysis and manuscript drafting. The named author must review the work, verify all claims and take responsibility for the final submission.
+9. Xu, C., and Xie, Y. (2023). Sequential Predictive Conformal Inference for Time Series. *Proceedings of the 40th International Conference on Machine Learning*, PMLR 202, 38707-38727. [Publisher record](https://proceedings.mlr.press/v202/xu23r.html).
 
-## Figure captions
-
-**Figure 1.** Raw-derived hourly flow and rainfall with development/calibration/test boundaries. Gaps are retained; lines do not imply that every target window is eligible. File: `figures/01_data_timeline`.
-
-**Figure 2.** Twelve-hour MAE overall and in high-volume windows. “hgb_oracle” uses future observed rain and is diagnostic only. High volume is defined from the training-target 90th percentile; n=81 test windows. File: `figures/02_model_errors`.
-
-**Figure 3.** Pooled 90% residual-interval coverage overall, in wet states and in high-volume windows. The dashed line is nominal coverage, not an achieved guarantee. File: `figures/03_interval_coverage`.
-
-**Figure 4.** The first 14 days of test issue times, selected by date rather than prediction error, showing observed cumulative volume, historical HGB predictions and pooled residual intervals. File: `figures/04_test_example`.
-
-**Figure 5.** Historical-HGB group-shift sensitivity. Bars show mean MAE increase across 20 circular shifts; error bars show standard deviation across perturbations, not confidence intervals. File: `figures/05_feature_sensitivity`.
+10. Sonnenschein, B., and Ziel, F. (2022). *Wastewater Treatment Plant Inflow Rate, Network Water Levels and Rain Rate for Koeln Weiden, Germany*, version 1.0. Zenodo. [doi:10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694).

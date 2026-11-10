@@ -1,91 +1,302 @@
-# Wastewater inflow forecast audit - final revision v0.2.0
+# Configuration Sensitivity and Conditional Reliability in Wastewater Inflow Volume Forecasting: A Two-Site Open-Data Audit
 
-**Current manuscript:** [PDF](manuscript.pdf) · [editable Markdown](manuscript.md) · [release v0.2.0](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.2.0)
+**Viet Nam Tran**
+Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam
 
-Author: **Viet Nam Tran**, Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam.
+| Item | Detail |
+|:-----|:-------|
+| Version | v0.2.0 (10 November 2026) |
+| Code license | [MIT](LICENSE) |
+| Data licenses | [CC BY-NC 4.0 (Danish) / CC BY 4.0 (German)](DATA_LICENSE.md) |
+| Python | 3.11+ |
+| Reproduction | Deterministic, CI-verified |
 
-This is the final computational revision prepared for supervisor review on 10 November 2026. It is not a journal acceptance. It includes an independently sourced German-site evaluation with local refitting, not zero-shot model transfer or a prospective operational trial. All revised analyses are retrospective. The author must approve the scientific content and provide a correspondence email before submission.
+---
 
-## What changed
+## Overview
 
-The original v0.1.0 conclusion that a simple baseline outperformed historical HGB was sensitive to the restricted loss/calendar configuration. Development-only temporal selection in v0.2.0 gives primary 12-hour MAE of **2,280.1 m³** for historical HGB, **2,221.7 m³** for flow/calendar HGB, **3,406.6 m³** for the 24-hour mean and **1,402.3 m³** for a non-operational future-rainfall oracle. The legacy configuration is retained, not erased.
+This repository is the complete research compendium for an open-science study of 12-hour cumulative wastewater inflow forecasting. The work audits configuration sensitivity and prediction interval reliability across two independently sourced treatment plants: a Danish WWTP (anonymized, combined sewage) and the Koeln-Weiden plant in Germany.
 
-Three additional temporal tests, matched loss/calendar comparisons, exact residual quantiles, maturity-aware rolling calibration, fixed-length circular bootstrap sensitivities, episode diagnostics and delayed-input/no-screening refits are included. High-volume interval reliability remains weak; the target is an approximation of integrated archived flow rates, pending confirmation of hourly aggregation semantics.
+All analysis code, data download scripts, verification suites, manuscript sources and publication figures are included. Every numerical result in the manuscript can be reproduced from archived public data with a single sequence of commands, and the CI workflow verifies this on every push.
 
-## Download the complete study
+### Key findings
 
-[supplementary_v0.2.0.zip](supplementary_v0.2.0.zip) contains the source observations, executable scripts, full results, five figures in PNG/SVG/PDF, editable manuscript, reference metadata, protocol, original audit and revision response. Extract it before running. The archive root is a self-contained working directory. Its `MANIFEST_SHA256.json` records every packaged file except itself.
+- **Configuration sensitivity.** Loss function and annual predictor choices reversed the primary benchmark ranking among gradient boosting models, demonstrating that model comparisons on open data require configuration audits.
+- **Site-dependent meteorological value.** Historical rainfall improved forecast accuracy at the German site but not consistently across Danish temporal origins, indicating that meteorological predictor value cannot be assumed to transfer.
+- **Conditional reliability gap.** Nominal 90% prediction intervals achieved near-nominal aggregate coverage (83.7--92.6%) but covered only 21.0--39.3% of high-volume windows, revealing that aggregate coverage statistics mask hydraulic-tail risk.
+- **Rolling calibration trade-off.** Maturity-aware rolling residual calibration improved Danish aggregate coverage but reduced German coverage, suggesting that adaptive interval methods require site-specific evaluation.
+- **Exact computational reproduction.** 46 CSV tables (34 Danish + 12 German) are reproduced with maximum absolute numeric difference of 0.0 across two independent clean-environment runs.
 
-Root-level `manuscript.pdf` and `manuscript.md` are exact copies of `manuscript_FINAL.pdf` and `manuscript_FINAL.md` inside the supplement. Root scripts match their supplementary counterparts. [release_manifest.json](release_manifest.json) records SHA-256 hashes of the published files. GitHub's automatically generated source archive contains the repository; `supplementary_v0.2.0.zip` is the complete computational study.
+---
 
-## Reproduce the numerical results
+## Reproduction
 
-Use Python **3.11.9** for the closest match to the verified environment. From the extracted supplement directory:
+### Prerequisites
+
+- Python 3.11 or later
+- Internet access (for initial data download from Zenodo)
+- Approximately 200 MB disk space for source data and results
+
+### Step-by-step instructions
 
 ```bash
+# 1. Create and activate a virtual environment
 python -m venv .venv
-```
+# Windows:
+.venv\Scripts\activate
+# Linux / macOS:
+source .venv/bin/activate
 
-Activate it (`.venv\Scripts\activate` on Windows, or `source .venv/bin/activate` on macOS/Linux), then:
+# 2. Install pinned dependencies
+pip install -r requirements.txt
 
-```bash
-python -m pip install -r requirements.txt
+# 3. Download and verify Danish source data from Zenodo
 python download_data.py
-python run_analysis.py --output rerun_results
-python configuration_sensitivity.py --results rerun_results
-python bootstrap_diagnostic.py --output rerun_results/SYNTHETIC_bootstrap_diagnostic.csv
-python verify_results.py --results rerun_results --reference results
-python make_figures.py --results rerun_results --figures rerun_figures
+
+# 4. Run the main Danish analysis (produces 34 CSVs in results/)
+python run_analysis.py
+
+# 5. Verify Danish results against reference outputs
+python verify_results.py --reference results/
+
+# 6. Download German data and run external-site analysis (12 CSVs in external_results/)
+python external_site.py --download
+
+# 7. Verify German results
+python verify_external.py --results external_results/
+
+# 8. Render publication figures
+python make_figures.py --results results/ --figures figures/
+
+# 9. (Optional) Build the manuscript PDF and HTML
+pip install -r requirements-docs.txt
+python paper/build_paper.py paper/manuscript.md paper/manuscript.pdf
 ```
 
-`download_data.py` checks the pinned Zenodo metadata and MD5 values. It requires network access, but the verified source files are also included for an offline run; omit that command when using the bundled verified data. The analysis does not use `data/data.csv`, which is preserved solely as provider provenance.
+### Continuous integration
 
-The main analysis runs six scenarios, with 16 HGB candidates and three temporal folds for each learned information set. Runtime depends on hardware. All modelling is CPU-based; no GPU is needed. Outputs are deterministic in the tested Windows/Python environment. Other numerical libraries or platforms may differ slightly; the comparator uses relative tolerance 1e-10 and absolute tolerance 1e-8, and fails on missing, empty, changed-schema or mismatched files. Do not overwrite the reference results before comparison. Do not use `--make-reference` on your rerun.
+The GitHub Actions workflow ([`.github/workflows/reproduce.yml`](.github/workflows/reproduce.yml)) executes the Danish analysis pipeline on every push, pull request and manual dispatch. It installs dependencies from the clean-environment lock file, downloads data, runs the analysis, verifies outputs and uploads the reproduced results as a build artifact.
 
-## External-site extension
+### Verification
 
-The final paper additionally evaluates **6,588 German test windows** and **700 high-volume windows in 41 threshold episodes**. Flow/rain HGB MAE was **1,661.9 m³** versus **3,293.1 m³** for the 24-hour mean. Historical rain improved accuracy in Germany, while rolling calibration deteriorated there. These findings prevent universal claims based on the Danish site alone. All **12 external CSV tables** reproduced exactly, so the two numerical comparisons cover **46 CSV tables in total**, each with maximum absolute difference 0.0.
+The verification suite performs the following checks:
 
-From the complete extracted supplement:
+- Byte-level comparison of all CSV outputs against reference tables
+- SHA-256 checksum validation of downloaded source archives
+- Structural integrity checks (row counts, column names, data types)
+- Numeric difference tolerance of exactly 0.0 (no floating-point drift)
+- Fail-closed design: missing files, empty baselines or any numeric discrepancy cause hard failure
 
-```bash
-python external_site.py --output external_rerun --download
-python verify_external.py --results external_rerun --reference external_results
+See [`reproduction.json`](reproduction.json) for the full machine-readable audit log.
+
+---
+
+## Repository Structure
+
+```
+.
+├── README.md                        # This file
+├── LICENSE                          # MIT (code only)
+├── DATA_LICENSE.md                  # Data licensing terms
+├── CITATION.cff                     # Machine-readable citation
+├── CHANGELOG.md                     # Version history
+├── PROTOCOL.md                      # Pre-analysis protocol
+├── requirements.txt                 # Pinned dependencies
+├── requirements-clean-lock.txt      # Clean-environment lock
+├── SHA256SUMS.txt                   # File integrity checksums
+├── reproduction.json                # Reproduction audit log
+├── supplementary_v0.2.0.zip         # Complete release archive
+│
+├── paper/                           # Manuscript
+│   ├── manuscript.md                #   Markdown source (v0.2.0)
+│   ├── manuscript.pdf               #   Rendered PDF
+│   ├── manuscript.html              #   Rendered HTML
+│   ├── references.bib               #   BibTeX references
+│   └── build_paper.py               #   PDF/HTML renderer
+│
+├── figures/                         # Publication figures
+│   ├── Figure_1_timeline.*          #   Data timeline and partitions
+│   ├── Figure_2_primary_accuracy.*  #   Primary accuracy comparison
+│   ├── Figure_3_temporal_origins.*  #   Temporal origin sensitivity
+│   ├── Figure_4_interval_reliability.* # Interval coverage analysis
+│   └── Figure_5_episodes.*          #   High-volume episode diagnostics
+│
+├── data/                            # Danish source data (downloaded via script)
+├── external_data/                   # German source data (downloaded via script)
+│
+├── results/                         # Main Danish analysis outputs (34 CSVs)
+├── external_results/                # German site outputs (12 CSVs)
+│
+├── sources/                         # Data provenance metadata
+├── verification/                    # Reproduction verification
+│
+├── docs/                            # Extended documentation
+│   ├── PROTOCOL_v0.2.0.md           #   Version-stamped protocol
+│   ├── PROTOCOL_DEVIATIONS.md       #   Protocol deviations register
+│   ├── EXTERNAL_SITE_PROTOCOL.md    #   German site protocol
+│   ├── RESPONSE_TO_AUDIT_VI.md      #   Response to audit findings
+│   ├── LIMITATIONS_RESOLVED_VI.md   #   Resolved limitations
+│   ├── LITERATURE_MATRIX.md         #   Literature comparison matrix
+│   ├── SUPERVISOR_NOTE_VI.md        #   Supervisor note
+│   ├── audit_resolution_register.csv#   Audit resolution register
+│   └── claim_evidence_map.csv       #   Claim-to-evidence map
+│
+├── run_analysis.py                  # Main Danish analysis
+├── external_site.py                 # German site analysis
+├── download_data.py                 # Data downloader with checksum verification
+├── make_figures.py                  # Figure renderer
+├── verify_results.py                # Main verification suite
+├── verify_external.py               # German verification suite
+├── compare_reproduction.py          # Cross-run comparator
+├── bootstrap_diagnostic.py          # Synthetic bootstrap validation
+├── configuration_sensitivity.py     # Loss/annual sensitivity analysis
+│
+└── .github/workflows/reproduce.yml  # CI reproduction workflow
 ```
 
-Omit `--download` for offline use of the bundled checksum-verified German source. The source uses L/s and mm/min at quarter-hour resolution; aggregation is right-closed and causal. Its uniform archive clock is not asserted to be UTC. See `EXTERNAL_SITE_PROTOCOL.md`, `external_results/external_source_audit.json`, and `LIMITATIONS_RESOLVED_VI.md`.
+---
 
-## Render the manuscript
+## Data Provenance
 
-The text, tables and claim-to-evidence map are generated from the published reference results. PDF/HTML authoring has a separate dependency:
+This study uses two independently archived public datasets. Source data are not redistributed; they are downloaded at analysis time with checksum verification.
 
-```bash
-python -m pip install -r requirements-docs.txt
-python write_manuscript.py
-python build_paper.py
+### Danish WWTP
+
+| Field | Value |
+|:------|:------|
+| Source | DHI, *Inflow to a Waste Water Treatment Plant: observations and processed data* |
+| DOI | [10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164) |
+| License | CC BY-NC 4.0 |
+| Records | 9,868 hourly flow observations; meteorological variables from the Danish Meteorological Institute |
+| Period | November 2023 -- February 2025 |
+| Download | `python download_data.py` |
+
+### Koeln-Weiden, Germany
+
+| Field | Value |
+|:------|:------|
+| Source | Sonnenschein, B. and Ziel, F. (2022), *Wastewater Treatment Plant Inflow Rate, Network Water Levels and Rain Rate for Koeln Weiden, Germany* |
+| DOI | [10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694) |
+| License | CC BY 4.0 |
+| Period | 2017--2019 |
+| Download | `python external_site.py --download` |
+
+Both datasets are accessed via Zenodo and verified against provider checksums. The Danish CC BY-NC 4.0 restriction does not relicense the independent German source. Users must respect both datasets' distinct license conditions. See [`DATA_LICENSE.md`](DATA_LICENSE.md) for full terms.
+
+---
+
+## Figures
+
+All figures are generated deterministically from the analysis outputs and are available in PDF, PNG and SVG formats in the [`figures/`](figures/) directory.
+
+| Figure | Description |
+|:-------|:------------|
+| Figure 1 | Data timeline, partitions and temporal origins |
+| Figure 2 | Primary 12-hour accuracy: model comparison with bootstrap intervals |
+| Figure 3 | Temporal origin sensitivity across three non-overlapping test periods |
+| Figure 4 | Prediction interval reliability: aggregate versus high-volume coverage |
+| Figure 5 | High-volume episode diagnostics and leave-one-episode-out analysis |
+
+---
+
+## Methods Summary
+
+- **Target variable.** 12-hour cumulative inflow volume approximated by trapezoidal integration of hourly flow-rate observations.
+- **Models.** Persistence, 24-hour mean, previous-day profile; ridge regression; histogram-based gradient boosting (HGB) with flow/calendar, flow/calendar/weather and oracle-rain information sets.
+- **Validation.** Development-only temporal cross-validation with three expanding folds. Primary elapsed-time 60/20/20 partitions; three non-overlapping 60-day test periods for temporal robustness.
+- **Hyperparameter grid.** Loss (squared error, absolute error), annual sine/cosine (included, removed), max leaf nodes (7, 15), L2 regularization (1, 10). Selection by development MAE only.
+- **Prediction intervals.** Finite-sample residual order statistic at nominal 90%. Pooled static, wet/dry stratified and 30-calendar-day rolling calibration with maturity-aware residual eligibility.
+- **Uncertainty.** Circular fixed-length block bootstrap (B = 24/48/168 hours, 2,000 resamples). Results are labeled as approximate bootstrap sensitivity intervals, not confirmatory confidence guarantees.
+- **Episode analysis.** Training 90th-percentile outcome-tail threshold; contiguous high-volume episodes; leave-one-episode-out and non-overlapping phase diagnostics.
+
+The full pre-analysis protocol is documented in [`PROTOCOL.md`](PROTOCOL.md). Protocol deviations are registered in [`docs/PROTOCOL_DEVIATIONS.md`](docs/PROTOCOL_DEVIATIONS.md).
+
+---
+
+## Citation
+
+If you use this code or findings, please cite the versioned research compendium and the relevant source-data DOIs.
+
+### BibTeX
+
+```bibtex
+@software{tran2026wastewater,
+  author       = {Tran, Viet Nam},
+  title        = {Configuration sensitivity and conditional reliability
+                  in wastewater inflow volume forecasting:
+                  a two-site open-data audit},
+  version      = {0.2.0},
+  date         = {2026-11-10},
+  url          = {https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science},
+  license      = {MIT}
+}
 ```
 
-These commands regenerate `manuscript_FINAL.md`, `manuscript_FINAL.pdf` and `manuscript_FINAL.html`. They do not silently substitute a rerun's results for the versioned reference dataset. Fonts come from matplotlib; no Windows font paths or Microsoft Office installation are required. `make_figures.py` generates PNG, SVG and PDF assets.
+### CITATION.cff
 
-## Executed verification
+A machine-readable citation file is provided at [`CITATION.cff`](CITATION.cff) for automated citation tools (GitHub "Cite this repository", Zenodo, CFF converters).
 
-A newly created Python 3.11.9 environment installed the locked dependencies and reran the complete analysis, the matched diagnostic and the explicitly synthetic bootstrap experiment. **34 registered CSV files reproduced; maximum absolute numerical difference = 0.0.** See [reproduction.json](reproduction.json) and `results/verification.json` inside the supplement. Automated checks reconstructed 19,618 targets and recomputed all reported main metrics and interval arrays. Six intentionally invalid reference comparisons were rejected. This is computational reproduction by the same workflow, not independent human peer review. The external extension is a separate-site methodological replication with locally refitted models.
+### Data citations
 
-The manuscript PDF was rendered and visually reviewed across all 16 pages; table captions remain attached to tables. `claim_evidence_map.csv` links each result group to its source tables.
+- DHI (2025). *Inflow to a Waste Water Treatment Plant.* Zenodo. [https://doi.org/10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164)
+- Sonnenschein, B. and Ziel, F. (2022). *Wastewater Treatment Plant Inflow Rate, Network Water Levels and Rain Rate for Koeln Weiden, Germany.* Zenodo. [https://doi.org/10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694)
 
-## Data, licenses and limitations
+---
 
-Source: DHI (2025), *Inflow to a Waste Water Treatment Plant: observations and processed data*, v1, [DOI 10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164). Plant data are attributed to DHI and meteorological data to DMI. Zenodo metadata records **CC BY-NC 4.0**. Danish derived data retain source attribution and applicable non-commercial conditions. German observations are separately licensed CC BY 4.0 by Sonnenschein and Ziel, DOI [10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694). Newly authored Python code is **MIT** licensed; this does not relicense source data or third-party articles. See `DATA_LICENSE.md`.
+## Licensing
 
-The Danish source covers one anonymized plant; a second source covers Köln-Weiden, Germany, in 2017-2019. There are five Danish and 41 German high-volume threshold episodes. The study still lacks independently confirmed sensor aggregation/actual latency and operational control/effluent/energy endpoints. Both sites use overlapping issue windows; models are refitted locally. We make no Q1/Q2 acceptance claim, guaranteed coverage claim, causal treatment-benefit claim or code DOI claim. The source-data DOI is not a DOI for this study.
+This repository uses a dual licensing model.
 
-## Review and provenance
+| Component | License | File |
+|:----------|:--------|:-----|
+| Analysis code (Python scripts) | MIT | [`LICENSE`](LICENSE) |
+| Danish source data | CC BY-NC 4.0 | [Zenodo record](https://doi.org/10.5281/zenodo.15301164) |
+| German source data | CC BY 4.0 | [Zenodo record](https://doi.org/10.5281/zenodo.6992694) |
 
-- [Response to all 19 audit findings](RESPONSE_TO_AUDIT_VI.md)
-- [Note for the supervisor](SUPERVISOR_NOTE_VI.md)
-- [Changes and remaining limitations](CHANGELOG.md)
-- [Revision protocol](PROTOCOL_v0.2.0.md) and [deviations](PROTOCOL_DEVIATIONS.md)
-- [Literature and novelty matrix](LITERATURE_MATRIX.md)
-- [CITATION.cff](CITATION.cff)
+The MIT license applies exclusively to newly authored Python scripts. Source datasets, third-party publications and provider metadata retain their original rights. See [`DATA_LICENSE.md`](DATA_LICENSE.md) for complete data licensing terms and attribution requirements.
 
-The [v0.1.0 release](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.1.0) is retained as historical provenance. Its numerical claims and access-status notes describe the earlier version and should not be used as the current manuscript. This repository was made public by its owner before the final revision. AI assisted literature discovery, computation, verification and drafting; human author approval remains necessary.
+---
+
+## Known Limitations and Future Work
+
+The following limitations are documented in the manuscript and the [CHANGELOG](CHANGELOG.md):
+
+- **Scale.** Two treatment plants. Generalization to other catchments, climates and sewer configurations is not established.
+- **Retrospective design.** All analyses are retrospective. Neither site was independently preregistered. The Danish revision was formulated after original results had been examined.
+- **No operational trial.** No prospective deployment, real-time weather forecasts, treatment-outcome measurements or plant-control integration was conducted.
+- **Temporal overlap.** High-volume episodes in the Danish data are few and partially overlapping; statistical independence cannot be claimed.
+- **Aggregation semantics.** Hourly flow-rate integration approximates cumulative volume. Actual sensor latency, aggregation method and measurement uncertainty are not documented by the data providers.
+- **Transfer.** German models were refitted locally. Zero-shot cross-site transfer was not evaluated.
+
+Future work should include prospective operational trials with real-time weather forecasts, additional sites spanning diverse climates and sewer types, integration with treatment process models and storage optimization, and formal evaluation of sensor latency and aggregation effects.
+
+---
+
+## Extended Documentation
+
+| Document | Description |
+|:---------|:------------|
+| [`PROTOCOL.md`](PROTOCOL.md) | Pre-analysis protocol (current version) |
+| [`docs/PROTOCOL_v0.2.0.md`](docs/PROTOCOL_v0.2.0.md) | Version-stamped protocol snapshot |
+| [`docs/PROTOCOL_DEVIATIONS.md`](docs/PROTOCOL_DEVIATIONS.md) | Registered deviations from the protocol |
+| [`docs/EXTERNAL_SITE_PROTOCOL.md`](docs/EXTERNAL_SITE_PROTOCOL.md) | German site analysis protocol |
+| [`docs/RESPONSE_TO_AUDIT_VI.md`](docs/RESPONSE_TO_AUDIT_VI.md) | Response to audit findings |
+| [`docs/LIMITATIONS_RESOLVED_VI.md`](docs/LIMITATIONS_RESOLVED_VI.md) | Resolved limitations register |
+| [`docs/LITERATURE_MATRIX.md`](docs/LITERATURE_MATRIX.md) | Literature comparison matrix |
+| [`docs/SUPERVISOR_NOTE_VI.md`](docs/SUPERVISOR_NOTE_VI.md) | Supervisor note |
+| [`docs/claim_evidence_map.csv`](docs/claim_evidence_map.csv) | Claim-to-evidence traceability |
+| [`docs/audit_resolution_register.csv`](docs/audit_resolution_register.csv) | Audit resolution register |
+
+---
+
+## Acknowledgements
+
+The author acknowledges DHI and the Danish Meteorological Institute for the Danish WWTP and meteorological observations, and Sonnenschein and Ziel for the Koeln-Weiden wastewater and rainfall data. Both datasets were made publicly available under open licenses via Zenodo.
+
+This work was conducted at the Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam. No external funding was received. The author declares no conflicts of interest.
+
+AI-assisted tools were used during code development and manuscript preparation. All scientific decisions, analysis design, interpretation and responsibility for correctness remain with the human author. Full AI disclosure is provided in the manuscript.
+
+---
+
+*This repository follows open-science principles including FAIR data practices, computational reproducibility and transparent reporting. Version history is maintained in [`CHANGELOG.md`](CHANGELOG.md).*

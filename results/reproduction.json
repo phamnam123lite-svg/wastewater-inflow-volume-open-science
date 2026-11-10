@@ -1,0 +1,210 @@
+{
+  "status": "PASS",
+  "files_compared": 34,
+  "tables": [
+    {
+      "file": "SYNTHETIC_bootstrap_diagnostic.csv",
+      "rows": 3,
+      "columns": 9,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bootstrap.csv",
+      "rows": 144,
+      "columns": 7,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bounds_origin_2024-08-15.csv",
+      "rows": 43494,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bounds_origin_2024-10-15.csv",
+      "rows": 44715,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bounds_origin_2024-12-15.csv",
+      "rows": 45705,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bounds_primary_12h.csv",
+      "rows": 71280,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bounds_primary_24h.csv",
+      "rows": 70092,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "bounds_primary_6h.csv",
+      "rows": 71874,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "calibration_origin_2024-08-15.csv",
+      "rows": 834,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "calibration_origin_2024-10-15.csv",
+      "rows": 995,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "calibration_origin_2024-12-15.csv",
+      "rows": 1032,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "calibration_primary_12h.csv",
+      "rows": 2089,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "calibration_primary_24h.csv",
+      "rows": 2029,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "calibration_primary_6h.csv",
+      "rows": 2119,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "cleaned_hourly.csv",
+      "rows": 11257,
+      "columns": 11,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "configuration_calibration.csv",
+      "rows": 8356,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "configuration_predictions.csv",
+      "rows": 8640,
+      "columns": 7,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "configuration_sensitivity.csv",
+      "rows": 4,
+      "columns": 11,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "cv_folds.csv",
+      "rows": 18,
+      "columns": 7,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "cv_scores.csv",
+      "rows": 918,
+      "columns": 7,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "episodes.csv",
+      "rows": 72,
+      "columns": 8,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "intervals.csv",
+      "rows": 792,
+      "columns": 10,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "leave_one_episode_out.csv",
+      "rows": 69,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "metrics.csv",
+      "rows": 264,
+      "columns": 10,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "nonoverlap.csv",
+      "rows": 234,
+      "columns": 8,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "predictions_origin_2024-08-15.csv",
+      "rows": 1318,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "predictions_origin_2024-10-15.csv",
+      "rows": 1355,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "predictions_origin_2024-12-15.csv",
+      "rows": 1385,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "predictions_primary_12h.csv",
+      "rows": 2160,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "predictions_primary_24h.csv",
+      "rows": 2124,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "predictions_primary_6h.csv",
+      "rows": 2178,
+      "columns": 15,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "sensitivity.csv",
+      "rows": 12,
+      "columns": 12,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "sensitivity_predictions.csv",
+      "rows": 25902,
+      "columns": 7,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "splits.csv",
+      "rows": 18,
+      "columns": 11,
+      "maximum_absolute_numeric_difference": 0.0
+    }
+  ]
+}
