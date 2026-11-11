@@ -9,7 +9,7 @@
   "clock": "Archive clock; not asserted UTC",
   "reproduction": {
     "status": "PASS",
-    "files_compared": 12,
+    "files_compared": 13,
     "tables": [
       {
         "file": "external_bootstrap.csv",
@@ -45,6 +45,12 @@
         "file": "external_episodes.csv",
         "rows": 164,
         "columns": 6,
+        "maximum_absolute_numeric_difference": 0.0
+      },
+      {
+        "file": "external_forecast_high_coverage.csv",
+        "rows": 9,
+        "columns": 8,
         "maximum_absolute_numeric_difference": 0.0
       },
       {

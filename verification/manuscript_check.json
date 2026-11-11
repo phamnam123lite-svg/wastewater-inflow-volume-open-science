@@ -98,6 +98,126 @@
       "rendered": "6,588",
       "value": 6588.0,
       "source": "results/germany/external_splits.csv:test"
+    },
+    {
+      "rendered": "35 ",
+      "value": 35.0,
+      "source": "results/denmark/forecast_high_coverage.csv:hgb_history/n_forecast_high"
+    },
+    {
+      "rendered": "37.1%",
+      "value": 37.14285714285714,
+      "source": "results/denmark/forecast_high_coverage.csv:hgb_history/pooled"
+    },
+    {
+      "rendered": "62.9%",
+      "value": 62.857142857142854,
+      "source": "results/denmark/forecast_high_coverage.csv:hgb_history/wet_dry"
+    },
+    {
+      "rendered": "60.0%",
+      "value": 60.0,
+      "source": "results/denmark/forecast_high_coverage.csv:hgb_history/rolling30d"
+    },
+    {
+      "rendered": "88 ",
+      "value": 88.0,
+      "source": "results/denmark/forecast_high_coverage.csv:mean24/n_forecast_high"
+    },
+    {
+      "rendered": "27.3%",
+      "value": 27.27272727272727,
+      "source": "results/denmark/forecast_high_coverage.csv:mean24/pooled"
+    },
+    {
+      "rendered": "39.8%",
+      "value": 39.77272727272727,
+      "source": "results/denmark/forecast_high_coverage.csv:mean24/wet_dry"
+    },
+    {
+      "rendered": "44.3%",
+      "value": 44.31818181818182,
+      "source": "results/denmark/forecast_high_coverage.csv:mean24/rolling30d"
+    },
+    {
+      "rendered": "366 ",
+      "value": 366.0,
+      "source": "results/germany/external_forecast_high_coverage.csv:hgb_rain/n_forecast_high"
+    },
+    {
+      "rendered": "74.0%",
+      "value": 74.04371584699454,
+      "source": "results/germany/external_forecast_high_coverage.csv:hgb_rain/pooled"
+    },
+    {
+      "rendered": "88.5%",
+      "value": 88.52459016393442,
+      "source": "results/germany/external_forecast_high_coverage.csv:hgb_rain/wet_dry"
+    },
+    {
+      "rendered": "56.8%",
+      "value": 56.830601092896174,
+      "source": "results/germany/external_forecast_high_coverage.csv:hgb_rain/rolling30d"
+    },
+    {
+      "rendered": "2,987.2",
+      "value": 2987.241987389695,
+      "source": "results/denmark/metrics.csv:origin_2024-08-15/all/fixed_flow"
+    },
+    {
+      "rendered": "2,898.6",
+      "value": 2898.6482599471087,
+      "source": "results/denmark/metrics.csv:origin_2024-08-15/all/fixed_history"
+    },
+    {
+      "rendered": "2,680.1",
+      "value": 2680.1395388847573,
+      "source": "results/denmark/metrics.csv:origin_2024-10-15/all/fixed_flow"
+    },
+    {
+      "rendered": "2,666.2",
+      "value": 2666.2446884920505,
+      "source": "results/denmark/metrics.csv:origin_2024-10-15/all/fixed_history"
+    },
+    {
+      "rendered": "2,554.6",
+      "value": 2554.559014419132,
+      "source": "results/denmark/metrics.csv:origin_2024-12-15/all/fixed_flow"
+    },
+    {
+      "rendered": "2,393.1",
+      "value": 2393.0644169372995,
+      "source": "results/denmark/metrics.csv:origin_2024-12-15/all/fixed_history"
+    },
+    {
+      "rendered": "leave 16 near-constant",
+      "value": 16.0,
+      "source": "results/denmark/cleaned_hourly.csv:flat-window stretches"
+    },
+    {
+      "rendered": "changed 10 of the 24 Danish",
+      "value": 10.0,
+      "source": "results/version_sensitivity/selected_parameters.json"
+    },
+    {
+      "rendered": "2,278.9",
+      "value": 2278.856738571145,
+      "source": "results/version_sensitivity:primary_12h/hgb_history"
+    },
+    {
+      "rendered": "1,630.7",
+      "value": 1630.694332667334,
+      "source": "results/version_sensitivity:external/hgb_rain"
+    },
+    {
+      "rendered": "9,502.2",
+      "value": 9502.174019305594,
+      "source": "results/version_sensitivity:primary_24h/hgb_flow"
+    },
+    {
+      "rendered": "-126.6",
+      "value": -126.57281166742314,
+      "source": "results/version_sensitivity:fixed_history-fixed_flow"
     }
   ],
   "referenced_figures": 5,

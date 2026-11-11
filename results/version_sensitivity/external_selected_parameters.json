@@ -1,0 +1,20 @@
+{
+  "hgb_flow": {
+    "annual__include_annual": false,
+    "model__l2_regularization": 1.0,
+    "model__loss": "absolute_error",
+    "model__max_leaf_nodes": 7
+  },
+  "hgb_rain": {
+    "annual__include_annual": false,
+    "model__l2_regularization": 10.0,
+    "model__loss": "absolute_error",
+    "model__max_leaf_nodes": 15
+  },
+  "hgb_oracle": {
+    "annual__include_annual": false,
+    "model__l2_regularization": 1.0,
+    "model__loss": "absolute_error",
+    "model__max_leaf_nodes": 15
+  }
+}

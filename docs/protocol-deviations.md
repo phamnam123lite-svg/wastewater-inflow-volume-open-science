@@ -10,6 +10,10 @@ The explicitly synthetic AR(1) diagnostic used 200 Monte Carlo series per coeffi
 
 First-run outputs became the registered reference only after checks passed. The complete pipeline was independently re-executed computationally in a newly created environment; 34 registered CSV files matched with maximum absolute difference 0.0. It was the same code and dataset, not an independent implementation or site. Reproduction reports and environment metadata are in `verification/`.
 
+## Analyses added after review
+
+Two exploratory analyses were added after all results had been examined. Coverage was computed for windows whose forecast exceeds the development high-volume threshold, because the outcome-defined subgroup selects large errors by construction (`src/forecast_high_coverage.py`). The complete pipeline was also rerun with newer library versions to measure software sensitivity (`results/version_sensitivity/`). Neither analysis changed the models, splits, thresholds or registered results.
+
 ## External-site extension
 
 `protocol-external-site.md` was recorded before loading the German measurement CSV and before computing its errors, after the Danish revision was complete. The observed source has a naive uniform clock; we retained it rather than asserting UTC. Right-closed hourly aggregation of four quarter-hour samples prevents future measurement use. The separately downloaded radar forecast was not modelled because the numbered columns and operational 12-hour availability could not be verified. Existing sewer-level columns were not added to the matched flow/rain comparison. All planned 12-hour external models and residual-calibration comparisons were executed and saved.

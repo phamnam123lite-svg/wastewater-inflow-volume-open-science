@@ -3,8 +3,9 @@
     python reproduce.py --output reproduced
 
 The output directory must not exist yet. The reference results in results/ are never modified.
-Steps: Danish analysis, configuration and synthetic diagnostics, Danish checks, German analysis,
-German checks, figures, and the manuscript check (tables, key numbers and pixel-identical figures).
+Steps: Danish analysis, configuration and synthetic diagnostics, forecast-conditioned coverage, Danish
+checks, German analysis and checks, figures, the manuscript check (tables, key numbers and pixel-identical
+figures) and an independent re-computation from the raw data that shares no code with src/run_analysis.py.
 """
 from pathlib import Path
 import argparse, hashlib, importlib.metadata, json, os, platform, subprocess, sys, time
@@ -37,13 +38,17 @@ def main(output):
     commands=[[src/'run_analysis.py','--output',dk],
       [src/'configuration_sensitivity.py','--results',dk],
       [src/'bootstrap_diagnostic.py','--output',dk/'SYNTHETIC_bootstrap_diagnostic.csv'],
+      [src/'forecast_high_coverage.py','--results',dk,'--site','denmark'],
       [src/'verify_results.py','--results',dk,'--reference',ROOT/'results'/'denmark'],
       [src/'external_site.py','--output',de],
+      [src/'forecast_high_coverage.py','--results',de,'--site','germany'],
       [src/'verify_external.py','--results',de,'--reference',ROOT/'results'/'germany'],
       [src/'make_figures.py','--results',dk,'--figures',output/'figures'],
-      [src/'check_manuscript.py','--results',dk,'--external',de,'--report',output/'manuscript_check.json']]
+      [src/'check_manuscript.py','--results',dk,'--external',de,'--report',output/'manuscript_check.json'],
+      [src/'independent_check.py','--denmark',dk,'--germany',de,'--report',output/'independent_check.json']]
     for i,cmd in enumerate(commands,1):
-        name=Path(cmd[0]).stem;print(f'[{i}/{len(commands)}] '+name,flush=True);begin=time.time()
+        name=Path(cmd[0]).stem+('_'+cmd[-1] if Path(cmd[0]).stem=='forecast_high_coverage' else '')
+        print(f'[{i}/{len(commands)}] '+name,flush=True);begin=time.time()
         with (output/f'{i:02d}_{name}.log').open('w',encoding='utf8') as log:
             result=subprocess.run([sys.executable,'-B',*map(str,cmd)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,
                                   env={**os.environ,'PYTHONUTF8':'1','MPLBACKEND':'Agg'})
@@ -53,9 +58,11 @@ def main(output):
     reports=[json.loads((d/'reproduction.json').read_text()) for d in [dk,de]]
     tables=[row for report in reports for row in report['tables']]
     figures=json.loads((output/'manuscript_check.json').read_text())['pixel_identical_rerun_figures']
+    independent=json.loads((output/'independent_check.json').read_text())['summary']
     report={'status':'PASS','csv_files_compared':len(tables),'denmark_csv_files':len(reports[0]['tables']),'germany_csv_files':len(reports[1]['tables']),
             'maximum_absolute_numeric_difference':max(t['maximum_absolute_numeric_difference'] for t in tables),
-            'tolerance':{'rtol':1e-10,'atol':1e-8},'pixel_identical_figures':figures,'seconds':round(time.time()-started,1),
+            'tolerance':{'rtol':1e-10,'atol':1e-8},'pixel_identical_figures':figures,
+            'independent_checks_passed':f"{independent['passed']}/{independent['checks']}",'seconds':round(time.time()-started,1),
             'python':platform.python_version(),'platform':platform.platform(),
             'packages':{p:importlib.metadata.version(p) for p in PACKAGES},'source_checksums':input_check()}
     (output/'summary.json').write_text(json.dumps(report,indent=2));print(json.dumps(report,indent=2))

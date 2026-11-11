@@ -12,7 +12,9 @@ render_qa/
 data/denmark/*.zip
 data/denmark/data.csv
 
-# Operating-system files
+# Office/WPS lock files and operating-system files
+~$*
+.~lock.*#
 Thumbs.db
 .DS_Store
 desktop.ini

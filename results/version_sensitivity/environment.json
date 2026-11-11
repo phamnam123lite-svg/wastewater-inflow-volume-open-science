@@ -1,0 +1,15 @@
+{
+  "description": "Complete rerun of the same code and data with newer library versions (not the pinned environment). Produced by: python reproduce.py --output <dir>; the reference comparison then fails as expected, and these files are copied from the rerun.",
+  "python": "3.13.18",
+  "platform": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0"
+  },
+  "tzdata_python_package": "not installed (system time-zone database used)"
+}

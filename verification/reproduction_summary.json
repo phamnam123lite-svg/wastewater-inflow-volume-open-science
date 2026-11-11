@@ -1,15 +1,16 @@
 {
   "status": "PASS",
-  "csv_files_compared": 46,
-  "denmark_csv_files": 34,
-  "germany_csv_files": 12,
+  "csv_files_compared": 48,
+  "denmark_csv_files": 35,
+  "germany_csv_files": 13,
   "maximum_absolute_numeric_difference": 0.0,
   "tolerance": {
     "rtol": 1e-10,
     "atol": 1e-08
   },
   "pixel_identical_figures": 5,
-  "seconds": 486.3,
+  "independent_checks_passed": "202/202",
+  "seconds": 470.4,
   "python": "3.11.9",
   "platform": "Windows-10-10.0.26300-SP0",
   "packages": {

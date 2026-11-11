@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "files_compared": 34,
+  "files_compared": 35,
   "tables": [
     {
       "file": "SYNTHETIC_bootstrap_diagnostic.csv",
@@ -125,6 +125,12 @@
     {
       "file": "episodes.csv",
       "rows": 72,
+      "columns": 8,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "forecast_high_coverage.csv",
+      "rows": 9,
       "columns": 8,
       "maximum_absolute_numeric_difference": 0.0
     },

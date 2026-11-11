@@ -1,0 +1,140 @@
+{
+  "origin_2024-08-15": {
+    "hgb_flow": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_history": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_oracle": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "squared_error",
+      "model__max_leaf_nodes": 15
+    },
+    "ridge_history": {
+      "model__alpha": 100.0
+    }
+  },
+  "origin_2024-10-15": {
+    "hgb_flow": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_history": {
+      "annual__include_annual": true,
+      "model__l2_regularization": 10.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_oracle": {
+      "annual__include_annual": true,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 15
+    },
+    "ridge_history": {
+      "model__alpha": 10000.0
+    }
+  },
+  "origin_2024-12-15": {
+    "hgb_flow": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_history": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 10.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_oracle": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "ridge_history": {
+      "model__alpha": 10000.0
+    }
+  },
+  "primary_12h": {
+    "hgb_flow": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 10.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_history": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 10.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_oracle": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "squared_error",
+      "model__max_leaf_nodes": 7
+    },
+    "ridge_history": {
+      "model__alpha": 10000.0
+    }
+  },
+  "primary_24h": {
+    "hgb_flow": {
+      "annual__include_annual": true,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_history": {
+      "annual__include_annual": true,
+      "model__l2_regularization": 10.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_oracle": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 10.0,
+      "model__loss": "squared_error",
+      "model__max_leaf_nodes": 7
+    },
+    "ridge_history": {
+      "model__alpha": 10000.0
+    }
+  },
+  "primary_6h": {
+    "hgb_flow": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 15
+    },
+    "hgb_history": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "hgb_oracle": {
+      "annual__include_annual": false,
+      "model__l2_regularization": 1.0,
+      "model__loss": "absolute_error",
+      "model__max_leaf_nodes": 7
+    },
+    "ridge_history": {
+      "model__alpha": 10000.0
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "source_sha256": "f2e21f41637af8aee712df607da3dec02004cdfc3c888189198b28c5f80777fe",
-  "docx_sha256": "8aeaa80a2c1d00b0511b57faf87f7f599e974e880c10b1dc6e2f5dc54be0e1f9",
+  "source_sha256": "680500b542fedcb32019d143b81c33e113f4ed26b58d37703a7e3ea375c38121",
+  "docx_sha256": "ba233ce3796053e4794b84da3a5622ed713f2503715f0e425803040a3a443add",
   "tables": 4,
   "figures": 5,
   "native_equations": 1,
   "author": "Viet Nam Tran",
-  "pdf_sha256": "a6bace84f62d1a6e0625e9839dd0f592175405c0166d55086b0078e6109e90b6",
+  "pdf_sha256": "30830e82f7699fd26eba456bcdf46fe819ff463fe2845019ceb39bbfd13ae27a",
   "pdf_renderer": "LibreOffice 24.2.7.2 420(Build:2)",
   "pdf_note": "Convenience rendering of manuscript.docx; the DOCX is the review document."
 }

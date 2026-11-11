@@ -6,10 +6,11 @@ authors:
   - family-names: "Tran"
     given-names: "Viet Nam"
     affiliation: "Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam"
-version: 0.2.2
+    email: "nampham123ntt@gmail.com"
+version: 0.2.3
 date-released: 2026-11-11
 repository-code: "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science"
-url: "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.2.2"
+url: "https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.2.3"
 license: MIT
 keywords:
   - wastewater inflow

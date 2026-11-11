@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.2.3] - 2026-11-11
+
+### Added
+- Interval coverage for high-volume windows defined by the forecast, which is known at issue time (`src/forecast_high_coverage.py`; two registered CSV files, now 48 in total).
+- Independent re-implementation of the results from the raw files and saved forecasts (`src/independent_check.py`), run by `reproduce.py` on every rerun.
+- Results of the same run with newer library versions (`results/version_sensitivity/`, `src/compare_versions.py`).
+
+### Changed
+- Manuscript: forecast-conditioned coverage in the Abstract, Methods 2.6, Results 3.4 and 3.6, Discussion 4.3 and Conclusions; matched-configuration explanation of the October origin (3.3); exact description of the endpoint screening rule and the 16 near-constant values it leaves (2.2, 3.5); software-version sensitivity (3.5, Limitations); references to a non-existent supplement replaced; description of reference [5] corrected; earlier benchmark identified as v0.1.0.
+- `src/check_manuscript.py` also checks the new numbers (43 key numbers in total).
+
+### Removed
+- Office lock file `paper/~$nuscript.docx`, committed by mistake in v0.2.2; lock files are now ignored.
+
+No registered numerical result changed.
+
 ## [0.2.2] - 2026-11-11
 
 ### Changed

@@ -21,6 +21,7 @@
     "cv_folds.csv",
     "cv_scores.csv",
     "episodes.csv",
+    "forecast_high_coverage.csv",
     "intervals.csv",
     "leave_one_episode_out.csv",
     "metrics.csv",

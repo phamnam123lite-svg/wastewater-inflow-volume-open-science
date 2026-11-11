@@ -1,0 +1,1923 @@
+{
+  "checks": [
+    {
+      "check": "DK raw flow records (2.2)",
+      "reported": 9868,
+      "recomputed": 9868,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK aligned grid positions (2.2)",
+      "reported": 11257,
+      "recomputed": 11257,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK DST timestamps removed (2.2)",
+      "reported": 1,
+      "recomputed": 1,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK low flags (2.2)",
+      "reported": 6,
+      "recomputed": 6,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK flat-window flags (2.2)",
+      "reported": 18,
+      "recomputed": 18,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK missing flow before screening (2.2)",
+      "reported": 1390,
+      "recomputed": 1390,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK missing flow after screening (2.2)",
+      "reported": 1414,
+      "recomputed": 1414,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK cleaned hourly flow vs reference (max abs diff)",
+      "reported": 0,
+      "recomputed": 4.547473508864641e-13,
+      "abs_diff": 4.547473508864641e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h train n",
+      "reported": 4398,
+      "recomputed": 4398,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h train mean target (m3)",
+      "reported": 19942.15926265139,
+      "recomputed": 19942.15926265139,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration n",
+      "reported": 2089,
+      "recomputed": 2089,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration mean target (m3)",
+      "reported": 13727.588957837535,
+      "recomputed": 13727.588957837537,
+      "abs_diff": 1.8189894035458565e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test n",
+      "reported": 2160,
+      "recomputed": 2160,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test mean target (m3)",
+      "reported": 16447.375734913745,
+      "recomputed": 16447.375734913745,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h high threshold (m3)",
+      "reported": 32304.98150878909,
+      "recomputed": 32304.981508789086,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h test high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 2.1827872842550278e-11,
+      "abs_diff": 2.1827872842550278e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_12h calibration high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h train n",
+      "reported": 4458,
+      "recomputed": 4458,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h train mean target (m3)",
+      "reported": 9947.683087431264,
+      "recomputed": 9947.683087431265,
+      "abs_diff": 1.8189894035458565e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration n",
+      "reported": 2119,
+      "recomputed": 2119,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration mean target (m3)",
+      "reported": 6867.473453010226,
+      "recomputed": 6867.473453010226,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test n",
+      "reported": 2178,
+      "recomputed": 2178,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test mean target (m3)",
+      "reported": 8251.582004328566,
+      "recomputed": 8251.582004328566,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h high threshold (m3)",
+      "reported": 16198.797778011203,
+      "recomputed": 16198.797778011205,
+      "abs_diff": 1.8189894035458565e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h test high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_6h calibration high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h train n",
+      "reported": 4278,
+      "recomputed": 4278,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h train mean target (m3)",
+      "reported": 40048.943787097,
+      "recomputed": 40048.943787097,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration n",
+      "reported": 2029,
+      "recomputed": 2029,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration mean target (m3)",
+      "reported": 27468.641483575404,
+      "recomputed": 27468.641483575404,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test n",
+      "reported": 2124,
+      "recomputed": 2124,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test mean target (m3)",
+      "reported": 32753.43695238525,
+      "recomputed": 32753.43695238525,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h high threshold (m3)",
+      "reported": 63439.898360371015,
+      "recomputed": 63439.898360371015,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 4.3655745685100555e-11,
+      "abs_diff": 4.3655745685100555e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h test high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 2.9103830456733704e-11,
+      "abs_diff": 2.9103830456733704e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 2.9103830456733704e-11,
+      "abs_diff": 2.9103830456733704e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK primary_24h calibration high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 train n",
+      "reported": 3564,
+      "recomputed": 3564,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 train mean target (m3)",
+      "reported": 19957.44075822764,
+      "recomputed": 19957.44075822764,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration n",
+      "reported": 834,
+      "recomputed": 834,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration mean target (m3)",
+      "reported": 19876.85560529677,
+      "recomputed": 19876.855605296772,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test n",
+      "reported": 1318,
+      "recomputed": 1318,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test mean target (m3)",
+      "reported": 15129.567106677128,
+      "recomputed": 15129.567106677128,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 high threshold (m3)",
+      "reported": 32625.449105947788,
+      "recomputed": 32625.449105947788,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 2.1827872842550278e-11,
+      "abs_diff": 2.1827872842550278e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 test high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-08-15 calibration high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 train n",
+      "reported": 4744,
+      "recomputed": 4744,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 train mean target (m3)",
+      "reported": 19721.866915020662,
+      "recomputed": 19721.866915020666,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration n",
+      "reported": 995,
+      "recomputed": 995,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration mean target (m3)",
+      "reported": 14453.574334596591,
+      "recomputed": 14453.574334596591,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test n",
+      "reported": 1355,
+      "recomputed": 1355,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test mean target (m3)",
+      "reported": 12995.024502221124,
+      "recomputed": 12995.024502221124,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 high threshold (m3)",
+      "reported": 31867.09562246981,
+      "recomputed": 31867.09562246981,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 test high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 2.1827872842550278e-11,
+      "abs_diff": 2.1827872842550278e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-10-15 calibration high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 train n",
+      "reported": 6098,
+      "recomputed": 6098,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 train mean target (m3)",
+      "reported": 18391.34374255793,
+      "recomputed": 18391.34374255793,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration n",
+      "reported": 1032,
+      "recomputed": 1032,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration mean target (m3)",
+      "reported": 13452.750198301985,
+      "recomputed": 13452.750198301985,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test n",
+      "reported": 1385,
+      "recomputed": 1385,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test mean target (m3)",
+      "reported": 17619.732772589945,
+      "recomputed": 17619.732772589945,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 high threshold (m3)",
+      "reported": 30515.52253831963,
+      "recomputed": 30515.52253831963,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.4551915228366852e-11,
+      "abs_diff": 1.4551915228366852e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 test high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 3.637978807091713e-12,
+      "abs_diff": 3.637978807091713e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration wet flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK origin_2024-12-15 calibration high flags vs saved",
+      "reported": 0,
+      "recomputed": 0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK point metrics vs reference (1584 values, max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK interval bounds rebuilt from calibration residuals (max abs diff, m3)",
+      "reported": 0,
+      "recomputed": 5.820766091346741e-11,
+      "abs_diff": 5.820766091346741e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK interval statistics vs reference (3168 values, max abs diff)",
+      "reported": 0,
+      "recomputed": 1.7462298274040222e-10,
+      "abs_diff": 1.7462298274040222e-10,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DK mean24 episode count",
+      "reported": 5,
+      "recomputed": 5,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK mean24 episode sizes (sum abs diff)",
+      "reported": 0,
+      "recomputed": 0.0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK mean24 episode coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK mean24 leave-one-episode-out coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 6.938893903907228e-17,
+      "abs_diff": 6.938893903907228e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK mean24 phase high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK hgb_history episode count",
+      "reported": 5,
+      "recomputed": 5,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK hgb_history episode sizes (sum abs diff)",
+      "reported": 0,
+      "recomputed": 0.0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK hgb_history episode coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 8.326672684688674e-17,
+      "abs_diff": 8.326672684688674e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK hgb_history leave-one-episode-out coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK hgb_history phase high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK fixed_history episode count",
+      "reported": 5,
+      "recomputed": 5,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK fixed_history episode sizes (sum abs diff)",
+      "reported": 0,
+      "recomputed": 0.0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK fixed_history episode coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 6.245004513516506e-17,
+      "abs_diff": 6.245004513516506e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK fixed_history leave-one-episode-out coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK fixed_history phase high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference mean24 minus persistence (B=24)",
+      "reported": -333.6116707897976,
+      "recomputed": -333.6116707897976,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference mean24 minus persistence (B=48)",
+      "reported": -333.6116707897976,
+      "recomputed": -333.6116707897976,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference mean24 minus persistence (B=168)",
+      "reported": -333.6116707897976,
+      "recomputed": -333.6116707897976,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_history minus hgb_flow (B=24)",
+      "reported": 58.46187728538806,
+      "recomputed": 58.461877285388056,
+      "abs_diff": 7.105427357601002e-15,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_history minus hgb_flow (B=48)",
+      "reported": 58.46187728538806,
+      "recomputed": 58.461877285388056,
+      "abs_diff": 7.105427357601002e-15,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_history minus hgb_flow (B=168)",
+      "reported": 58.46187728538806,
+      "recomputed": 58.461877285388056,
+      "abs_diff": 7.105427357601002e-15,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_oracle minus hgb_history (B=24)",
+      "reported": -877.8754395026929,
+      "recomputed": -877.875439502693,
+      "abs_diff": 1.1368683772161603e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_oracle minus hgb_history (B=48)",
+      "reported": -877.8754395026929,
+      "recomputed": -877.875439502693,
+      "abs_diff": 1.1368683772161603e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_oracle minus hgb_history (B=168)",
+      "reported": -877.8754395026929,
+      "recomputed": -877.875439502693,
+      "abs_diff": 1.1368683772161603e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_history minus mean24 (B=24)",
+      "reported": -1126.4746358016394,
+      "recomputed": -1126.4746358016394,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_history minus mean24 (B=48)",
+      "reported": -1126.4746358016394,
+      "recomputed": -1126.4746358016394,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_history minus mean24 (B=168)",
+      "reported": -1126.4746358016394,
+      "recomputed": -1126.4746358016394,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_oracle minus mean24 (B=24)",
+      "reported": -2004.350075304332,
+      "recomputed": -2004.3500753043322,
+      "abs_diff": 2.2737367544323206e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_oracle minus mean24 (B=48)",
+      "reported": -2004.350075304332,
+      "recomputed": -2004.3500753043322,
+      "abs_diff": 2.2737367544323206e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference hgb_oracle minus mean24 (B=168)",
+      "reported": -2004.350075304332,
+      "recomputed": -2004.3500753043322,
+      "abs_diff": 2.2737367544323206e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_history minus fixed_flow (B=24)",
+      "reported": 49.72485679231305,
+      "recomputed": 49.72485679231309,
+      "abs_diff": 4.263256414560601e-14,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_history minus fixed_flow (B=48)",
+      "reported": 49.72485679231305,
+      "recomputed": 49.72485679231309,
+      "abs_diff": 4.263256414560601e-14,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_history minus fixed_flow (B=168)",
+      "reported": 49.72485679231305,
+      "recomputed": 49.72485679231309,
+      "abs_diff": 4.263256414560601e-14,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_oracle minus fixed_history (B=24)",
+      "reported": -681.6146740045106,
+      "recomputed": -681.6146740045104,
+      "abs_diff": 1.1368683772161603e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_oracle minus fixed_history (B=48)",
+      "reported": -681.6146740045106,
+      "recomputed": -681.6146740045104,
+      "abs_diff": 1.1368683772161603e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_oracle minus fixed_history (B=168)",
+      "reported": -681.6146740045106,
+      "recomputed": -681.6146740045104,
+      "abs_diff": 1.1368683772161603e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_history minus legacy_squared (B=24)",
+      "reported": -4883.259243687312,
+      "recomputed": -4883.259243687312,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_history minus legacy_squared (B=48)",
+      "reported": -4883.259243687312,
+      "recomputed": -4883.259243687312,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK paired MAE difference fixed_history minus legacy_squared (B=168)",
+      "reported": -4883.259243687312,
+      "recomputed": -4883.259243687312,
+      "abs_diff": 0.0,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DK bootstrap: independent ranges give the same excludes-zero conclusions",
+      "reported": 24,
+      "recomputed": 24,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE quarter-hour records (2.7)",
+      "reported": 105120,
+      "recomputed": 105120,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE missing inflow values (2.7)",
+      "reported": 3,
+      "recomputed": 3,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE missing rain values (2.7)",
+      "reported": 3,
+      "recomputed": 3,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE hourly flow aggregation vs reference (max abs diff, m3/h)",
+      "reported": 0,
+      "recomputed": 6.821210263296962e-13,
+      "abs_diff": 6.821210263296962e-13,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DE hourly rain aggregation vs reference (max abs diff, mm)",
+      "reported": 0,
+      "recomputed": 7.105427357601002e-15,
+      "abs_diff": 7.105427357601002e-15,
+      "tol": 1e-09,
+      "status": "PASS"
+    },
+    {
+      "check": "DE train n",
+      "reported": 17484,
+      "recomputed": 17484,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE train mean target (m3)",
+      "reported": 7582.792765575878,
+      "recomputed": 7582.792765575878,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE calibration n",
+      "reported": 2124,
+      "recomputed": 2124,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE calibration mean target (m3)",
+      "reported": 8773.088301003936,
+      "recomputed": 8773.088301003936,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE test n",
+      "reported": 6588,
+      "recomputed": 6588,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE test mean target (m3)",
+      "reported": 7846.302933825967,
+      "recomputed": 7846.302933825966,
+      "abs_diff": 9.094947017729282e-13,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE high threshold (m3)",
+      "reported": 14099.031526471328,
+      "recomputed": 14099.031526471328,
+      "abs_diff": 0.0,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE test targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE test persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE test mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE test seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE calibration targets vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE calibration persistence vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 7.275957614183426e-12,
+      "abs_diff": 7.275957614183426e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE calibration mean24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE calibration seasonal24 vs saved (max abs diff)",
+      "reported": 0,
+      "recomputed": 1.0913936421275139e-11,
+      "abs_diff": 1.0913936421275139e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE point metrics vs reference (288 values, max abs diff)",
+      "reported": 0,
+      "recomputed": 5.4569682106375694e-12,
+      "abs_diff": 5.4569682106375694e-12,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE interval bounds rebuilt from calibration residuals (max abs diff, m3)",
+      "reported": 0,
+      "recomputed": 2.1827872842550278e-11,
+      "abs_diff": 2.1827872842550278e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE interval statistics vs reference (576 values, max abs diff)",
+      "reported": 0,
+      "recomputed": 4.3655745685100555e-11,
+      "abs_diff": 4.3655745685100555e-11,
+      "tol": 1e-06,
+      "status": "PASS"
+    },
+    {
+      "check": "DE mean24 episode count",
+      "reported": 41,
+      "recomputed": 41,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE mean24 episode sizes (sum abs diff)",
+      "reported": 0,
+      "recomputed": 0.0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE mean24 episode coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DE mean24 phase high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DE hgb_rain episode count",
+      "reported": 41,
+      "recomputed": 41,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE hgb_rain episode sizes (sum abs diff)",
+      "reported": 0,
+      "recomputed": 0.0,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DE hgb_rain episode coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 8.326672684688674e-17,
+      "abs_diff": 8.326672684688674e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DE hgb_rain phase high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DE high-volume windows",
+      "reported": 700,
+      "recomputed": 700,
+      "abs_diff": 0.0,
+      "tol": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "DK forecast-conditioned high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "DE forecast-conditioned high-volume coverage (max abs diff)",
+      "reported": 0,
+      "recomputed": 5.551115123125783e-17,
+      "abs_diff": 5.551115123125783e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "Synthetic AR(1) rho=0.0 MC standard error",
+      "reported": 0.0167928556237466,
+      "recomputed": 0.01679285562374667,
+      "abs_diff": 7.28583859910259e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "Synthetic AR(1) rho=0.5 MC standard error",
+      "reported": 0.0154110350074224,
+      "recomputed": 0.015411035007422448,
+      "abs_diff": 4.85722573273506e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    },
+    {
+      "check": "Synthetic AR(1) rho=0.9 MC standard error",
+      "reported": 0.0216766002869453,
+      "recomputed": 0.021676600286945368,
+      "abs_diff": 6.591949208711867e-17,
+      "tol": 1e-12,
+      "status": "PASS"
+    }
+  ],
+  "data_audit": {
+    "denmark": {
+      "flow_rows": 9868,
+      "flow_duplicate_local_timestamps": 0,
+      "dst_dropped": {
+        "2024-10-27 02:00:00": "ambiguous"
+      },
+      "flow_negative": 0,
+      "flow_zero": 3,
+      "flow_min": 0.0,
+      "flow_median": 1251.2833333333333,
+      "flow_p99": 5985.800322909837,
+      "flow_max": 9152.868666666664,
+      "flow_max_time_local": "2024-02-05 20:00:00",
+      "met_rows": 11257,
+      "met_regular_hourly": true,
+      "met_duplicates": 0,
+      "grid_rows": 11257,
+      "grid_start": "2023-11-07 00:00:00",
+      "grid_end": "2025-02-18 00:00:00",
+      "missing_flow_raw": 1390,
+      "low_flags": 6,
+      "flat_flags": 18,
+      "missing_flow_screened": 1414,
+      "humidity_outside_0_100": 16,
+      "missing_by_column": {
+        "acc_precip": 0,
+        "mean_pressure": 0,
+        "mean_radiation": 0,
+        "mean_relative_hum": 0,
+        "mean_temp": 0,
+        "temp_grass": 3223,
+        "temp_soil_10": 1885,
+        "temp_soil_30": 3216
+      },
+      "precip_negative": 0,
+      "precip_max": 17.0,
+      "pressure_range": [
+        967.7,
+        1046.4
+      ],
+      "temp_range": [
+        -13.8,
+        27.0
+      ],
+      "radiation_negative": 0
+    },
+    "germany": {
+      "rows": 105120,
+      "regular_15min": true,
+      "duplicates": 0,
+      "start": "2017-01-01 00:00:00",
+      "end": "2019-12-31 23:45:00",
+      "missing": {
+        "rain_rate [mm/min]": 3,
+        "Level_1 [mNHN]": 3,
+        "Level_2 [mNHN]": 3,
+        "Level_3 [mNHN]": 3,
+        "level_storage_sewer [mNHN]": 3,
+        "wtp_inflow [l/s]": 3
+      },
+      "negative_inflow": 0,
+      "negative_rain": 0,
+      "inflow_l_s": [
+        28.1638369391,
+        144.0342058818,
+        825.7039477539
+      ],
+      "rain_mm_min_max": 0.9744777768
+    }
+  },
+  "extra": {
+    "dk_episode_sizes": [
+      11,
+      7,
+      26,
+      24,
+      13
+    ],
+    "dk_bootstrap_independent": [
+      {
+        "comparison": "mean24 minus persistence",
+        "block": 24,
+        "ref_low": -749.7870684302615,
+        "ref_high": 159.92101225070692,
+        "independent_low": -755.0593776175315,
+        "independent_high": 122.91577860651438,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "mean24 minus persistence",
+        "block": 48,
+        "ref_low": -782.3282926999478,
+        "ref_high": 167.30811847046752,
+        "independent_low": -764.9488522504602,
+        "independent_high": 203.96007887578622,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "mean24 minus persistence",
+        "block": 168,
+        "ref_low": -760.7492105418472,
+        "ref_high": 192.5275294858705,
+        "independent_low": -760.7476800701908,
+        "independent_high": 188.39543135648896,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_history minus hgb_flow",
+        "block": 24,
+        "ref_low": -27.171733286234293,
+        "ref_high": 135.6685906025455,
+        "independent_low": -24.88888523052034,
+        "independent_high": 137.90320939215485,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_history minus hgb_flow",
+        "block": 48,
+        "ref_low": -26.97019452052612,
+        "ref_high": 139.76027216227155,
+        "independent_low": -26.755272916818722,
+        "independent_high": 144.76054801867608,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_history minus hgb_flow",
+        "block": 168,
+        "ref_low": -22.8837887318981,
+        "ref_high": 137.2395432865417,
+        "independent_low": -24.383368860337544,
+        "independent_high": 138.1101390698218,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_oracle minus hgb_history",
+        "block": 24,
+        "ref_low": -1314.0206851213777,
+        "ref_high": -541.7966536091134,
+        "independent_low": -1311.2704059035668,
+        "independent_high": -523.1743440021822,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_oracle minus hgb_history",
+        "block": 48,
+        "ref_low": -1326.828329190574,
+        "ref_high": -514.588567735726,
+        "independent_low": -1369.5147457013122,
+        "independent_high": -517.1208548185326,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_oracle minus hgb_history",
+        "block": 168,
+        "ref_low": -1351.842357854382,
+        "ref_high": -491.0816863874417,
+        "independent_low": -1318.3514928499155,
+        "independent_high": -507.5500775273478,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_history minus mean24",
+        "block": 24,
+        "ref_low": -1635.6888314863013,
+        "ref_high": -687.1762382514011,
+        "independent_low": -1639.2838090783816,
+        "independent_high": -715.4087491477072,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_history minus mean24",
+        "block": 48,
+        "ref_low": -1700.9134309658816,
+        "ref_high": -671.4542563549678,
+        "independent_low": -1691.9829445894018,
+        "independent_high": -681.5215467582204,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_history minus mean24",
+        "block": 168,
+        "ref_low": -1711.392444811043,
+        "ref_high": -649.2436556939293,
+        "independent_low": -1667.2560303035912,
+        "independent_high": -654.4526095208242,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_oracle minus mean24",
+        "block": 24,
+        "ref_low": -2683.115593064038,
+        "ref_high": -1408.202344721788,
+        "independent_low": -2694.410431347665,
+        "independent_high": -1415.9152411017733,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_oracle minus mean24",
+        "block": 48,
+        "ref_low": -2805.648351082069,
+        "ref_high": -1275.8640897160033,
+        "independent_low": -2880.743972718381,
+        "independent_high": -1335.4369491609916,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "hgb_oracle minus mean24",
+        "block": 168,
+        "ref_low": -2935.161300994627,
+        "ref_high": -1262.358698414071,
+        "independent_low": -2894.3775435907964,
+        "independent_high": -1262.9888880252295,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_history minus fixed_flow",
+        "block": 24,
+        "ref_low": -56.45388668866632,
+        "ref_high": 156.90026736897835,
+        "independent_low": -53.58295358602811,
+        "independent_high": 153.1378253304651,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_history minus fixed_flow",
+        "block": 48,
+        "ref_low": -70.28853578183437,
+        "ref_high": 168.87153523540746,
+        "independent_low": -64.12203121608937,
+        "independent_high": 171.34828429709768,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_history minus fixed_flow",
+        "block": 168,
+        "ref_low": -106.92022011050707,
+        "ref_high": 206.9165148666877,
+        "independent_low": -100.11069217021246,
+        "independent_high": 213.9576789316971,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_oracle minus fixed_history",
+        "block": 24,
+        "ref_low": -1053.9450318173117,
+        "ref_high": -391.6633020505332,
+        "independent_low": -1059.5122225939099,
+        "independent_high": -371.19007570082147,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_oracle minus fixed_history",
+        "block": 48,
+        "ref_low": -1067.04377812418,
+        "ref_high": -370.8452081223621,
+        "independent_low": -1087.6220435665412,
+        "independent_high": -361.25374236137503,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_oracle minus fixed_history",
+        "block": 168,
+        "ref_low": -1074.405279615355,
+        "ref_high": -347.3495450868146,
+        "independent_low": -1054.7520557100538,
+        "independent_high": -363.33299279768084,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_history minus legacy_squared",
+        "block": 24,
+        "ref_low": -5438.830313010034,
+        "ref_high": -4267.98860136481,
+        "independent_low": -5477.899189129103,
+        "independent_high": -4290.2689234348645,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_history minus legacy_squared",
+        "block": 48,
+        "ref_low": -5609.940857867593,
+        "ref_high": -4174.447662576621,
+        "independent_low": -5594.869970494848,
+        "independent_high": -4146.633932425084,
+        "same_sign_conclusion": true
+      },
+      {
+        "comparison": "fixed_history minus legacy_squared",
+        "block": 168,
+        "ref_low": -5796.898724176866,
+        "ref_high": -4049.0112732356233,
+        "independent_low": -5811.555697066484,
+        "independent_high": -4016.921628300983,
+        "same_sign_conclusion": true
+      }
+    ]
+  },
+  "summary": {
+    "checks": 202,
+    "passed": 202,
+    "failed": []
+  }
+}

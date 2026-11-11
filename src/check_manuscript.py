@@ -60,6 +60,34 @@ def audit(r,e):
     es=pd.read_csv(e/'external_splits.csv').set_index('split')
     for part in ['train','calibration','test']:
         val=es.loc[part,'n'];claim(val,f'{int(val):,}','results/germany/external_splits.csv:'+part)
+    # forecast-conditioned high-volume coverage (Sections 3.4, 3.6, 4.3 and the Abstract)
+    fh=pd.read_csv(r/'forecast_high_coverage.csv').set_index(['model','method'])
+    fe=pd.read_csv(e/'external_forecast_high_coverage.csv').set_index(['model','method'])
+    for src,tab,model in [('results/denmark/forecast_high_coverage.csv',fh,'hgb_history'),('results/denmark/forecast_high_coverage.csv',fh,'mean24'),
+                          ('results/germany/external_forecast_high_coverage.csv',fe,'hgb_rain')]:
+        n=tab.loc[(model,'pooled'),'n_forecast_high'];claim(n,f'{int(n)} ',src+':'+model+'/n_forecast_high')
+        for method in ['pooled','wet_dry','rolling30d']:
+            val=100*tab.loc[(model,method),'coverage_forecast_high'];claim(val,f'{val:.1f}%',src+':'+model+'/'+method)
+    # matched-configuration decomposition of the additional origins (Section 3.3)
+    for origin in ['origin_2024-08-15','origin_2024-10-15','origin_2024-12-15']:
+        z=m[(m.scenario==origin)&(m.group=='all')].set_index('model')
+        for model in ['fixed_flow','fixed_history']:
+            val=z.loc[model,'MAE_m3'];claim(val,f'{val:,.1f}',f'results/denmark/metrics.csv:{origin}/all/{model}')
+    # near-constant values left by the endpoint screening rule (Sections 2.2 and 3.5)
+    h=pd.read_csv(r/'cleaned_hourly.csv',index_col=0,parse_dates=True).flow_raw
+    flat=(h.rolling(6,min_periods=6).max()-h.rolling(6,min_periods=6).min()).lt(5);covered=pd.Series(False,index=h.index)
+    for t in h.index[flat]:covered.loc[t-pd.Timedelta(hours=5):t]=True
+    val=int((covered&~flat).sum());claim(val,f'leave {val} near-constant','results/denmark/cleaned_hourly.csv:flat-window stretches')
+    # software-version sensitivity (Section 3.5); compares the registered results with results/version_sensitivity
+    vs=ROOT/'results'/'version_sensitivity'
+    if vs.is_dir():
+        sr=json.loads((ROOT/'results'/'denmark'/'selected_parameters.json').read_text());sa=json.loads((vs/'selected_parameters.json').read_text())
+        changed=sum(sr[s][k]!=sa[s][k] for s in sr for k in sr[s]);claim(changed,f'changed {changed} of the {sum(len(v) for v in sr.values())} Danish','results/version_sensitivity/selected_parameters.json')
+        a=pd.read_csv(vs/'metrics.csv');a=a[a.group=='all'].set_index(['scenario','model']).MAE_m3
+        ea=pd.read_csv(vs/'external_metrics.csv');ea=ea[ea.group=='all'].set_index('model').MAE_m3
+        for val,src in [(a[('primary_12h','hgb_history')],'primary_12h/hgb_history'),(ea['hgb_rain'],'external/hgb_rain'),(a[('primary_24h','hgb_flow')],'primary_24h/hgb_flow')]:
+            claim(val,f'{val:,.1f}','results/version_sensitivity:'+src)
+        val=a[('primary_12h','fixed_history')]-a[('primary_12h','fixed_flow')];claim(val,f'{val:,.1f}'.replace('-','-'),'results/version_sensitivity:fixed_history-fixed_flow')
     citations=set()
     for x in re.findall(r'\[(\d+(?:,\d+)*)\]',text):citations.update(map(int,x.split(',')))
     assert citations==set(range(1,11))

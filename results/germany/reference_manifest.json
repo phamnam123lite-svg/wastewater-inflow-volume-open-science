@@ -6,6 +6,7 @@
     "external_cv_folds.csv",
     "external_cv_scores.csv",
     "external_episodes.csv",
+    "external_forecast_high_coverage.csv",
     "external_hourly.csv",
     "external_intervals.csv",
     "external_metrics.csv",

@@ -11,3 +11,7 @@ Synthetic bootstrap paragraph,results/denmark/SYNTHETIC_bootstrap_diagnostic.csv
 Section 3.6 / Table 4,results/germany/external_metrics.csv; results/germany/external_intervals.csv; results/germany/external_bootstrap.csv,"German site, separate local refitting"
 Reproduction,verification/reproduction_summary.json; verification/denmark_checks.json; verification/germany_checks.json,executed checks
 Tables 1-4 and key numbers,verification/manuscript_check.json,every table cell and listed numbers
+Forecast-conditioned coverage (3.4; 3.6; 4.3; Abstract),results/denmark/forecast_high_coverage.csv; results/germany/external_forecast_high_coverage.csv,pooled / wet_dry / rolling30d
+October-origin explanation (3.3),results/denmark/metrics.csv,scenario=origin_*; models fixed_flow and fixed_history; group=all
+Software-version sensitivity (3.5),results/version_sensitivity/; src/compare_versions.py,newer libraries vs pinned environment
+Independent re-implementation (3.5),verification/independent_check.json,all checks

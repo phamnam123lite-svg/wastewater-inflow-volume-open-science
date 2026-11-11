@@ -7,7 +7,7 @@
         "<output>/denmark"
       ],
       "returncode": 0,
-      "seconds": 318.2
+      "seconds": 305.2
     },
     {
       "command": [
@@ -16,7 +16,7 @@
         "<output>/denmark"
       ],
       "returncode": 0,
-      "seconds": 2.6
+      "seconds": 2.0
     },
     {
       "command": [
@@ -25,7 +25,18 @@
         "<output>/denmark/SYNTHETIC_bootstrap_diagnostic.csv"
       ],
       "returncode": 0,
-      "seconds": 1.7
+      "seconds": 1.5
+    },
+    {
+      "command": [
+        "src/forecast_high_coverage.py",
+        "--results",
+        "<output>/denmark",
+        "--site",
+        "denmark"
+      ],
+      "returncode": 0,
+      "seconds": 0.5
     },
     {
       "command": [
@@ -36,7 +47,7 @@
         "results/denmark"
       ],
       "returncode": 0,
-      "seconds": 26.1
+      "seconds": 23.1
     },
     {
       "command": [
@@ -45,7 +56,18 @@
         "<output>/germany"
       ],
       "returncode": 0,
-      "seconds": 115.3
+      "seconds": 100.6
+    },
+    {
+      "command": [
+        "src/forecast_high_coverage.py",
+        "--results",
+        "<output>/germany",
+        "--site",
+        "germany"
+      ],
+      "returncode": 0,
+      "seconds": 0.7
     },
     {
       "command": [
@@ -56,7 +78,7 @@
         "results/germany"
       ],
       "returncode": 0,
-      "seconds": 18.9
+      "seconds": 16.9
     },
     {
       "command": [
@@ -67,7 +89,7 @@
         "<output>/figures"
       ],
       "returncode": 0,
-      "seconds": 2.8
+      "seconds": 2.6
     },
     {
       "command": [
@@ -81,7 +103,20 @@
       ],
       "returncode": 0,
       "seconds": 0.6
+    },
+    {
+      "command": [
+        "src/independent_check.py",
+        "--denmark",
+        "<output>/denmark",
+        "--germany",
+        "<output>/germany",
+        "--report",
+        "<output>/independent_check.json"
+      ],
+      "returncode": 0,
+      "seconds": 16.7
     }
   ],
-  "seconds": 486.3
+  "seconds": 470.4
 }
