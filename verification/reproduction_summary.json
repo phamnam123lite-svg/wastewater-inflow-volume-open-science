@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "csv_files_compared": 46,
+  "denmark_csv_files": 34,
+  "germany_csv_files": 12,
+  "maximum_absolute_numeric_difference": 0.0,
+  "tolerance": {
+    "rtol": 1e-10,
+    "atol": 1e-08
+  },
+  "pixel_identical_figures": 5,
+  "seconds": 486.3,
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "packages": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "pillow": "13.0.0"
+  },
+  "source_checksums": {
+    "data/denmark/dmi.csv": "cdcb5937f08b085761716cb3f718029a323863f6924d37b10fbcacc97ef8c7ec",
+    "data/denmark/wwtp.csv": "d6bda043faa00be40a067684f80f3eb4d0e8141cfce9f49478670408259acfaf",
+    "data/germany/wtp_network_rain.csv": "4b3e2ecc1b15fb6d80b1777e71b2a71cf796d4b51b40bc5a4428f46e532a8575"
+  }
+}

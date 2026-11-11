@@ -267,7 +267,7 @@ Source observations and processed data are archived by DHI as *Inflow to a Waste
 
 ## Code Availability Statement
 
-Analysis code and the versioned research compendium are available at [the public GitHub repository](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), version [v0.2.1](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.1). The compendium includes the revision protocol, locked dependencies, download and analysis scripts, full cross-validation results, saved forecasts and intervals, figures, fail-closed verification, numerical references and a clean-environment reproduction report. Newly authored code is MIT licensed; data retain their separate terms. The earlier release remains identifiable as historical provenance. GitHub versioning is not a persistent DOI archive, and the source-data DOI is not a DOI for this manuscript or code.
+Analysis code and the versioned research compendium are available at [the public GitHub repository](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), version [v0.2.2](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.2). The compendium includes the protocols, locked dependencies, the bundled source observations with checksums, analysis and download scripts, full cross-validation results, saved forecasts and intervals, figures, automated verification, reference results and a clean-environment reproduction report. A single command reruns both sites and compares every registered output with the reference results. Newly authored code is MIT licensed; data retain their separate terms. Earlier releases remain available as tagged versions. GitHub versioning is not a persistent DOI archive, and the source-data DOIs are not DOIs for this manuscript or code.
 
 ## Funding
 
@@ -277,9 +277,13 @@ This research received no external funding, as declared by the author.
 
 The author declares no competing interests.
 
-## Acknowledgements and use of AI tools
+## Acknowledgements
 
-The author acknowledges DHI and the Danish Meteorological Institute for making the Danish source observations available, and Björn Sonnenschein and Florian Ziel for the openly archived Köln-Weiden observations. OpenAI ChatGPT/Codex assisted with literature discovery, coding, computation, verification and manuscript drafting. Anthropic Claude assisted with a final consistency check of reported values against the archived result tables, reference verification and copy-editing. AI assistance is not independent human peer review. The named human author is responsible for reviewing the evidence and approving any submitted version; no statement of completed author approval is implied by this draft.
+The author thanks DHI and the Danish Meteorological Institute for making the Danish observations available, and Björn Sonnenschein and Florian Ziel for the openly archived Köln-Weiden observations.
+
+## Declaration of generative AI and AI-assisted technologies in the writing process
+
+During the preparation of this work the author used OpenAI ChatGPT/Codex and Anthropic Claude for literature searching, code development, computational checks, reference verification, and drafting and language editing of the manuscript. After using these tools, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
 
 ## References
 

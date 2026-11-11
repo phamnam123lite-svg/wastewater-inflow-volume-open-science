@@ -1,18 +1,25 @@
-"""Run the complete analysis without modifying registered numerical references.
+"""Rerun the complete two-site analysis and compare it with the reference results.
 
-python reproduce.py --output reproduced
-The output must not exist. Bundled source observations support offline analysis.
+    python reproduce.py --output reproduced
+
+The output directory must not exist yet. The reference results in results/ are never modified.
+Steps: Danish analysis, configuration and synthetic diagnostics, Danish checks, German analysis,
+German checks, figures, and the manuscript check (tables, key numbers and pixel-identical figures).
 """
 from pathlib import Path
-import argparse, hashlib, json, os, subprocess, sys, time
+import argparse, hashlib, importlib.metadata, json, os, platform, subprocess, sys, time
 ROOT=Path(__file__).resolve().parent
+PACKAGES=['numpy','pandas','scipy','scikit-learn','matplotlib','pillow']
 
 def input_check():
-    hashes=json.loads((ROOT/'sources/input_hashes.json').read_text())
-    for name,expected in hashes.items():
-        p=ROOT/name
+    """Verify the bundled source observations against data/checksums.sha256."""
+    hashes={}
+    for line in (ROOT/'data'/'checksums.sha256').read_text(encoding='utf8').splitlines():
+        if not line.strip():continue
+        expected,name=line.split(None,1);name=name.strip().lstrip('*');p=ROOT/name
         if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=expected:
             raise ValueError('Missing or altered source observation: '+name)
+        hashes[name]=expected
     return hashes
 
 def main(output):
@@ -20,29 +27,37 @@ def main(output):
     output=output.resolve()
     if output.exists():raise ValueError('Choose a new output directory; existing results are never overwritten')
     output.mkdir(parents=True)
+    def show(p):
+        for base,label in [(output,'<output>/'),(ROOT,'')]:
+            try:return label+Path(p).relative_to(base).as_posix()
+            except ValueError:pass
+        return str(p)
     started=time.time();steps=[]
-    dk=output/'danish';de=output/'german'
-    commands=[['run_analysis.py','--output',str(dk)],
-      ['configuration_sensitivity.py','--results',str(dk)],
-      ['bootstrap_diagnostic.py','--output',str(dk/'SYNTHETIC_bootstrap_diagnostic.csv')],
-      ['verify_results.py','--results',str(dk),'--reference',str(ROOT/'results')],
-      ['external_site.py','--output',str(de)],
-      ['verify_external.py','--results',str(de),'--reference',str(ROOT/'external_results')],
-      ['make_figures.py','--results',str(dk),'--figures',str(output/'figures')],
-      ['audit_project.py','--results',str(dk),'--external',str(de),'--report',str(output/'paper_code_audit.json')]]
+    dk=output/'denmark';de=output/'germany';src=ROOT/'src'
+    commands=[[src/'run_analysis.py','--output',dk],
+      [src/'configuration_sensitivity.py','--results',dk],
+      [src/'bootstrap_diagnostic.py','--output',dk/'SYNTHETIC_bootstrap_diagnostic.csv'],
+      [src/'verify_results.py','--results',dk,'--reference',ROOT/'results'/'denmark'],
+      [src/'external_site.py','--output',de],
+      [src/'verify_external.py','--results',de,'--reference',ROOT/'results'/'germany'],
+      [src/'make_figures.py','--results',dk,'--figures',output/'figures'],
+      [src/'check_manuscript.py','--results',dk,'--external',de,'--report',output/'manuscript_check.json']]
     for i,cmd in enumerate(commands,1):
-        print(f'[{i}/{len(commands)}] '+cmd[0],flush=True);begin=time.time()
-        with (output/f'{i:02d}_{Path(cmd[0]).stem}.log').open('w',encoding='utf8') as log:
-            result=subprocess.run([sys.executable,'-B',*cmd],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,
+        name=Path(cmd[0]).stem;print(f'[{i}/{len(commands)}] '+name,flush=True);begin=time.time()
+        with (output/f'{i:02d}_{name}.log').open('w',encoding='utf8') as log:
+            result=subprocess.run([sys.executable,'-B',*map(str,cmd)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,
                                   env={**os.environ,'PYTHONUTF8':'1','MPLBACKEND':'Agg'})
-        steps.append({'command':cmd,'returncode':result.returncode,'seconds':time.time()-begin})
-        (output/'execution.json').write_text(json.dumps({'steps':steps,'seconds':time.time()-started},indent=2))
-        if result.returncode:raise RuntimeError('Failed: '+cmd[0]+'; inspect '+str(output))
+        steps.append({'command':[show(c) if isinstance(c,Path) else c for c in cmd],'returncode':result.returncode,'seconds':round(time.time()-begin,1)})
+        (output/'execution.json').write_text(json.dumps({'steps':steps,'seconds':round(time.time()-started,1)},indent=2))
+        if result.returncode:raise RuntimeError('Failed: '+name+'; see the log in '+str(output))
     reports=[json.loads((d/'reproduction.json').read_text()) for d in [dk,de]]
     tables=[row for report in reports for row in report['tables']]
-    report={'status':'PASS','csv_files':len(tables),'maximum_absolute_numeric_difference':max(t['maximum_absolute_numeric_difference'] for t in tables),
-            'seconds':time.time()-started,'python':sys.version,'source_hashes':input_check(),
-            'interpretation':'Computational reproduction by the same workflow; not independent human peer review.'}
+    figures=json.loads((output/'manuscript_check.json').read_text())['pixel_identical_rerun_figures']
+    report={'status':'PASS','csv_files_compared':len(tables),'denmark_csv_files':len(reports[0]['tables']),'germany_csv_files':len(reports[1]['tables']),
+            'maximum_absolute_numeric_difference':max(t['maximum_absolute_numeric_difference'] for t in tables),
+            'tolerance':{'rtol':1e-10,'atol':1e-8},'pixel_identical_figures':figures,'seconds':round(time.time()-started,1),
+            'python':platform.python_version(),'platform':platform.platform(),
+            'packages':{p:importlib.metadata.version(p) for p in PACKAGES},'source_checksums':input_check()}
     (output/'summary.json').write_text(json.dumps(report,indent=2));print(json.dumps(report,indent=2))
 
 if __name__=='__main__':

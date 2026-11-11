@@ -1,89 +1,113 @@
-# Wastewater inflow forecasting research compendium
+# Wastewater inflow volume forecasting: configuration sensitivity and conditional reliability
 
-**Version 0.2.1 — supervisor review, 11 November 2026**
+[![Reproduce both sites](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/actions/workflows/reproduce.yml/badge.svg)](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/actions/workflows/reproduce.yml)
 
-Viet Nam Tran · Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam
+Research compendium for the manuscript **"Configuration sensitivity and conditional reliability in wastewater inflow volume forecasting: a two-site open-data audit"** by Viet Nam Tran (Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam). It contains the manuscript, the source observations, all analysis code, the reference results and the reports of a complete rerun.
 
-The submission document is **[paper/manuscript.docx](paper/manuscript.docx)**. A PDF rendering, [paper/manuscript.pdf](paper/manuscript.pdf), is included for quick reading; the DOCX remains the review document. Its editable content source is [paper/manuscript.md](paper/manuscript.md). This compendium audits forecasting configuration and conditional interval reliability at two independently sourced wastewater plants. It is retrospective research, not a prospective operating trial or an accepted journal article.
+## Overview
 
-## Start here
+The study forecasts the 12-hour integrated inflow volume at two wastewater treatment plants using open data: an anonymized Danish plant (DHI, Zenodo 15301164) and Köln-Weiden, Germany (Sonnenschein and Ziel, Zenodo 6992694). It evaluates how loss function and calendar terms change model rankings, whether historical and (idealized) future rainfall add value, and how residual-based 90% prediction intervals behave overall, in wet periods and in high-volume windows.
 
-Read [HUONG_DAN_THAM_DINH_VI.md](HUONG_DAN_THAM_DINH_VI.md), the paper, and [docs/FINAL_AUDIT_VI.md](docs/FINAL_AUDIT_VI.md). The complete folder is the submission unit. Original data used in the analysis are bundled, separately licensed and checksum-verified. No login or data-download step is needed to run the analysis offline after installing dependencies.
+Main results on the held-out test periods:
 
-## Reproduce from a new copy
+| Site | Model | MAE (m³) | 24-h mean baseline MAE (m³) |
+| --- | --- | ---: | ---: |
+| Denmark (n = 2,160) | Gradient boosting, flow + calendar + weather | 2,280.1 | 3,406.6 |
+| Germany (n = 6,588) | Gradient boosting, flow + calendar + rain | 1,661.9 | 3,293.1 |
 
-Use **Python 3.11.9** for the verified platform. The recorded reference environment is Windows; other operating systems have not been certified. Allow about 1 GB for an environment, source data and a new run. Run these commands from this folder, not from `paper/`.
+Aggregate interval coverage was much higher than coverage in high-volume windows at both sites (Denmark 83.7% vs 21.0%; Germany 92.6% vs 39.3%). The study is retrospective; it does not evaluate operational weather forecasts or treatment and control benefits.
 
-Windows PowerShell:
+## Repository structure
 
-```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m unittest test_integrity -v
-.\.venv\Scripts\python.exe reproduce.py --output reproduced
+```
+.
+├── paper/                  manuscript (DOCX, PDF, Markdown source) and references.bib
+├── data/
+│   ├── denmark/            wwtp.csv, dmi.csv and Zenodo metadata (CC BY-NC 4.0)
+│   ├── germany/            wtp_network_rain.csv and Zenodo metadata (CC BY 4.0)
+│   └── checksums.sha256    SHA-256 of the three observation files
+├── src/                    analysis, verification, figure and manuscript-build scripts
+├── tests/                  integrity tests
+├── results/
+│   ├── denmark/            reference results, Danish site (34 CSV files + metadata)
+│   └── germany/            reference results, German site (12 CSV files + metadata)
+├── figures/                Figures 1-5 (PNG, SVG, PDF)
+├── docs/                   protocols, deviations, literature matrix, claim-to-evidence map
+├── verification/           reports of the complete rerun and of the manuscript check
+├── reproduce.py            one command to rerun and verify everything
+├── requirements.txt        pinned analysis dependencies
+├── requirements-docs.txt   dependencies for building the Word manuscript
+├── SHA256SUMS              checksums of every file in the repository
+├── CITATION.cff, CHANGELOG.md, LICENSE (code, MIT), DATA_LICENSE.md (data)
+└── .github/workflows/      continuous integration: the same complete rerun
 ```
 
-Linux/macOS equivalent (not independently tested here):
+| Script | Purpose |
+| --- | --- |
+| `src/run_analysis.py` | Danish site: data alignment, screening, model selection, forecasts, intervals, sensitivities |
+| `src/configuration_sensitivity.py` | Matched 2×2 loss/annual-term diagnostic |
+| `src/bootstrap_diagnostic.py` | Synthetic AR(1) check of the block bootstrap |
+| `src/external_site.py` | German site: the same design refitted locally |
+| `src/verify_results.py`, `src/verify_external.py` | Independent recomputation checks and comparison with the reference results |
+| `src/make_figures.py` | Figures 1-5 from saved results |
+| `src/check_manuscript.py` | Checks every table cell and key reported numbers against the results |
+| `src/build_manuscript.py` | Builds `paper/manuscript.docx` (and optionally the PDF) from the Markdown source |
+| `src/download_data.py` | Optional: restores the Danish observations from Zenodo (MD5 verified) |
+
+## Reproducing the results
+
+Requirements: Python 3.11 (the reference run used 3.11.9 on Windows), about 1 GB of free disk space and 5 minutes. No internet access is needed after installing the dependencies; the observations are included.
 
 ```bash
-python3.11 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m unittest test_integrity -v
-.venv/bin/python reproduce.py --output reproduced
+python -m venv .venv
+# Windows: .venv\Scripts\activate      Linux/macOS: source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python reproduce.py --output reproduced
 ```
 
-The runner executes both sites, all configuration and synthetic diagnostics, both verification suites, figures, and the paper/table audit. It saves progress logs and `reproduced/summary.json`. A complete successful run compares **34 Danish and 12 German CSV files**, including every expected filename. Registered references in `results/` and `external_results/` are never overwritten. The comparator rejects comparing a directory with itself. For another run, choose a fresh output name, such as `reproduced_second`.
+`reproduce.py` checks the input checksums, reruns both sites, recomputes and verifies the results independently, compares all 46 registered CSV files with `results/` (relative tolerance 1e-10, absolute 1e-8), regenerates the figures and checks them pixel by pixel against `figures/`, and checks every manuscript table cell. It writes logs and `summary.json` to the new output directory and never modifies `results/`. The output directory must not already exist.
 
-Reference comparison uses **rtol=1e-10, atol=1e-8**, with matching shape, column order and nonnumeric values. Exact zero differences observed in a particular run are not a requirement that every supported CPU or library build be bitwise identical. CSV files are compared by parsed contents, not by a misleading byte-identical claim. Results from the actual final run are recorded under `verification/`.
-
-### Individual commands
+The steps can also be run individually from the repository root:
 
 ```bash
-python run_analysis.py --output reproduced/danish
-python configuration_sensitivity.py --results reproduced/danish
-python bootstrap_diagnostic.py --output reproduced/danish/SYNTHETIC_bootstrap_diagnostic.csv
-python verify_results.py --results reproduced/danish --reference results
-python external_site.py --output reproduced/german
-python verify_external.py --results reproduced/german --reference external_results
-python make_figures.py --results reproduced/danish --figures reproduced/figures
-python audit_project.py --results reproduced/danish --external reproduced/german --report reproduced/paper_code_audit.json
+python src/run_analysis.py --output reproduced/denmark
+python src/configuration_sensitivity.py --results reproduced/denmark
+python src/bootstrap_diagnostic.py --output reproduced/denmark/SYNTHETIC_bootstrap_diagnostic.csv
+python src/verify_results.py --results reproduced/denmark --reference results/denmark
+python src/external_site.py --output reproduced/germany
+python src/verify_external.py --results reproduced/germany --reference results/germany
+python src/make_figures.py --results reproduced/denmark --figures reproduced/figures
+python src/check_manuscript.py --results reproduced/denmark --external reproduced/germany --report reproduced/manuscript_check.json
 ```
 
-These reproduce the runner's stages; do not run them over a completed output directory. The optional `download_data.py` restores the pinned Danish observation files from the provider archive. `external_site.py --download --output NEW_DIRECTORY` restores the pinned German observations and then runs that site. Internet access is required only for package installation and optional source downloads.
+## Verifying file integrity
 
-## Build the Word manuscript
+Every file is stored byte-for-byte (`.gitattributes` disables line-ending conversion), so the checksums hold on any platform:
+
+```bash
+sha256sum -c SHA256SUMS                       # Linux/macOS, whole repository
+sha256sum -c data/checksums.sha256            # observation files only
+```
+
+On Windows PowerShell: `Get-FileHash <file> -Algorithm SHA256`.
+
+## Building the manuscript
 
 ```bash
 python -m pip install -r requirements-docs.txt
-python build_docx.py          # Word only
-python build_docx.py --pdf    # Word plus a LibreOffice PDF rendering
+python src/build_manuscript.py          # paper/manuscript.docx
+python src/build_manuscript.py --pdf    # also paper/manuscript.pdf (requires LibreOffice)
 ```
 
-The builder reads only `paper/manuscript.md` and the five saved PNG figures. It preserves all four tables as three-line academic tables (right-aligned numbers, typographic minus signs, notes below each table, rows kept together), citations and references, and creates an editable native Word equation. Every table cell, including row labels and input codes, is regenerated from and checked against the reference CSVs by `audit_project.py`. It does not fit models or change results. Visual rendering needs Word or LibreOffice separately; authoring dependencies alone do not perform a PDF layout check. The delivered DOCX is the review document; Markdown is its source, not a competing manuscript version.
+The builder reads only `paper/manuscript.md` and the saved figures; it does not fit models or change results.
 
-## Folder map
+## Data and licenses
 
-| Location | Purpose |
-| --- | --- |
-| `paper/` | Word manuscript, PDF rendering, editable Markdown and verified bibliography |
-| root `*.py` | Full analysis, download, reproduction, integrity tests and document builder |
-| `requirements*.txt` | Pinned analysis and separate document-authoring dependencies |
-| `data/`, `external_data/` | Original observations actually used; no interpolated replacement targets |
-| `results/`, `external_results/` | Registered numerical reference outputs and manifests |
-| `figures/` | Five figures in PNG, SVG and PDF for editing and publication |
-| `sources/` | Provider and bibliographic metadata, source hashes |
-| `docs/` | Protocols, deviations, limitations, audit response and section-by-section audit |
-| `verification/` | Actual final-run checks, reproduction summaries and cleanup register |
-| `.github/workflows/` | CI repeats the same protected two-site workflow |
-| `MANIFEST_SHA256.json` | Submission file inventory and hashes, excluding itself |
-| `.gitattributes` | Disables line-ending conversion so data and manifest checksums match on every platform |
+- Danish observations: DHI (2025), *Inflow to a Waste Water Treatment Plant: observations and processed data*, v1, [doi:10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164), CC BY-NC 4.0. Plant and weather measurements are credited to DHI and the Danish Meteorological Institute.
+- German observations: Sonnenschein, B. and Ziel, F. (2022), *Wastewater Treatment Plant Inflow Rate, Network Water Levels and Rain Rate for Koeln Weiden, Germany*, v1.0, [doi:10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694), CC BY 4.0.
+- Code: MIT License (`LICENSE`). Data keep their original licenses; see `DATA_LICENSE.md`.
 
-The same figure in PNG/SVG/PDF serves distinct purposes and is intentionally retained. Older manuscripts, obsolete supplements, virtual environments, cache files, scratch files and full duplicate rerun outputs are excluded from the submission. Historical versions remain in Git history and external backups.
+## Citation
 
-## Interpretation and licenses
-
-The 12-hour Danish historical HGB MAE is 2,280.1 m³ versus 3,406.6 m³ for the preceding-24-hour mean. German flow/rain HGB MAE is 1,661.9 m³ versus 3,293.1 m³ for that baseline. Historical rain and rolling calibration have site-dependent effects. Aggregate coverage is substantially better than high-volume subgroup coverage; no finite-sample conditional guarantee is claimed.
-
-Danish observations: DHI, DOI [10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164), CC BY-NC 4.0; German observations: Sonnenschein and Ziel, DOI [10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694), CC BY 4.0. [DATA_LICENSE.md](DATA_LICENSE.md) governs attribution and reuse. The MIT license covers newly authored code, not third-party data. `SYNTHETIC_bootstrap_diagnostic.csv` is explicitly simulated diagnostic data and is never described as plant evidence.
-
-Models were fitted locally at each site. Rate aggregation, actual sensor latency, operational forecast vintages and treatment/control benefits remain unverified. Computational reproduction is not independent human peer review. The author must approve the work and provide correspondence details before journal submission. See `CITATION.cff` for citation metadata; the source-data DOIs are not DOIs for this paper.
+Please cite this repository using `CITATION.cff` and cite both source datasets.

@@ -1,0 +1,87 @@
+{
+  "steps": [
+    {
+      "command": [
+        "src/run_analysis.py",
+        "--output",
+        "<output>/denmark"
+      ],
+      "returncode": 0,
+      "seconds": 318.2
+    },
+    {
+      "command": [
+        "src/configuration_sensitivity.py",
+        "--results",
+        "<output>/denmark"
+      ],
+      "returncode": 0,
+      "seconds": 2.6
+    },
+    {
+      "command": [
+        "src/bootstrap_diagnostic.py",
+        "--output",
+        "<output>/denmark/SYNTHETIC_bootstrap_diagnostic.csv"
+      ],
+      "returncode": 0,
+      "seconds": 1.7
+    },
+    {
+      "command": [
+        "src/verify_results.py",
+        "--results",
+        "<output>/denmark",
+        "--reference",
+        "results/denmark"
+      ],
+      "returncode": 0,
+      "seconds": 26.1
+    },
+    {
+      "command": [
+        "src/external_site.py",
+        "--output",
+        "<output>/germany"
+      ],
+      "returncode": 0,
+      "seconds": 115.3
+    },
+    {
+      "command": [
+        "src/verify_external.py",
+        "--results",
+        "<output>/germany",
+        "--reference",
+        "results/germany"
+      ],
+      "returncode": 0,
+      "seconds": 18.9
+    },
+    {
+      "command": [
+        "src/make_figures.py",
+        "--results",
+        "<output>/denmark",
+        "--figures",
+        "<output>/figures"
+      ],
+      "returncode": 0,
+      "seconds": 2.8
+    },
+    {
+      "command": [
+        "src/check_manuscript.py",
+        "--results",
+        "<output>/denmark",
+        "--external",
+        "<output>/germany",
+        "--report",
+        "<output>/manuscript_check.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.6
+    }
+  ],
+  "seconds": 486.3
+}

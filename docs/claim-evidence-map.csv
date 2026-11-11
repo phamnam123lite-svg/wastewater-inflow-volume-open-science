@@ -1,0 +1,13 @@
+paper_location,evidence_file,filter_or_interpretation
+Table 1 / Figure 2,results/denmark/metrics.csv,scenario=primary_12h; group=all
+Table 2 / Figure 3,results/denmark/metrics.csv,scenario=origin_*; group=all
+Table 3 / Figure 4,results/denmark/intervals.csv,scenario=primary_12h
+Figure 1,results/denmark/cleaned_hourly.csv; results/denmark/splits.csv,hourly data and primary split
+Figure 5; episode sensitivity,results/denmark/episodes.csv; results/denmark/leave_one_episode_out.csv; results/denmark/nonoverlap.csv,scenario=primary_12h
+Paired uncertainty,results/denmark/bootstrap.csv,scenario=primary_12h; block_hours=48 unless stated
+Matched configuration diagnostic,results/denmark/configuration_sensitivity.csv,all rows
+Input delay and no-QC,results/denmark/sensitivity.csv,common target windows
+Synthetic bootstrap paragraph,results/denmark/SYNTHETIC_bootstrap_diagnostic.csv,simulated data only
+Section 3.6 / Table 4,results/germany/external_metrics.csv; results/germany/external_intervals.csv; results/germany/external_bootstrap.csv,"German site, separate local refitting"
+Reproduction,verification/reproduction_summary.json; verification/denmark_checks.json; verification/germany_checks.json,executed checks
+Tables 1-4 and key numbers,verification/manuscript_check.json,every table cell and listed numbers

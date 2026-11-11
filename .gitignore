@@ -1,9 +1,18 @@
-# Local runtime and generated reruns
+# Python and virtual environments
 .venv*/
 __pycache__/
 *.py[cod]
-reproduced/
+
+# Reruns and local build output (python reproduce.py --output reproduced)
+reproduced*/
 render_qa/
 *.log
+
+# Archives restored by src/download_data.py
+data/denmark/*.zip
+data/denmark/data.csv
+
+# Operating-system files
 Thumbs.db
 .DS_Store
+desktop.ini

@@ -1,30 +1,46 @@
-# Version 0.2.1 — 11 November 2026
+# Changelog
 
-Submission packaging and integrity correction. Scientific reference CSV values remain those of the audited two-site v0.2.0 analysis. Added Word manuscript, full reproduction runner, guards against reference overwrite/self-comparison, source hashes, complete-table audit and regression tests. Corrected README and CI omissions, removed obsolete duplicate exports and v0.1 verification artifacts after backup. See docs/FINAL_AUDIT_VI.md. These changes do not create new experimental observations.
+All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/).
 
-Final consistency pass (11 November 2026): all narrative values rechecked against the reference CSVs with no discrepancy; ten references rechecked against publisher records; two unclear sentences reworded (Section 3.4, Conclusions); acknowledgement of the German data providers and AI-tool disclosure completed; BibTeX author name corrected (Sølve Eidnes); Word manuscript rebuilt. No numerical result or conclusion changed.
+## [0.2.2] - 2026-11-11
 
-Table revision (11 November 2026): all four manuscript tables regenerated directly from the reference CSVs. Row labels now match the figure labels; an Inputs column (F/C/W/P/R) states each model's information set; Table 3 adds the mean interval score; Table 4 adds bias; sample sizes use thousands separators; titles sit above and notes below each table with all abbreviations defined. Word tables use a three-line layout, right-aligned numbers and typographic minus signs, and are kept on one page. `audit_project.py` now checks every table cell, including labels and input codes. A PDF rendering of the Word manuscript and a `.gitattributes` file (no line-ending conversion) were added. No numerical value changed.
+### Changed
+- Repository reorganized into a standard research-compendium layout: `src/` (code), `tests/`, `data/denmark` and `data/germany`, `results/denmark` and `results/germany`, `docs/`, `paper/` and `verification/`, with `reproduce.py` as the single entry point.
+- Input checksums moved to `data/checksums.sha256`; whole-repository checksums in `SHA256SUMS` (standard `sha256sum` format) replace `MANIFEST_SHA256.json`.
+- Reproduction reports record paths relative to the repository and list package versions.
+- Manuscript: code-availability statement points to v0.2.2; acknowledgements and declarations follow the standard journal format.
 
-# Change log
+### Removed
+- Internal working notes and review registers, the duplicate root `PROTOCOL.md` and a bulk Crossref metadata file (still available in v0.2.1).
 
-## v0.2.0 - 10 November 2026
+No numerical result changed: all 46 reference CSV files are byte-identical to v0.2.1.
 
-- Rewrote the scientific framing and conclusions after configuration sensitivity reversed the primary model ranking.
-- Added development-selected loss/annual choices, three retrospective temporal origins and matched configuration/information diagnostics.
-- Corrected the residual order statistic and added causally available rolling calibration.
-- Replaced shortened unequal-weight blocks with fixed circular blocks and explicitly limited inferential interpretation.
-- Added episode, leave-one-episode-out, nonoverlapping-phase, input-delay and no-QC sensitivities.
-- Saved full grids, folds, calibration/test forecasts, interval bounds and reference results.
-- Replaced the hardcoded empty-success comparator with a portable fail-closed comparator and negative tests.
-- Added source-supported related work, complete author references, explicit AI disclosure, no-funding and no-conflict declarations.
-- Generated portable figures, PDF/HTML manuscript, claim-to-evidence map and a 34-CSV clean-environment reproduction.
-- Kept the original audit and v0.1.0 identifiable. Repository root and v0.2.0 are the current manuscript; v0.1.0 is historical.
+## [0.2.1] - 2026-11-11
 
-Added external-site replication on Köln-Weiden (2017-2019), 12 additional exactly reproduced CSVs, 41 threshold episodes, and site-dependent rainfall/calibration findings.
+### Added
+- Word manuscript and PDF rendering built from `paper/manuscript.md`.
+- One-command two-site reproduction with protection against overwriting or self-comparing the reference results; integrity tests; manuscript check covering every table cell.
+- Bundled source observations with checksums; `.gitattributes` disabling line-ending conversion.
 
-Remaining scientific limits: two plants, no prospective operational trial, overlapping high-volume episodes; unknown hourly aggregation/actual latency; no operational weather forecasts or treatment outcomes. Remaining submission administration: correspondence email, human author/supervisor approval, author-contribution confirmation and selected journal formatting/requirements.
+### Changed
+- Manuscript tables regenerated from the reference results: labels match the figures, input sets stated, interval-score and bias columns added, three-line layout.
+- Wording clarified in Section 3.4 and the Conclusions; acknowledgement of the German data providers added; BibTeX author name corrected.
 
-## v0.1.0 - original release
+### Fixed
+- Continuous integration omitted the configuration and synthetic diagnostics and compared a rerun with itself.
 
-Earlier restricted benchmark. Reproduction of its numerical outputs was valid, but its main model ranking was not robust to loss/calendar configuration. Do not cite the historical ranking as the conclusion of v0.2.0.
+## [0.2.0] - 2026-11-10
+
+### Changed
+- Scientific framing and conclusions rewritten after configuration sensitivity reversed the primary model ranking.
+- Residual order statistic corrected; fixed-length circular block bootstrap replaces shortened blocks.
+
+### Added
+- Development-selected loss and annual-term choices, three additional temporal origins and matched configuration and information diagnostics.
+- Causally available rolling calibration; episode, leave-one-episode-out, nonoverlapping-phase, input-delay and no-QC sensitivities.
+- External-site evaluation at Köln-Weiden (2017-2019) with 12 additional reproduced CSV files.
+- Full grids, folds, forecasts, interval bounds and reference results; related work; funding, competing-interest and tool-use declarations.
+
+## [0.1.0]
+
+Earlier restricted benchmark. Its numerical outputs reproduce, but its main model ranking did not survive the configuration analysis in v0.2.0 and should not be cited as the study's conclusion.
