@@ -133,6 +133,8 @@ def scenarios(d):
     return out
 
 def run(out):
+    if (out/'reference_manifest.json').exists():
+        raise ValueError('Refusing to overwrite registered reference results; choose a new --output directory')
     out.mkdir(parents=True,exist_ok=True);d,audit=read_data()
     (out/'data_audit.json').write_text(json.dumps(audit,indent=2))
     d.to_csv(out/'cleaned_hourly.csv',index_label='time_utc')
@@ -244,4 +246,4 @@ def run(out):
     print('COMPLETE',out,flush=True)
 
 if __name__=='__main__':
-    ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,default=ROOT/'results');args=ap.parse_args();run(args.output.resolve())
+    ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,default=ROOT/'reproduced/danish');args=ap.parse_args();run(args.output.resolve())

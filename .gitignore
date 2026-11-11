@@ -1,34 +1,9 @@
-# Python & Virtual Environments
-.venv/
+# Local runtime and generated reruns
 .venv*/
 __pycache__/
-*.pyc
-*.pyo
-
-# Raw downloaded data (retrieved via python download_data.py)
-data/*.csv
-data/*.zip
-
-# External site data (retrieved via python external_site.py --download)
-external_data/*.csv
-external_data/*.json
-
-# Local staging, temporary releases & audit scratch
-audit/
-v0.2.0/
-publication/
-research/
-
-# Search logs and temporary verification files
-sources/*_log.json
-PUBLICATION_STATUS.md
-verification/publication_status.log
-
-# Binary archives & logs
+*.py[cod]
+reproduced/
+render_qa/
 *.log
-verification/baseline_results/
-verification/render/
-
-# OS artifacts
 Thumbs.db
 .DS_Store

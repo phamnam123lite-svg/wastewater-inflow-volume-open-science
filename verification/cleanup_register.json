@@ -1,0 +1,72 @@
+[
+  {
+    "path": "supplementary_v0.2.0.zip",
+    "sha256": "d78f8e3a1462c1e2458491d55d6f6fdc955c10e575240c236c4f216790a224de",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "SHA256SUMS.txt",
+    "sha256": "a0969fc2d42b5083f2b7db743bfe8f0b0a31c7131406608c6cf359413dc51e94",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "reproduction.json",
+    "sha256": "3b69a3b207f58a53b5def200066cdaca329510f2f9cff43d1fac3a22984e2be3",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "requirements-clean-lock.txt",
+    "sha256": "a215ebe2cb9759e9d15d46b83b0ff3c0b01364950dd3e5927f8391b8f99b8c6c",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "verification/compare_reproduction.py",
+    "sha256": "bf3384ace03cd6175bf8736a76f2b34383278c6c239b41a33fd71c1f9e19ab8c",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "verification/github_publication.json",
+    "sha256": "de209fa1451845e97f5f39f4a2cc3743456d9f5726884ab05bc1c160f8abc070",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "verification/reproduction.json",
+    "sha256": "de9448419e288c484f80d587f2e2db579869c1dd630207c59dc599ec03780a15",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "verification/requirements-clean-lock.txt",
+    "sha256": "a215ebe2cb9759e9d15d46b83b0ff3c0b01364950dd3e5927f8391b8f99b8c6c",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "verification/verify_publication.py",
+    "sha256": "e4b2ae8168507c24f3571a8586c3812af8907cad72fc9c28aa86eedd3dab389e",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "data/.gitkeep",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "external_data/.gitkeep",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "paper/manuscript.html",
+    "sha256": "76d2117ec2cbd4f706a804683295f7a013327dae7a07eec3cf862b0a0957800c",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "paper/manuscript.pdf",
+    "sha256": "f00644f333696ce0a9c60bbf1c435cbe4cc59d7720e6d99882ee09859dbcda85",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  },
+  {
+    "path": "paper/build_paper.py",
+    "sha256": "6e878c5cc015b0176d1988644a29a28f1b198b682c567f53f99ff4181b04894b",
+    "reason": "Superseded export, duplicate dependency file, historical self-check, or obsolete supplement; original retained in Git bundle and local backup."
+  }
+]

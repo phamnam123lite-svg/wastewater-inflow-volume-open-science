@@ -1,0 +1,11 @@
+{
+  "source_sha256": "314c1a5ee54cfcf4314d73a13cbd87135691aceb28794fb6e1280541751b6d2d",
+  "docx_sha256": "585a5101066f346b7048644947399247cd1e1f4386bb2ab0eade421ce3c76089",
+  "tables": 4,
+  "figures": 5,
+  "native_equations": 1,
+  "author": "Viet Nam Tran",
+  "pdf_sha256": "5d56c0d5c68d20a86c352251d02741375177394b0c5917d4570db20da587f247",
+  "pdf_renderer": "LibreOffice 24.2.7.2 420(Build:2)",
+  "pdf_note": "Convenience rendering of manuscript.docx; the DOCX is the review document."
+}

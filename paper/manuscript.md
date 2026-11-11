@@ -9,7 +9,7 @@ Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam
 - Loss and annual predictors reversed the ranking of an open inflow benchmark.
 - A German-site evaluation added 6,588 test windows and 41 high-volume episodes.
 - Historical rainfall gains and rolling calibration behavior differed by site.
-- Near-nominal aggregate coverage concealed substantial high-volume errors.
+- Aggregate coverage concealed substantially poorer high-volume reliability.
 - Versioned data, predictions and executable checks support open reproduction.
 
 ## Abstract
@@ -84,6 +84,8 @@ Paired differences in absolute error were resampled with 2,000 fixed-length circ
 
 Every contiguous high-volume episode was reported, together with leave-one-episode-out coverage and all 12 issue-time phases of nonoverlapping 12-hour targets. These episodes need not be independent storms. A separate, explicitly synthetic AR(1) experiment examined bootstrap behavior under stationary dependence; its data are not plant observations and its results do not validate coverage under real nonstationarity. Full grids, fold scores, calibration predictions, test predictions and interval bounds for the main models are retained.
 
+The computational architecture is a deterministic Python pipeline: checksum-verified observations → causal alignment and feature construction → purged development cross-validation → refitting on the development partition → separate residual calibration → held-out predictions → metrics and sensitivity diagnostics. Each site is fitted separately. The source observations and registered numerical references are preserved; reruns write to separate directories and a self-comparison is rejected.
+
 ### 2.7. External-site methodological replication
 
 To address reliance on one plant, we added the Köln-Weiden archive from Sonnenschein and Ziel, DOI 10.5281/zenodo.6992694, version 1.0 [10], associated with the prior intraday forecasting study [3]. This is a previously published dataset, not new field sampling. Its CC BY 4.0 license and provider MD5 checksum were verified. The CSV documents flow in L/s and rainfall rate in mm/min at 15-minute intervals. It contains 105,120 timestamps from 2017 through 2019, with three missing values in each of these two variables and no duplicated or irregular timestamps.
@@ -108,19 +110,21 @@ The primary high-volume threshold was 32,304.98 m³. Eighty-one test windows exc
 
 The selected primary historical model used absolute-error loss, omitted annual predictors, and used seven leaves with L2=1. Its MAE was 2,280.1 m³, 33.1% below the 24-hour mean baseline. Flow/calendar HGB had slightly lower MAE, 2,221.7 m³. The legacy historical HGB had MAE 7,607.1 m³ and substantial positive bias (Table 1; Figure 2). Thus, the preceding version's baseline-versus-HGB ranking cannot be generalized beyond its restricted configuration search.
 
-**Table 1. Primary 12-hour test performance (n=2,160).** Legacy and fixed rows are diagnostic configurations, not models selected from test outcomes. Oracle rainfall is unavailable in real time. Bias is prediction minus observation. Errors refer to the integrated-rate approximation.
+**Table 1.** Point-forecast accuracy for the 12-hour integrated inflow target on the Danish primary test (n = 2,160 issue windows, 16 November 2024 to 17 February 2025).
 
-| Configuration | MAE (m³) | RMSE (m³) | R² | Bias (m³) |
-| --- | --- | --- | --- | --- |
-| Persistence | 3,740.2 | 6,185.4 | 0.219 | 168.4 |
-| Previous 24-hour mean | 3,406.6 | 6,128.2 | 0.233 | 229.6 |
-| Previous-day profile | 4,056.8 | 7,787.9 | -0.239 | 217.7 |
-| Ridge, historical | 4,655.3 | 5,743.8 | 0.326 | 3,250.7 |
-| Legacy HGB, squared loss | 7,607.1 | 8,633.0 | -0.522 | 6,811.4 |
-| Fixed HGB, absolute loss | 2,723.8 | 4,554.2 | 0.576 | 575.0 |
-| HGB, flow/calendar | 2,221.7 | 4,600.5 | 0.568 | -645.3 |
-| HGB, historical | 2,280.1 | 4,470.6 | 0.592 | -330.5 |
-| HGB, oracle rainfall | 1,402.3 | 2,280.8 | 0.894 | 122.9 |
+| Model | Inputs | MAE (m³) | RMSE (m³) | R² | Bias (m³) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Persistence | F | 3,740.2 | 6,185.4 | 0.219 | 168.4 |
+| 24-h mean | F | 3,406.6 | 6,128.2 | 0.233 | 229.6 |
+| Previous day | F | 4,056.8 | 7,787.9 | -0.239 | 217.7 |
+| Ridge history | F+C+W | 4,655.3 | 5,743.8 | 0.326 | 3,250.7 |
+| Legacy HGB | F+C+W | 7,607.1 | 8,633.0 | -0.522 | 6,811.4 |
+| Fixed absolute-loss HGB | F+C+W | 2,723.8 | 4,554.2 | 0.576 | 575.0 |
+| HGB flow | F+C | 2,221.7 | 4,600.5 | 0.568 | -645.3 |
+| HGB history | F+C+W | 2,280.1 | 4,470.6 | 0.592 | -330.5 |
+| HGB oracle | F+C+W+R | 1,402.3 | 2,280.8 | 0.894 | 122.9 |
+
+*Note.* Inputs: F, recent flow; C, calendar terms; W, historical meteorology; R, observed rainfall during the forecast window (oracle, unavailable in real time). Legacy HGB (squared loss, annual terms, seven leaves, L2 = 10) and fixed absolute-loss HGB (absolute loss, annual terms, seven leaves, L2 = 10) are diagnostic configurations, not models selected from test outcomes; the other ridge and HGB settings were selected by development-only cross-validation. Bias is prediction minus observation. Errors refer to the integrated-rate approximation. HGB, histogram gradient boosting; MAE, mean absolute error; RMSE, root-mean-square error.
 
 ![Figure 2](../figures/Figure_2_primary_accuracy.png)
 
@@ -138,13 +142,15 @@ The selected oracle achieved MAE 1,402.3 m³, compared with 2,280.1 m³ for sele
 
 Table 2 and Figure 3 show the additional origins. Flow/calendar HGB improved on the mean baseline in all three periods. Historical-weather HGB improved in the August and December tests, but its October MAE exceeded the baseline and flow-only HGB. For that origin, development selected annual predictors for historical HGB but omitted them for flow HGB. Accordingly, the selected-model difference combines information and configuration; the matched comparisons in the supplement must be consulted before attributing it to weather information alone.
 
-**Table 2. Twelve-hour MAE (m³) in additional 60-day temporal tests.** Each origin has its own expanding development period and preceding 45-day calibration period. These retrospective tests are not independent-site validation.
+**Table 2.** Twelve-hour MAE (m³) at three additional 60-day temporal test origins at the Danish site.
 
 | Test start | n | 24-h mean | HGB flow | HGB history | HGB oracle |
-| --- | --- | --- | --- | --- | --- |
-| 2024-08-15 | 1318 | 3,910.2 | 2,734.6 | 2,643.1 | 1,546.6 |
-| 2024-10-15 | 1355 | 2,392.0 | 1,716.4 | 2,666.2 | 1,278.8 |
-| 2024-12-15 | 1385 | 3,563.6 | 2,198.6 | 2,238.9 | 1,475.3 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 2024-08-15 | 1,318 | 3,910.2 | 2,734.6 | 2,643.1 | 1,546.6 |
+| 2024-10-15 | 1,355 | 2,392.0 | 1,716.4 | 2,666.2 | 1,278.8 |
+| 2024-12-15 | 1,385 | 3,563.6 | 2,198.6 | 2,238.9 | 1,475.3 |
+
+*Note.* n is the number of test windows. Each origin has its own expanding development period and a preceding 45-day calibration period. The three test periods do not overlap one another, but their observations had been examined earlier in the retrospective study, so these are temporal robustness checks rather than independent-site validation. Model labels and inputs as in Table 1.
 
 ![Figure 3](../figures/Figure_3_temporal_origins.png)
 
@@ -156,19 +162,21 @@ At six hours, historical HGB had MAE 1,026.6 m³ versus 1,567.7 m³ for persiste
 
 With the corrected order statistic, the mean baseline's pooled interval covered 87.1% overall and 23.5% of high-volume windows. Historical HGB covered 83.7% overall and 21.0% of high-volume windows (Table 3; Figure 4). Better average point accuracy therefore did not imply satisfactory tail reliability. The oracle's pooled coverage was only 81.7% overall despite its low MAE, reflecting the mismatch between its calibration errors and later errors.
 
-**Table 3. Empirical coverage of nominal 90% intervals and mean width on the primary test.** Overall n=2,160; wet n=707; high-volume n=81 in five episodes. Width is averaged over all test issues. Neither the nominal level nor these percentages imply a conditional-coverage guarantee.
+**Table 3.** Empirical coverage, mean width and mean interval score of nominal 90% prediction intervals on the Danish primary test.
 
-| Model | Calibration | All (%) | Wet (%) | High (%) | Width (m³) |
-| --- | --- | --- | --- | --- | --- |
-| 24-h mean | Pooled | 87.1 | 78.9 | 23.5 | 13,893 |
-| 24-h mean | Wet/dry | 88.0 | 92.6 | 34.6 | 16,001 |
-| 24-h mean | Rolling 30 d | 90.1 | 81.2 | 27.2 | 18,197 |
-| HGB history | Pooled | 83.7 | 69.0 | 21.0 | 6,747 |
-| HGB history | Wet/dry | 87.1 | 92.5 | 43.2 | 8,610 |
-| HGB history | Rolling 30 d | 88.8 | 79.5 | 46.9 | 9,934 |
-| HGB oracle | Pooled | 81.7 | 65.2 | 19.8 | 4,495 |
-| HGB oracle | Wet/dry | 87.1 | 89.5 | 50.6 | 5,624 |
-| HGB oracle | Rolling 30 d | 89.4 | 78.9 | 50.6 | 6,565 |
+| Model | Calibration | All (%) | Wet (%) | High (%) | Width (m³) | Score (m³) |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 24-h mean | Pooled | 87.1 | 78.9 | 23.5 | 13,893 | 32,459 |
+|  | Wet/dry | 88.0 | 92.6 | 34.6 | 16,001 | 30,714 |
+|  | Rolling 30 d | 90.1 | 81.2 | 27.2 | 18,197 | 35,222 |
+| HGB history | Pooled | 83.7 | 69.0 | 21.0 | 6,747 | 22,987 |
+|  | Wet/dry | 87.1 | 92.5 | 43.2 | 8,610 | 21,204 |
+|  | Rolling 30 d | 88.8 | 79.5 | 46.9 | 9,934 | 22,472 |
+| HGB oracle | Pooled | 81.7 | 65.2 | 19.8 | 4,495 | 12,223 |
+|  | Wet/dry | 87.1 | 89.5 | 50.6 | 5,624 | 10,493 |
+|  | Rolling 30 d | 89.4 | 78.9 | 50.6 | 6,565 | 11,401 |
+
+*Note.* All, n = 2,160; Wet (positive rainfall in the six hours before issue), n = 707; High (target above the development 90th percentile, 32,305 m³), n = 81 windows in five episodes. Width and score are averaged over all test windows; the interval score is the width plus 20 times each miss, so lower values are better. Rolling 30 d uses only residuals whose targets had matured by the issue time. Neither the nominal level nor these percentages imply a conditional-coverage guarantee.
 
 ![Figure 4](../figures/Figure_4_interval_reliability.png)
 
@@ -176,7 +184,7 @@ With the corrected order statistic, the mean baseline's pooled interval covered 
 
 For historical HGB, wet/dry calibration raised wet-state coverage from 69.0% to 92.5% while increasing overall mean width from 6,747 to 8,610 m³. Rolling calibration achieved 88.8% overall and 46.9% high-volume coverage, with mean width 9,934 m³. For the mean baseline, rolling coverage reached 90.1% overall but only 27.2% in high-volume windows. Its mean interval score increased from 32,459 to 35,222 m³ despite improved overall coverage, illustrating why coverage must be read together with sharpness and miss penalties.
 
-Episode-specific coverage varied markedly (Figure 5). For the mean baseline, omitting one high-volume episode changed the remaining pooled coverage from 8.8% to 30.9%; for historical HGB the range was 8.8-29.1%. The 12 nonoverlapping target phases contained only 6-8 high-volume windows each. Their high-volume coverage ranged from 14.3% to 33.3% for the mean baseline and 0-50.0% for historical HGB. These ranges demonstrate sparse-event sensitivity; they are not independent confidence intervals.
+Episode-specific coverage varied markedly (Figure 5). When each high-volume episode was omitted in turn, pooled coverage of the remaining high-volume windows ranged from 8.8% to 30.9% for the mean baseline and from 8.8% to 29.1% for historical HGB. The 12 nonoverlapping target phases contained only 6-8 high-volume windows each. Their high-volume coverage ranged from 14.3% to 33.3% for the mean baseline and 0-50.0% for historical HGB. These ranges demonstrate sparse-event sensitivity; they are not independent confidence intervals.
 
 ![Figure 5](../figures/Figure_5_episodes.png)
 
@@ -196,16 +204,18 @@ The external evaluation retained 17,484 development, 2,124 calibration and 6,588
 
 Flow/rain HGB achieved MAE 1,661.9 m³ versus 1,899.8 m³ for flow/calendar HGB and 3,293.1 m³ for the mean baseline (Table 4). The rain-versus-flow paired difference was -238.0 m³, with a 48-hour bootstrap sensitivity range of -338.3 to -154.2 m³; the matched fixed-configuration difference was -239.3 m³. Unlike the Danish primary result, historical rain improved accuracy here. The selected rain model's MAE/mean-target ratio was 21.2%; the corresponding Danish historical-model ratio was 13.9%. This difference is descriptive, with different sites, periods and available covariates.
 
-**Table 4. External-site 12-hour test performance at Köln-Weiden (n=6,588).** Models were trained locally using 2017-2018 observations. MAE/mean is MAE divided by the mean test target, not MAPE. Oracle rainfall is non-operational.
+**Table 4.** Point-forecast accuracy for the 12-hour integrated inflow target on the external Köln-Weiden test (n = 6,588 issue windows, April to December 2019).
 
-| Configuration | MAE (m³) | RMSE (m³) | R² | MAE/mean (%) |
-| --- | --- | --- | --- | --- |
-| Persistence | 3,378.2 | 5,297.0 | 0.043 | 43.1 |
-| 24-hour mean | 3,293.1 | 5,748.4 | -0.127 | 42.0 |
-| Previous day | 3,581.8 | 7,019.0 | -0.680 | 45.6 |
-| HGB flow/calendar | 1,899.8 | 4,320.5 | 0.363 | 24.2 |
-| HGB flow/rain | 1,661.9 | 3,774.1 | 0.514 | 21.2 |
-| HGB oracle | 832.6 | 1,758.3 | 0.895 | 10.6 |
+| Model | Inputs | MAE (m³) | RMSE (m³) | R² | Bias (m³) | MAE/mean (%) |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Persistence | F | 3,378.2 | 5,297.0 | 0.043 | -4.1 | 43.1 |
+| 24-h mean | F | 3,293.1 | 5,748.4 | -0.127 | -1.0 | 42.0 |
+| Previous day | F | 3,581.8 | 7,019.0 | -0.680 | 0.1 | 45.6 |
+| HGB flow | F+C | 1,899.8 | 4,320.5 | 0.363 | -1,305.1 | 24.2 |
+| HGB flow + rain | F+C+P | 1,661.9 | 3,774.1 | 0.514 | -1,058.8 | 21.2 |
+| HGB oracle | F+C+P+R | 832.6 | 1,758.3 | 0.895 | -91.1 | 10.6 |
+
+*Note.* Models were fitted locally on 2017-2018 observations; this is not zero-shot transfer of a Danish model. Inputs: F, recent flow; C, calendar terms; P, historical rainfall (the only meteorological series in this archive); R, observed rainfall during the forecast window (oracle, unavailable in real time). MAE/mean is MAE divided by the mean test target (7,846 m³), not MAPE. Bias is prediction minus observation.
 
 The loss/calendar effect also differed by site. With seven leaves and L2=1, German squared-loss MAE was 1,866.3 m³ with annual predictors and 1,929.1 m³ without them; absolute-loss MAE was 1,666.7 and 1,660.5 m³, respectively. The large Danish deterioration from including annual predictors under squared loss therefore did not recur in Germany. This supports configuration sensitivity as a reason to audit, rather than a universal rule to remove annual predictors.
 
@@ -249,15 +259,15 @@ The Danish revision reuses previously inspected outcomes. The external design wa
 
 ## 7. Conclusions
 
-Loss and annual-predictor choices materially changed the interpretation of the Danish wastewater inflow benchmark. Development-selected historical HGB reduced its primary 12-hour MAE to 2,280 m³ compared with 3,407 m³ for a 24-hour mean and 7,607 m³ for the legacy configuration. Three further Danish origins and a German-site evaluation supported the usefulness of flow-based 12-hour prediction, but historical rainfall gains and calendar sensitivity were site-dependent. In Germany, flow/rain HGB achieved MAE 1,662 m³ versus 3,293 m³ for the mean baseline. Near-nominal aggregate interval coverage coexisted with high-volume undercoverage at both sites; rolling calibration improved some Danish measures but deteriorated in Germany. The complete computational evidence is openly reproducible. Prospective forecast availability, additional sites and operational decision endpoints remain necessary before claiming treatment or control benefits.
+Loss and annual-predictor choices materially changed the interpretation of the Danish wastewater inflow benchmark. Development-selected historical HGB reduced its primary 12-hour MAE to 2,280 m³ compared with 3,407 m³ for a 24-hour mean and 7,607 m³ for the legacy configuration. Three further Danish origins and a German-site evaluation supported the usefulness of flow-based 12-hour prediction, but historical rainfall gains and calendar sensitivity were site-dependent. In Germany, flow/rain HGB achieved MAE 1,662 m³ versus 3,293 m³ for the mean baseline. Aggregate interval coverage was substantially higher than high-volume coverage at both sites; rolling calibration improved some Danish measures but reduced aggregate and high-volume coverage in Germany. The code, numerical reference outputs and verification procedures are publicly available for computational reproduction. Prospective forecast availability, additional sites and operational decision endpoints remain necessary before claiming treatment or control benefits.
 
 ## Data Availability Statement
 
-Source observations and processed data are archived by DHI as *Inflow to a Waste Water Treatment Plant: observations and processed data*, version 1, DOI [10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164), with CC BY-NC 4.0 recorded in the archive metadata. DHI and the Danish Meteorological Institute are credited for plant and weather measurements. The supplementary package preserves source archives, hashes, transformations and derived predictions. The external observations are available from Sonnenschein and Ziel [10], DOI [10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694), under CC BY 4.0. Both sources and transformations are identified separately. No new measurements were collected. Users must retain each source license and attribution; the Danish non-commercial terms are not imposed on the independently licensed German source.
+Source observations and processed data are archived by DHI as *Inflow to a Waste Water Treatment Plant: observations and processed data*, version 1, DOI [10.5281/zenodo.15301164](https://doi.org/10.5281/zenodo.15301164), with CC BY-NC 4.0 recorded in the archive metadata. DHI and the Danish Meteorological Institute are credited for plant and weather measurements. The research compendium preserves the source observations used, hashes, transformations and derived predictions; original archives remain accessible through the provider DOI. The external observations are available from Sonnenschein and Ziel [10], DOI [10.5281/zenodo.6992694](https://doi.org/10.5281/zenodo.6992694), under CC BY 4.0. Both sources and transformations are identified separately. No new measurements were collected. Users must retain each source license and attribution; the Danish non-commercial terms are not imposed on the independently licensed German source.
 
 ## Code Availability Statement
 
-Analysis code and the versioned supplement are available at [the public GitHub repository](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), release [v0.2.0](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/releases/tag/v0.2.0). The release includes the revision protocol, locked dependencies, download and analysis scripts, full cross-validation results, saved forecasts and intervals, figures, fail-closed verification, numerical references and a clean-environment reproduction report. Newly authored code is MIT licensed; data retain their separate terms. The earlier release remains identifiable as historical provenance. GitHub versioning is not a persistent DOI archive, and the source-data DOI is not a DOI for this manuscript or code.
+Analysis code and the versioned research compendium are available at [the public GitHub repository](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), version [v0.2.1](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.1). The compendium includes the revision protocol, locked dependencies, download and analysis scripts, full cross-validation results, saved forecasts and intervals, figures, fail-closed verification, numerical references and a clean-environment reproduction report. Newly authored code is MIT licensed; data retain their separate terms. The earlier release remains identifiable as historical provenance. GitHub versioning is not a persistent DOI archive, and the source-data DOI is not a DOI for this manuscript or code.
 
 ## Funding
 
@@ -269,7 +279,7 @@ The author declares no competing interests.
 
 ## Acknowledgements and use of AI tools
 
-The author acknowledges DHI and the Danish Meteorological Institute for making the source observations available. OpenAI ChatGPT/Codex assisted with literature discovery, coding, computation, verification and manuscript drafting. AI assistance is not independent human peer review. The named human author is responsible for reviewing the evidence and approving any submitted version; no statement of completed author approval is implied by this draft.
+The author acknowledges DHI and the Danish Meteorological Institute for making the Danish source observations available, and Björn Sonnenschein and Florian Ziel for the openly archived Köln-Weiden observations. OpenAI ChatGPT/Codex assisted with literature discovery, coding, computation, verification and manuscript drafting. Anthropic Claude assisted with a final consistency check of reported values against the archived result tables, reference verification and copy-editing. AI assistance is not independent human peer review. The named human author is responsible for reviewing the evidence and approving any submitted version; no statement of completed author approval is implied by this draft.
 
 ## References
 

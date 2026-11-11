@@ -46,6 +46,8 @@ def masks(d,v):
     return a.split_masks(d.index,v,12,pd.Timestamp('2019-01-01'),pd.Timestamp('2019-04-01'),pd.Timestamp('2020-01-01'))
 
 def run(out):
+    if (out/'reference_manifest.json').exists():
+        raise ValueError('Refusing to overwrite registered reference results; choose a new --output directory')
     out.mkdir(parents=True,exist_ok=True);raw,d,info=load();x,y,b,v,fc,_=a.features(d,12);hc=fc+[c for c in x if c.startswith('rain_')];oc=hc+['ORACLE_rain_sum','ORACLE_rain_max']
     m=masks(d,v);tr,ca,te=[m[s] for s in ['train','calibration','test']];threshold=float(y[tr].quantile(.9));info['high_threshold_m3']=threshold
     d[['flow','acc_precip']].to_csv(out/'external_hourly.csv',index_label='provider_hour_ending')
@@ -103,6 +105,6 @@ def run(out):
     print('EXTERNAL COMPLETE',out,flush=True)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,default=ROOT/'external_results');p.add_argument('--download',action='store_true');args=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,default=ROOT/'reproduced/german');p.add_argument('--download',action='store_true');args=p.parse_args()
     if args.download:download()
     run(args.output)

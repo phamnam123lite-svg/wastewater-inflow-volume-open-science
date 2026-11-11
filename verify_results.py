@@ -9,6 +9,7 @@ def close(x,y):np.testing.assert_allclose(x,y,rtol=1e-10,atol=1e-8,equal_nan=Tru
 
 def compare(reference,actual):
     ref=Path(reference);act=Path(actual)
+    if ref.resolve()==act.resolve():raise ValueError('Reference and actual must be different directories')
     manifest=json.loads((ref/'reference_manifest.json').read_text())
     names=manifest['required_csv_files']
     if not names or len(names)!=len(set(names)):raise ValueError('Empty or duplicated reference file list')

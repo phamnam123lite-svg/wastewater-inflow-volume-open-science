@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "checks": {
+    "negative_comparator_tests": 6,
+    "quantile_rank_and_edge_cases": 10,
+    "raw_target_values": 19618,
+    "point_metric_values": 1584,
+    "interval_metric_values": 3960,
+    "complete_interval_arrays": 198,
+    "circular_inclusion_checks": 18,
+    "historical_feature_future_probes": 18,
+    "rolling_causality_checks": 6,
+    "purged_cv_folds": 18,
+    "additional_sensitivity_metric_values": 96
+  }
+}

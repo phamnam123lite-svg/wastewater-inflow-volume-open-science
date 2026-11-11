@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "files_compared": 12,
+  "tables": [
+    {
+      "file": "external_bootstrap.csv",
+      "rows": 18,
+      "columns": 6,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_bounds.csv",
+      "rows": 237168,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_calibration.csv",
+      "rows": 2124,
+      "columns": 16,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_cv_folds.csv",
+      "rows": 3,
+      "columns": 4,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_cv_scores.csv",
+      "rows": 144,
+      "columns": 6,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_episodes.csv",
+      "rows": 164,
+      "columns": 6,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_hourly.csv",
+      "rows": 26281,
+      "columns": 3,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_intervals.csv",
+      "rows": 144,
+      "columns": 8,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_metrics.csv",
+      "rows": 48,
+      "columns": 9,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_nonoverlap.csv",
+      "rows": 48,
+      "columns": 6,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_predictions.csv",
+      "rows": 6588,
+      "columns": 16,
+      "maximum_absolute_numeric_difference": 0.0
+    },
+    {
+      "file": "external_splits.csv",
+      "rows": 3,
+      "columns": 5,
+      "maximum_absolute_numeric_difference": 0.0
+    }
+  ]
+}

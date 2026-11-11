@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "table_count": 4,
+  "numeric_table_cells": 129,
+  "table_rows_checked_with_labels": 27,
+  "traceable_claims": [
+    {
+      "rendered": "3,740.2",
+      "value": 3740.217351247193,
+      "source": "results/metrics.csv:primary_12h/all/persistence"
+    },
+    {
+      "rendered": "3,406.6",
+      "value": 3406.6056804573955,
+      "source": "results/metrics.csv:primary_12h/all/mean24"
+    },
+    {
+      "rendered": "4,056.8",
+      "value": 4056.76702337665,
+      "source": "results/metrics.csv:primary_12h/all/seasonal24"
+    },
+    {
+      "rendered": "4,655.3",
+      "value": 4655.341684474667,
+      "source": "results/metrics.csv:primary_12h/all/ridge_history"
+    },
+    {
+      "rendered": "7,607.1",
+      "value": 7607.104354575466,
+      "source": "results/metrics.csv:primary_12h/all/legacy_squared"
+    },
+    {
+      "rendered": "2,723.8",
+      "value": 2723.8451108881536,
+      "source": "results/metrics.csv:primary_12h/all/fixed_history"
+    },
+    {
+      "rendered": "2,221.7",
+      "value": 2221.669167370368,
+      "source": "results/metrics.csv:primary_12h/all/hgb_flow"
+    },
+    {
+      "rendered": "2,280.1",
+      "value": 2280.131044655756,
+      "source": "results/metrics.csv:primary_12h/all/hgb_history"
+    },
+    {
+      "rendered": "1,402.3",
+      "value": 1402.2556051530632,
+      "source": "results/metrics.csv:primary_12h/all/hgb_oracle"
+    },
+    {
+      "rendered": "1,661.9",
+      "value": 1661.8828661352527,
+      "source": "external_results/external_metrics.csv:all/hgb_rain"
+    },
+    {
+      "rendered": "1,899.8",
+      "value": 1899.842958470203,
+      "source": "external_results/external_metrics.csv:all/hgb_flow"
+    },
+    {
+      "rendered": "3,293.1",
+      "value": 3293.1169373283306,
+      "source": "external_results/external_metrics.csv:all/mean24"
+    },
+    {
+      "rendered": "832.6",
+      "value": 832.6368721876407,
+      "source": "external_results/external_metrics.csv:all/hgb_oracle"
+    },
+    {
+      "rendered": "4,398",
+      "value": 4398.0,
+      "source": "results/splits.csv:primary_12h/train"
+    },
+    {
+      "rendered": "2,089",
+      "value": 2089.0,
+      "source": "results/splits.csv:primary_12h/calibration"
+    },
+    {
+      "rendered": "2,160",
+      "value": 2160.0,
+      "source": "results/splits.csv:primary_12h/test"
+    },
+    {
+      "rendered": "17,484",
+      "value": 17484.0,
+      "source": "external_results/external_splits.csv:train"
+    },
+    {
+      "rendered": "2,124",
+      "value": 2124.0,
+      "source": "external_results/external_splits.csv:calibration"
+    },
+    {
+      "rendered": "6,588",
+      "value": 6588.0,
+      "source": "external_results/external_splits.csv:test"
+    }
+  ],
+  "referenced_figures": 5,
+  "pixel_identical_rerun_figures": 0,
+  "references": 10,
+  "limits": "All table cells, including row labels and input codes, and selected narrative claims are checked automatically; section audit documents manual and interpretive checks."
+}

@@ -8,6 +8,8 @@ import pandas as pd
 import run_analysis as a
 
 def main(r):
+    if (r/'reference_manifest.json').exists():
+        raise ValueError('Refusing to overwrite registered reference results')
     d,_=a.read_data();x,y,b,v,fc,hc=a.features(d,12);_,h,c1,c2,c3=a.scenarios(d)[0]
     masks=a.split_masks(d.index,v,h,c1,c2,c3);tr,ca,te=[masks[s] for s in ['train','calibration','test']]
     selected=json.loads((r/'selected_parameters.json').read_text())['primary_12h']['hgb_history'];rows=[];preds=[];calpreds=[]
@@ -25,4 +27,4 @@ def main(r):
     pd.concat(calpreds,ignore_index=True).to_csv(r/'configuration_calibration.csv',index=False)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--results',type=Path,default=a.ROOT/'results');args=p.parse_args();main(args.results)
+    p=argparse.ArgumentParser();p.add_argument('--results',type=Path,default=a.ROOT/'reproduced/danish');args=p.parse_args();main(args.results)
