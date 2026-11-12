@@ -6,6 +6,8 @@ Faculty of Environment, Van Lang University, Ho Chi Minh City, Vietnam
 
 Corresponding author: nampham123ntt@gmail.com
 
+Code, data and verification: [https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.4](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.4)
+
 ## Highlights
 
 - Loss and annual predictors reversed the ranking of an open inflow benchmark.
@@ -273,7 +275,7 @@ Source observations and processed data are archived by DHI as *Inflow to a Waste
 
 ## Code Availability Statement
 
-Analysis code and the versioned research compendium are available at [the public GitHub repository](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science), version [v0.2.3](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.3). The compendium includes the protocols, locked dependencies, the bundled source observations with checksums, analysis and download scripts, full cross-validation results, saved forecasts and intervals, figures, automated verification, reference results and a reproduction report from the pinned software environment. A single command reruns both sites and compares every registered output with the reference results. Newly authored code is MIT licensed; data retain their separate terms. Earlier releases remain available as tagged versions; v0.1.0 contains the restricted benchmark revised here. GitHub versioning is not a persistent DOI archive, and the source-data DOIs are not DOIs for this manuscript or code.
+Analysis code, data and results are available at [https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science). This manuscript corresponds to release v0.2.4: [https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.4](https://github.com/phamnam123lite-svg/wastewater-inflow-volume-open-science/tree/v0.2.4). The release contains the bundled source observations with checksums, the protocols, locked dependencies, analysis scripts, full cross-validation results, saved forecasts and interval bounds, the figures, the reference results and the reports of a complete rerun. To verify the results, install Python 3.11 and the pinned packages (`pip install -r requirements.txt`) and run `python reproduce.py --output reproduced` (about 8 minutes). The command checks the source checksums, reruns both sites, compares all 48 registered CSV outputs with the reference results, checks the regenerated figures pixel by pixel, checks every table cell and the key numbers of this manuscript, and repeats the core computations with an independent re-implementation; `SHA256SUMS` lists every file of the release. Newly authored code is MIT licensed; data retain their separate terms. Earlier releases remain available as tagged versions; v0.1.0 contains the restricted benchmark revised here. GitHub versioning is not a persistent DOI archive, and the source-data DOIs are not DOIs for this manuscript or code.
 
 ## Funding
 

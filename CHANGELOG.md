@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.2.4] - 2026-11-12
+
+### Changed
+- Manuscript: repository link to this release on the title page; Code Availability gives the full URLs and the steps a reviewer runs to verify the results.
+
+No code, data or result changed; the verification reports of the v0.2.3 rerun apply unchanged.
+
 ## [0.2.3] - 2026-11-11
 
 ### Added
